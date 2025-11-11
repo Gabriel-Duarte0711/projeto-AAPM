@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.10.0.7000
+-- HeidiSQL Versão:              12.12.0.7122
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,15 +26,22 @@ CREATE TABLE IF NOT EXISTS `alunos` (
   `cpf` char(11) NOT NULL,
   `curso_id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `telefone` bigint(20) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `email` (`email`),
   KEY `curso_id` (`curso_id`),
   CONSTRAINT `alunos_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela aapm.alunos: ~5 rows (aproximadamente)
+DELETE FROM `alunos`;
+INSERT INTO `alunos` (`id`, `nome`, `cpf`, `curso_id`, `email`, `telefone`) VALUES
+	(1, 'teste', '12345678901', 2, 'teste@gmail.com', '11 988638137'),
+	(4, 'teste', '12345672901', 2, 'teste2@gmail.com', '11 988638137'),
+	(5, 'teste', '11111111111', 2, 'bblaaa@gmail.com', '11 988638137'),
+	(7, 'teste', '11111111112', 2, '1111@gmail.com', '11 988638137'),
+	(8, 'teste', '22222222222', 2, '2222@gmail.com', '11 988638137');
 
 -- Copiando estrutura para tabela aapm.armario
 CREATE TABLE IF NOT EXISTS `armario` (
@@ -44,29 +51,54 @@ CREATE TABLE IF NOT EXISTS `armario` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela aapm.armario: ~0 rows (aproximadamente)
+DELETE FROM `armario`;
 
 -- Copiando estrutura para tabela aapm.curso
 CREATE TABLE IF NOT EXISTS `curso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela aapm.curso: ~20 rows (aproximadamente)
+DELETE FROM `curso`;
+INSERT INTO `curso` (`id`, `nome`) VALUES
+	(1, 'Administração'),
+	(2, 'Desenvolvimento de Sistemas'),
+	(3, 'Eletrotécnica'),
+	(4, 'Logística'),
+	(5, 'Mecânica Industrial'),
+	(6, 'Mecatrônica'),
+	(7, 'Tecnologia da Informação'),
+	(8, 'Segurança do Trabalho'),
+	(9, 'Soldagem'),
+	(10, 'Design Gráfico'),
+	(11, 'Enfermagem'),
+	(12, 'Marketing'),
+	(13, 'Recursos Humanos'),
+	(14, 'Programação Web'),
+	(15, 'Redes de Computadores'),
+	(16, 'Banco de Dados'),
+	(17, 'Automação Industrial'),
+	(18, 'Edificações'),
+	(19, 'Informática para Internet'),
+	(20, 'Manutenção Automotiva');
 
 -- Copiando estrutura para tabela aapm.login
 CREATE TABLE IF NOT EXISTS `login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `aluno_id` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `senha` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `aluno_id` (`aluno_id`),
   CONSTRAINT `login_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `alunos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela aapm.login: ~1 rows (aproximadamente)
+DELETE FROM `login`;
+INSERT INTO `login` (`id`, `aluno_id`, `senha`) VALUES
+	(1, 8, '22222222222');
 
 -- Copiando estrutura para tabela aapm.reserva_armario
 CREATE TABLE IF NOT EXISTS `reserva_armario` (
@@ -80,7 +112,24 @@ CREATE TABLE IF NOT EXISTS `reserva_armario` (
   CONSTRAINT `reserva_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `armario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela aapm.reserva_armario: ~0 rows (aproximadamente)
+DELETE FROM `reserva_armario`;
+
+-- Copiando estrutura para trigger aapm.trg_criar_login
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER trg_criar_login
+AFTER INSERT ON alunos
+FOR EACH ROW
+BEGIN
+    -- Só cria login se ainda não existir para esse aluno
+    IF NOT EXISTS (SELECT 1 FROM login WHERE aluno_id = NEW.id) THEN
+        INSERT INTO login (aluno_id, senha)
+        VALUES (NEW.id, NEW.cpf);
+    END IF;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
