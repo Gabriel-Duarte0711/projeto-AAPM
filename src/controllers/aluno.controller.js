@@ -7,13 +7,13 @@ import { db } from "../config/db.js"
 
 export async function criarAluno(req, res) {
   try {
-    const { nome,  cpf, curso, email, telefone } = req.body;
-    if (!nome || !cpf || !curso || !email || !telefone)
+    const { nome,  cpf, curso_id, armario_id, email, telefone } = req.body;
+    if (!nome || !cpf || !curso_id || !armario_id || !email || !telefone)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
     await db.execute(
-      "INSERT INTO alunos (nome, cpf, curso_id, email, telefone) VALUES (?, ?, ?, ?, ?)",
-      [nome, cpf, curso, email, telefone],
+      "INSERT INTO tabela_usuario (nome, cpf, curso_id, armario_id, email, telefone) VALUES (?, ?, ?, ?, ?, ?)",
+      [nome, cpf, curso_id, armario_id, email, telefone],
 
     );
 
