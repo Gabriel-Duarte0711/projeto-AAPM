@@ -15,25 +15,11 @@ export async function criarAluno(req, res) {
       "INSERT INTO alunos (nome, cpf, curso_id, email, telefone) VALUES (?, ?, ?, ?, ?)",
       [nome, cpf, curso, email, telefone],
 
-      //adiciona na tabela Login tambem
-      await db.execute(
-        "INSERT INTO login (email, senha) VALUES (?, ?)",
-        [email, senha]
-      )
     );
 
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
   } catch (err) {
     console.error("❌ ERRO AO CRIAR ALUNO:", err);
-    res.status(500).json({ erro: err.message });
-  }
-}
-
-export async function loginAlunos(req, res) {
-   try {
-    const [rows] = await db.execute("SELECT * FROM login");
-    res.json(rows);
-  } catch (err) {
     res.status(500).json({ erro: err.message });
   }
 }

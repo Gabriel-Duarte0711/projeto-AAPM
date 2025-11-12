@@ -5,7 +5,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import cursoRoute from "./routes/curso.routes.js"
-
+import alunoRoute from "./routes/aluno.routes.js"
 
 
 // ============================
@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/curso", cursoRoute)
+app.use("/alunos", alunoRoute)
 
 
 // ============================
