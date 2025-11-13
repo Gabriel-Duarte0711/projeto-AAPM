@@ -2,7 +2,7 @@
 -- Servidor:                     127.0.0.1
 -- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.12.0.7122
+-- HeidiSQL Versão:              12.13.0.7147
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,30 +21,12 @@ USE `aapm`;
 
 -- Copiando estrutura para tabela aapm.tabela_armario
 CREATE TABLE IF NOT EXISTS `tabela_armario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `numero_armario` int(11) DEFAULT NULL,
-  `estado` enum('disponivel','ocupado','manutencao') DEFAULT 'disponivel',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  `numero_armario` int(11) NOT NULL,
+  `estado` enum('D','O','M') DEFAULT 'D',
+  PRIMARY KEY (`numero_armario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_armario: ~15 rows (aproximadamente)
-DELETE FROM `tabela_armario`;
-INSERT INTO `tabela_armario` (`id`, `numero_armario`, `estado`) VALUES
-	(1, 100, 'disponivel'),
-	(2, 102, 'disponivel'),
-	(3, 103, 'disponivel'),
-	(4, 104, 'manutencao'),
-	(5, 105, 'disponivel'),
-	(6, 106, 'disponivel'),
-	(7, 107, 'disponivel'),
-	(8, 108, 'disponivel'),
-	(9, 109, 'disponivel'),
-	(10, 110, 'disponivel'),
-	(11, 111, 'manutencao'),
-	(12, 112, 'disponivel'),
-	(13, 113, 'disponivel'),
-	(14, 114, 'disponivel'),
-	(15, 115, 'disponivel');
+-- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela aapm.tabela_curso
 CREATE TABLE IF NOT EXISTS `tabela_curso` (
@@ -53,57 +35,31 @@ CREATE TABLE IF NOT EXISTS `tabela_curso` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_curso: ~20 rows (aproximadamente)
-DELETE FROM `tabela_curso`;
-INSERT INTO `tabela_curso` (`id`, `nome`) VALUES
-	(1, 'Administração'),
-	(2, 'Desenvolvimento de Sistemas'),
-	(3, 'Eletrotécnica'),
-	(4, 'Logística'),
-	(5, 'Mecânica Industrial'),
-	(6, 'Mecatrônica'),
-	(7, 'Tecnologia da Informação'),
-	(8, 'Segurança do Trabalho'),
-	(9, 'Soldagem'),
-	(10, 'Design Gráfico'),
-	(11, 'Enfermagem'),
-	(12, 'Marketing'),
-	(13, 'Recursos Humanos'),
-	(14, 'Programação Web'),
-	(15, 'Redes de Computadores'),
-	(16, 'Banco de Dados'),
-	(17, 'Automação Industrial'),
-	(18, 'Edificações'),
-	(19, 'Informática para Internet'),
-	(20, 'Manutenção Automotiva');
+-- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela aapm.tabela_login
 CREATE TABLE IF NOT EXISTS `tabela_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `aluno_id` int(11) NOT NULL,
-  `senha` varchar(255) NOT NULL,
+  `perfil` enum('aluno','admin') DEFAULT 'aluno',
   PRIMARY KEY (`id`),
   KEY `aluno_id` (`aluno_id`),
-  CONSTRAINT `tabela_login_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `alunos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  CONSTRAINT `tabela_login_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `tabela_usuario` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_login: ~0 rows (aproximadamente)
-DELETE FROM `tabela_login`;
+-- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela aapm.tabela_reserva_armario
-CREATE TABLE IF NOT EXISTS `tabela_reserva_armario` (
+-- Copiando estrutura para tabela aapm.tabela_turma
+CREATE TABLE IF NOT EXISTS `tabela_turma` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `aluno_id` int(11) NOT NULL,
-  `armario_id` int(11) NOT NULL,
+  `turma` varchar(100) NOT NULL,
+  `curso_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `aluno_id` (`aluno_id`),
-  KEY `armario_id` (`armario_id`),
-  CONSTRAINT `tabela_reserva_armario_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `alunos` (`id`),
-  CONSTRAINT `tabela_reserva_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `armario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  KEY `curso_id` (`curso_id`),
+  CONSTRAINT `tabela_turma_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_reserva_armario: ~0 rows (aproximadamente)
-DELETE FROM `tabela_reserva_armario`;
+-- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para tabela aapm.tabela_usuario
 CREATE TABLE IF NOT EXISTS `tabela_usuario` (
@@ -118,13 +74,12 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `email` (`email`),
   KEY `curso_id` (`curso_id`),
-  KEY `armario_id` (`armario_id`),
-  CONSTRAINT `tabela_usuario_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`),
-  CONSTRAINT `tabela_usuario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `reserva_armario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  KEY `tabela_armario_ibfk_2` (`armario_id`),
+  CONSTRAINT `tabela_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `tabela_usuario_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_usuario: ~0 rows (aproximadamente)
-DELETE FROM `tabela_usuario`;
+-- Exportação de dados foi desmarcado.
 
 -- Copiando estrutura para trigger aapm.trg_criar_login
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
@@ -137,22 +92,6 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM tabela_login WHERE aluno_id = NEW.id) THEN
         INSERT INTO tabela_login (aluno_id, senha)
         VALUES (NEW.id, NEW.cpf);
-    END IF;
-END//
-DELIMITER ;
-SET SQL_MODE=@OLDTMP_SQL_MODE;
-
--- Copiando estrutura para trigger aapm.trg_criar_reserva
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-DELIMITER //
-CREATE TRIGGER trg_criar_reserva
-AFTER INSERT ON tabela_usuario
-FOR EACH ROW
-BEGIN
-    -- Só cria login se ainda não existir para esse aluno
-    IF NOT EXISTS (SELECT 1 FROM login WHERE aluno_id = NEW.id) THEN
-        INSERT INTO tabela_reserva_armario (aluno_id, armario_id)
-        VALUES (NEW.id, NEW.armario_id);
     END IF;
 END//
 DELIMITER ;
