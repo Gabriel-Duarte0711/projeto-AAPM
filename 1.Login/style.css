@@ -13,7 +13,7 @@
     --white:#FFFFFF;
 }
 body {
-    background: var(--blue);
+    background-color: var(--blue);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -51,6 +51,9 @@ body {
 .mb-3 input::placeholder{
     color: white;
     padding-left: 15px;
+}
+.form-control{
+    color:white;
 }
 .btn-primary {
     background-color: var(--dark-blue);
