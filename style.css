@@ -1,4 +1,4 @@
-/* ===== CONFIGURAÇÃO GERAL ===== */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 * {
     margin: 0;
     padding: 0;
@@ -6,12 +6,19 @@
     font-family: "Poppins", sans-serif;
 }
 
+:root{
+    --blue: #3B82F6;
+    --dark-blue:#0A1E52;
+    --light-blue:#1E3A8A;
+    --white:#FFFFFF;
+}
 body {
-    background: #3B82F6;
+    background: var(--blue);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .logo-aapm {
@@ -21,15 +28,53 @@ body {
 }
 
 .entre-aqui{
-    position: absolute;
-    top: 100px;
+    position: relative;
     color: white;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .entre-aqui .material-symbols-outlined {
     font-size: 60px;
 }
 
+.mb-3 input{
+    background-color: var(--light-blue);
+    width: 600px;
+    height: 60px;
+    border: none;
+    border-radius: 18px;
+}
 
+.mb-3 input::placeholder{
+    color: white;
+    padding-left: 15px;
+}
+.btn-primary {
+    background-color: var(--dark-blue);
+    width: 600px;
+    height: 60px;
+    border: none;
+    border-radius: 18px;
+    color: white;
+    font-size: 20px;
+    box-shadow: black 4px 4px 4px 2px;
+}
+.form-check-label {
+    color: white;
+}
+.form-check-input{
+    background-color: var(--light-blue);
+    border: none;
+}
+.link-offset-2{
+    color: white;
+}
+.esqueceu-a-senha {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 60px;
+}
