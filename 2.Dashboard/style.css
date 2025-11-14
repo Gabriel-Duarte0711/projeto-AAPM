@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root{
+    --blue: #3B82F6;
+    --dark-blue:#0A1E52;
+    --light-blue:#1E3A8A;
+    --white:#FFFFFF;
+}
+body {
+    background: var(--blue);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.logo-aapm {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.container-lg {
+    background-color: var(--light-blue);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    border-radius: 20px;
+    height: 350px;
+
+}
+.material-symbols-outlined{
+    font-size: 1000px;
+    color: var(--white);
+}
+
+.col{
+    color: var(--white);
+    font-size: 60px;
+}
+
+.container-lg:hover {
+    background-color: var(--dark-blue);
+    
+}
