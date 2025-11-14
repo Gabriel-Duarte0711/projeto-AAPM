@@ -13,7 +13,7 @@
     --white:#FFFFFF;
 }
 body {
-    background: var(--blue);
+    background-color: var(--blue);
     height: 100vh;
     display: flex;
     justify-content: center;
