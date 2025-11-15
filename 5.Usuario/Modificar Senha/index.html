@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <script src="../segura.js"></script>
+    <script> validarAcesso(); </script>
+    <!-- Fonte e Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="../Modificar Senha/style.css">
+</head>
+
+<body>
+
+    <div class="desktop">
+        <div class="logo-aapm">
+            <img src="..//AAPM-Logo.png" alt="logo da aapm" height="50" width="50">
+        </div>
+
+        <div class="entre-aqui">
+            <span class="material-symbols-outlined">person</span>
+            <h3>Modifique sua senha:</h3>
+        </div>
+
+        <div class="menu-flutuante">
+            <div class="container-lg menu">
+                <a href="../Atualizar Cadastro/index.html">
+                    <h1>Veja seus dados</h1>
+                </a>
+                <a href="#">
+                    <h1>Modificar sua senha</h1>
+                </a>
+
+            </div>
+        </div>
+
+        <form id="formsCadastro">
+            <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Senha atual" id="nome" name="nome">
+            </div>
+
+            <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Nova senha" id="matricula" name="matricula">
+            </div>
+
+            <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Confirmar senha" id="telefone" name="telefone">
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="btnCadastrar">Modificar</button>
+        </form>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/validator@13.9.0/validator.min.js"></script>
+    <script src="./app.js"></script>
+
+</body>
+
+</html>
