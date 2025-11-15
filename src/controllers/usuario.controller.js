@@ -5,15 +5,15 @@ import { db } from "../config/db.js"
 // ============================
 
 
-export async function criarAluno(req, res) {
+export async function criarUsuario(req, res) {
   try {
-    const { nome,  cpf, curso_id, armario_id, email, telefone } = req.body;
-    if (!nome || !cpf || !curso_id || !armario_id || !email || !telefone)
+    const { nome,  matricula, telefone, email, curso_id, turma_id, armario_id } = req.body;
+    if (!nome || !matricula || !telefone || !email || !curso_id || !turma_id || !armario_id)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
     await db.execute(
-      "INSERT INTO tabela_usuario (nome, cpf, curso_id, armario_id, email, telefone) VALUES (?, ?, ?, ?, ?, ?)",
-      [nome, cpf, curso_id, armario_id, email, telefone],
+      "INSERT INTO tabela_usuario (nome, matricula, telefone, email, curso_id, turma_id, armario_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [nome, matricula, telefone, email, curso_id, turma_id, armario_id],
 
     );
 
@@ -24,7 +24,7 @@ export async function criarAluno(req, res) {
   }
 }
 
-export async function listarAlunos(req, res) {
+export async function listarUsuario(req, res) {
   try {
     const [rows] = await db.execute("SELECT * FROM tabela_usuario");
     res.json(rows);
@@ -34,7 +34,7 @@ export async function listarAlunos(req, res) {
 };
 
 
-export async function obterAlunos(req, res) {
+export async function obterUsuario(req, res) {
   try {
     const [rows] = await db.execute("SELECT * FROM tabela_usuario WHERE id = ?", [
       req.params.id,
@@ -47,7 +47,7 @@ export async function obterAlunos(req, res) {
   }
 };
 
-export async function atualizarAlunos(req, res) {
+export async function atualizarUsuario(req, res) {
   try {
     const { nome, email, senha } = req.body;
     await db.execute(
@@ -61,7 +61,7 @@ export async function atualizarAlunos(req, res) {
 };
 
 
-export async function deletarAluno(req, res) {
+export async function deletarUsuario(req, res) {
   try {
     await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [req.params.id]);
     res.json({ mensagem: "Usuário deletado com sucesso!" });
