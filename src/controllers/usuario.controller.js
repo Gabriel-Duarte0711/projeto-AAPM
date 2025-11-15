@@ -47,12 +47,12 @@ export async function obterUsuario(req, res) {
   }
 };
 
-export async function atualizarUsuario(req, res) {
+export async function atualizarDataEncerramento(req, res) {
   try {
-    const { nome, email, senha } = req.body;
+    const { data_encerramento } = req.body;
     await db.execute(
-      "UPDATE tabela_usuario SET nome = ?, email = ?, senha = ? WHERE id = ?",
-      [nome, email, senha, req.params.id]
+      "UPDATE tabela_usuario SET data_encerramento = ?",
+      [data_encerramento]
     );
     res.json({ mensagem: "Usuário atualizado com sucesso!" });
   } catch (err) {
