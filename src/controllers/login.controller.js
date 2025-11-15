@@ -5,9 +5,9 @@ import { db } from "../config/db.js"
 // ============================
 
 
-export async function listarCursos(req, res) {
+export async function listarLogin(req, res) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tabela_curso");
+    const [rows] = await db.execute("SELECT * FROM tabela_login");
     res.json(rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });
