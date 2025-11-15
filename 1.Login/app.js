@@ -69,7 +69,7 @@ console.log("Checkbox está marcado?", checkboxLembrar.checked);
         }
 
         if (pegarAluno.perfil === "aluno") {
-            window.location.href = "../indexU.html";
+            window.location.href = "../5.Usuario/index.html";
         } else if (pegarAluno.perfil === "admin") {
             window.location.href = "../2.Dashboard/index.html";
         }
