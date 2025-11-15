@@ -3,7 +3,7 @@ const APIUsuario = "http://localhost:3000/usuario"
 const inputEmail = document.getElementById("email")
 const inputSenha = document.getElementById("senha")
 const btnEntrar = document.getElementById("btnEntrar")
-
+const checkboxLembrar = document.getElementById("remember")
 async function buscarLoginDoBanco() {
     try {
         const response = await fetch(APILogin);
@@ -56,14 +56,22 @@ btnEntrar.addEventListener('click', async () => {
 
     const aluno_id = emailExiste.id;
     const pegarAluno = loginUsuario.find(logar => logar.aluno_id === aluno_id)
-
+console.log("Checkbox está marcado?", checkboxLembrar.checked);
     if (pegarAluno.senha === senha) {
+        localStorage.removeItem("id");
+        sessionStorage.removeItem("id");
+        
+        if (checkboxLembrar.checked) {
+            localStorage.setItem("id", aluno_id);
+        } else {
+            sessionStorage.setItem("id", aluno_id);
+            localStorage.removeItem("id");
+        }
+
         if (pegarAluno.perfil === "aluno") {
-            localStorage.setItem("id", aluno_id)
             window.location.href = "../indexU.html";
-        } else if(pegarAluno.perfil === "admin"){
-            localStorage.setItem("id", aluno_id)
-            window.location.href = "../indexA.html";
+        } else if (pegarAluno.perfil === "admin") {
+            window.location.href = "../2.Dashboard/index.html";
         }
 
     } else {
