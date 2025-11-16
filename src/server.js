@@ -8,6 +8,8 @@ import cursoRoute from "./routes/curso.routes.js"
 import alunoRoute from "./routes/usuario.routes.js"
 import turmaRoute from "./routes/turma.routes.js"
 import loginRoute from "./routes/login.routes.js"
+import armariosRoutes from "./routes/armarios.routes.js";
+
 
 
 // ============================
@@ -26,7 +28,7 @@ app.use("/curso", cursoRoute)
 app.use("/usuario", alunoRoute)
 app.use("/turma", turmaRoute)
 app.use("/login", loginRoute)
-
+app.use("/armarios", armariosRoutes);
 
 // ============================
 //  Inicia o servidor

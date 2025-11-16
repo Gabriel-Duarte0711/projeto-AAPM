@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <script src="../segura.js"></script>
+    <script> validarAcesso(); </script>
+    <!-- Fonte e Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="../6.Ver Informarções/style.css">
+</head>
+
+<body>
+
+    <div class="desktop">
+        <div class="logo-aapm">
+            <img src="..//AAPM-Logo.png" alt="logo da aapm" height="50" width="50">
+        </div>
+
+        <div class="entre-aqui">
+            <span class="material-symbols-outlined">person</span>
+            <h3>Veja seus dados:</h3>
+        </div>
+
+        <div class="menu-flutuante">
+            <div class="container-lg menu">
+                <a href="#">
+                    <h1>Veja seus dados</h1>
+                </a>
+                <a href="../7.Modificar Senha/index.html">
+                    <h1>Modificar sua senha</h1>
+                </a>
+                 <a href="../5.Usuario/index.html">
+                    <h1>Voltar</h1>
+                </a>
+
+            </div>
+        </div>
+
+        <form id="formsCadastro">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="nome" id="nome" name="nome" readonly >
+            </div>
+
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="matricula" id="matricula" name="matricula" readonly>
+            </div>
+
+            <div class="mb-3">
+                <input type="tel" class="form-control" placeholder="telefone" id="telefone" name="telefone" readonly>
+            </div>
+
+            <div class="mb-3">
+                <input type="email" class="form-control" placeholder="email" id="email" name="email" readonly>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" id="select-curso" name="curso_id" readonly>
+                    <option selected disabled>Selecione o curso</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" id="select-turma" name="turma_id" readonly>
+                    <option selected>Selecione um curso primeiro</option>
+                </select>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/validator@13.9.0/validator.min.js"></script>
+    <script src="./app.js"></script>
+
+</body>
+
+</html>
