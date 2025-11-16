@@ -46,7 +46,7 @@ body {
 .container-lg h3 {
     margin-top: 160px;
 }
-.container-lg:hover {
+#Armarios:hover {
     background-color: var(--dark-blue);
     transform: translateY(-10px);
 }
@@ -77,4 +77,8 @@ body {
 a {
     text-decoration: none;
     color: white;
+}
+
+#Estacionamento {
+    opacity: 50%;
 }
