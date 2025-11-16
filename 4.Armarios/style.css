@@ -28,3 +28,12 @@ body {
     top: 10px;
     left: 10px;
 }
+.cards-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* grade responsiva */
+    gap: 20px;               /* espaçamento entre os cards */
+    padding: 20px;           /* espaçamento interno */
+    width: 100%;             
+    max-width: 1300px;       /* largura máxima opcional */
+    margin: 0 auto;          /* centraliza a grade */
+}

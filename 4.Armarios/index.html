@@ -21,6 +21,60 @@
         <img src="../AAPM-Logo.png" alt="logo da aapm" height="50px" width="50px">
     </div>
 
+    <div id="card-template" style="display: none;">
+        <div class="card">
+            <div class="icone">
+                <span class="material-symbols-outlined">inventory_2</span>
+            </div>
+            <p class="info"><strong>Armário:</strong> <span class="armario"></span></p>
+            <p class="info"><strong>Aluno:</strong> <span class="aluno"></span></p>
+            <p class="info"><strong>Telefone:</strong> <span class="telefone"></span></p>
+            <p class="info"><strong>Email:</strong> <span class="email"></span></p>
+            <p class="info"><strong>Curso:</strong> <span class="curso"></span></p>
+        </div>
+    </div>
+
+    <div id="card-container" class="cards-area"></div>
+    <script>
+        async function carregarDados() {
+            try {
+                const resposta = await fetch("http://localhost:3000/armarios");
+                const dados = await resposta.json();
+                gerarCards(dados);
+            } catch (erro) {
+                console.error("Erro ao buscar dados:", erro);
+            }
+        }
+
+        carregarDados();
+
+
+    // ---------- FUNÇÃO PARA CRIAR OS CARDS ----------
+    function gerarCards(lista) {
+
+    const template = document.getElementById("card-template").innerHTML;
+    const container = document.getElementById("card-container");
+
+    container.innerHTML = "";
+
+    lista.forEach(item => {
+
+    const card = document.createElement("div");
+    card.innerHTML = template;
+
+    card.querySelector(".armario").innerText = item.armario;
+    card.querySelector(".aluno").innerText = item.aluno;
+    card.querySelector(".telefone").innerText = item.telefone;
+    card.querySelector(".email").innerText = item.email;
+    card.querySelector(".curso").innerText = item.curso;
+
+    container.appendChild(card.firstElementChild);
+    });
+    }
+
+    gerarCards();
+    </script>
+
 </body>
 
-</html>
+</html>                            
