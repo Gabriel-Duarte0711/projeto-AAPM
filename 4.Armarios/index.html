@@ -21,16 +21,23 @@
         <img src="../AAPM-Logo.png" alt="logo da aapm" height="50px" width="50px">
     </div>
 
+    <div class="mb-3">
+        <input type="text" class="form-control"
+            placeholder="🔎  Digite o número do armário, nome do aluno ou email cadastrado..." aria-label="Username"
+            aria-describedby="visible-addon" id="email">
+    </div>
     <div id="card-template" style="display: none;">
         <div class="card">
             <div class="icone">
                 <span class="material-symbols-outlined">inventory_2</span>
             </div>
-            <p class="info"><strong>Armário:</strong> <span class="armario"></span></p>
-            <p class="info"><strong>Aluno:</strong> <span class="aluno"></span></p>
-            <p class="info"><strong>Telefone:</strong> <span class="telefone"></span></p>
-            <p class="info"><strong>Email:</strong> <span class="email"></span></p>
-            <p class="info"><strong>Curso:</strong> <span class="curso"></span></p>
+            <div class="infos">
+                <p class="info"><strong>Armário:</strong> <span class="armario"></span></p>
+                <p class="info"><strong>Aluno:</strong> <span class="aluno"></span></p>
+                <p class="info"><strong>Telefone:</strong> <span class="telefone"></span></p>
+                <p class="info"><strong>Email:</strong> <span class="email"></span></p>
+                <p class="info"><strong>Curso:</strong> <span class="curso"></span></p>
+            </div>
         </div>
     </div>
 
@@ -49,32 +56,32 @@
         carregarDados();
 
 
-    // ---------- FUNÇÃO PARA CRIAR OS CARDS ----------
-    function gerarCards(lista) {
+        // ---------- FUNÇÃO PARA CRIAR OS CARDS ----------
+        function gerarCards(lista) {
 
-    const template = document.getElementById("card-template").innerHTML;
-    const container = document.getElementById("card-container");
+            const template = document.getElementById("card-template").innerHTML;
+            const container = document.getElementById("card-container");
 
-    container.innerHTML = "";
+            container.innerHTML = "";
 
-    lista.forEach(item => {
+            lista.forEach(item => {
 
-    const card = document.createElement("div");
-    card.innerHTML = template;
+                const card = document.createElement("div");
+                card.innerHTML = template;
 
-    card.querySelector(".armario").innerText = item.armario;
-    card.querySelector(".aluno").innerText = item.aluno;
-    card.querySelector(".telefone").innerText = item.telefone;
-    card.querySelector(".email").innerText = item.email;
-    card.querySelector(".curso").innerText = item.curso;
+                card.querySelector(".armario").innerText = item.armario;
+                card.querySelector(".aluno").innerText = item.aluno;
+                card.querySelector(".telefone").innerText = item.telefone;
+                card.querySelector(".email").innerText = item.email;
+                card.querySelector(".curso").innerText = item.curso;
 
-    container.appendChild(card.firstElementChild);
-    });
-    }
+                container.appendChild(card.firstElementChild);
+            });
+        }
 
-    gerarCards();
+        gerarCards();
     </script>
 
 </body>
 
-</html>                            
+</html>
