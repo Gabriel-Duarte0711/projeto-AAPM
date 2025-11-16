@@ -24,63 +24,44 @@
     <div class="mb-3">
         <input type="text" class="form-control"
             placeholder="🔎  Digite o número do armário, nome do aluno ou email cadastrado..." aria-label="Username"
-            aria-describedby="visible-addon" id="email">
+            aria-describedby="visible-addon" id="pesquisa">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkOcupado">
+            <label class="form-check-label" id="">
+                OCUPADO
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkManutencao">
+            <label class="form-check-label" id="">
+                MANUTENÇÂO
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="checkDisponivel">
+            <label class="form-check-label" id="">
+                DISPONIVEL
+            </label>
+        </div>
     </div>
+
     <div id="card-template" style="display: none;">
         <div class="card">
             <div class="icone">
                 <span class="material-symbols-outlined">inventory_2</span>
             </div>
             <div class="infos">
-                <p class="info"><strong>Armário:</strong> <span class="armario"></span></p>
-                <p class="info"><strong>Aluno:</strong> <span class="aluno"></span></p>
-                <p class="info"><strong>Telefone:</strong> <span class="telefone"></span></p>
-                <p class="info"><strong>Email:</strong> <span class="email"></span></p>
-                <p class="info"><strong>Curso:</strong> <span class="curso"></span></p>
+                <!-- <p class="info"><strong>Armário:</strong> <span class="armario" data-nome=""></span></p>
+                <p class="info"><strong>Aluno:</strong> <span class="aluno" id="aluno"></span></p>
+                <p class="info"><strong>Telefone:</strong> <span class="telefone" id="telefone"></span></p>
+                <p class="info"><strong>Email:</strong> <span class="email" id="email"></span></p>
+                <p class="info"><strong>Curso:</strong> <span class="curso" id="curso"></span></p> -->
             </div>
         </div>
     </div>
 
     <div id="card-container" class="cards-area"></div>
-    <script>
-        async function carregarDados() {
-            try {
-                const resposta = await fetch("http://localhost:3000/armarios");
-                const dados = await resposta.json();
-                gerarCards(dados);
-            } catch (erro) {
-                console.error("Erro ao buscar dados:", erro);
-            }
-        }
-
-        carregarDados();
-
-
-        // ---------- FUNÇÃO PARA CRIAR OS CARDS ----------
-        function gerarCards(lista) {
-
-            const template = document.getElementById("card-template").innerHTML;
-            const container = document.getElementById("card-container");
-
-            container.innerHTML = "";
-
-            lista.forEach(item => {
-
-                const card = document.createElement("div");
-                card.innerHTML = template;
-
-                card.querySelector(".armario").innerText = item.armario;
-                card.querySelector(".aluno").innerText = item.aluno;
-                card.querySelector(".telefone").innerText = item.telefone;
-                card.querySelector(".email").innerText = item.email;
-                card.querySelector(".curso").innerText = item.curso;
-
-                container.appendChild(card.firstElementChild);
-            });
-        }
-
-        gerarCards();
-    </script>
+    <script src="./app2.js"> </script>
 
 </body>
 

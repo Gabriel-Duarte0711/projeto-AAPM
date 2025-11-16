@@ -69,3 +69,16 @@ export async function deletarUsuario(req, res) {
     res.status(500).json({ erro: err.message });
   }
 };  
+
+export async function obterUsuarioPorArmario(req, res) {
+  try {
+    const [rows] = await db.execute("SELECT * FROM tabela_usuario WHERE armario_id = ?", [
+      req.params.id,
+    ]);
+    if (rows.length === 0)
+      return res.status(404).json({ erro: "Usuário não encontrado" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+};
