@@ -107,9 +107,11 @@ async function cadastrar(e) {
     const email = inputEmail.value.trim();
     const curso_id = dropDownCurso.value;
     const turma_id = dropDownTurma.value;
+ 
 
     const usuarios = await buscarUsuarioDoBanco();
 
+    
     if (!usuarios) {
         alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
         return;
