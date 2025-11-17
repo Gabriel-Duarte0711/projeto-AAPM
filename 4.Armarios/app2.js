@@ -56,12 +56,16 @@ async function carregarArmarios() {
             const user = dadosUsuario.find(u => u.numero_armario === item.numero_armario);
             card.setAttribute('data-estado', item.estado)
             if (user) {
+                const data = new Date(user.data_encerramento);
+                const dataFormatada = data.toLocaleDateString("pt-BR");
                 infos.innerHTML += `
             <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>
             <p class="info" data-telefone="${user.telefone}"><strong>Telefone:</strong> <span class="telefone" >${user.telefone}</span></p>
             <p class="info" data-email="${user.email}"><strong>Email:</strong> <span class="email" >${user.email}</span></p>
             <p class="info" data-curso="${user.curso}"><strong>Curso:</strong> <span class="curso" >${user.curso}</span></p>
-            <p class="info" data-turma="${user.turma}"><strong>Turma:</strong> <span class="turma" >${user.turma}</span></p>`;
+            <p class="info" data-turma="${user.turma}"><strong>Turma:</strong> <span class="turma" >${user.turma}</span></p>
+            <p class="info" data-turma="${dataFormatada}"><strong>Data de encerramento:</strong> <span class="data" >${dataFormatada}</span></p>`;
+
             }
 
             card.classList.add("ocupado");
@@ -119,32 +123,38 @@ async function carregarArmarios() {
     const checkManutencao = document.getElementById('checkManutencao')
     const checkDisponivel = document.getElementById('checkDisponivel')
     checkOcupado.addEventListener('change', () => {
-            armarios.forEach(armario => {      
-                if (checkOcupado.checked) {
-                    armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none'; // mostra
-                } else {
-                    armario.style.display = 'flex'; // esconde
-                }
-            })
-        }
+        armarios.forEach(armario => {
+            if (checkOcupado.checked) {
+                armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none'; // mostra
+                checkDisponivel.checked = false
+                checkManutencao.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
+    }
     )
     checkManutencao.addEventListener('change', () => {
-        armarios.forEach(armario => {      
-                if (checkManutencao.checked) {
-                    armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none'; // mostra
-                } else {
-                    armario.style.display = 'flex'; // esconde
-                }
-            })
+        armarios.forEach(armario => {
+            if (checkManutencao.checked) {
+                armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none'; // mostra
+                checkDisponivel.checked = false
+                checkOcupado.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     })
     checkDisponivel.addEventListener('change', () => {
-         armarios.forEach(armario => {      
-                if (checkDisponivel.checked) {
-                    armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none'; // mostra
-                } else {
-                    armario.style.display = 'flex'; // esconde
-                }
-            })
+        armarios.forEach(armario => {
+            if (checkDisponivel.checked) {
+                armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none'; // mostra
+                checkOcupado.checked = false
+                checkManutencao.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     })
 
 }

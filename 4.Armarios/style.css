@@ -78,3 +78,12 @@ body {
 .ocupado { background-color: red; }
 .manutencao { background-color: orange; }
 .disponivel { background-color: green; }
+
+.filtros{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 80px;
+    gap: 40px;
+}
