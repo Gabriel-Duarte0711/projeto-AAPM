@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.12.0.7122
+-- HeidiSQL Versão:              12.10.0.7000
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -28,12 +28,12 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
 
 -- Copiando dados para a tabela aapm.tabela_armario: ~176 rows (aproximadamente)
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`) VALUES
-	(1, 'M'),
-	(2, 'M'),
-	(3, 'M'),
+	(1, 'D'),
+	(2, 'O'),
+	(3, 'O'),
 	(4, 'M'),
-	(5, 'M'),
-	(6, 'M'),
+	(5, 'O'),
+	(6, 'D'),
 	(7, 'D'),
 	(8, 'M'),
 	(9, 'D'),
@@ -271,9 +271,11 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `curso_id` int(11) NOT NULL,
   `turma_id` int(11) DEFAULT NULL,
   `armario_id` int(11) NOT NULL,
+  `data_encerramento` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `cpf` (`matricula`) USING BTREE,
+  UNIQUE KEY `armario_id` (`armario_id`),
   KEY `curso_id` (`curso_id`),
   KEY `tabela_armario_ibfk_2` (`armario_id`),
   KEY `tabela_usuario_ibfk_3` (`turma_id`),
@@ -283,9 +285,9 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_usuario: ~2 rows (aproximadamente)
-INSERT INTO `tabela_usuario` (`id`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`) VALUES
-	(1, 'teste', '1', '11988877766', 'teste@gmail.com', 1, 1, 1),
-	(2, 'admin', '999', '11988638137', 'admin@gmail.com', 2, 2, 1);
+INSERT INTO `tabela_usuario` (`id`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`) VALUES
+	(1, 'teste', '1', '11988877766', 'teste@gmail.com', 1, 1, 3, '2031-11-18'),
+	(2, 'admin', '999', '11988638137', 'admin@gmail.com', 2, 2, 2, '2025-11-18');
 
 -- Copiando estrutura para trigger aapm.trg_criar_login
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';

@@ -9,7 +9,8 @@ export async function listarArmariosL(req, res) {
         u.telefone,
         u.email,
         c.nome AS curso,
-        t.turma
+        t.turma,
+        u.data_encerramento
       FROM tabela_usuario u
       JOIN tabela_armario a ON u.armario_id = a.numero_armario
       JOIN tabela_curso c ON u.curso_id = c.id
@@ -40,3 +41,17 @@ export async function listarArmariosG(req, res) {
     res.status(500).json({ error: "Erro ao buscar os armários" });
   }
 }
+
+
+export async function atualizarEstado(req, res) {
+  try {
+    const { estado} = req.body;
+    await db.execute(
+      "UPDATE tabela_armario SET estado = ? where numero_armario = ?",
+      [estado, req.params.numero_armario]
+    );
+    res.json({ mensagem: "Armario atualizado com sucesso!" });
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+};

@@ -25,23 +25,25 @@
         <input type="text" class="form-control"
             placeholder="🔎  Digite o número do armário, nome do aluno ou email cadastrado..." aria-label="Username"
             aria-describedby="visible-addon" id="pesquisa">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkOcupado">
-            <label class="form-check-label" id="">
-                OCUPADO
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkManutencao">
-            <label class="form-check-label" id="">
-                MANUTENÇÂO
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDisponivel">
-            <label class="form-check-label" id="">
-                DISPONIVEL
-            </label>
+        <div class="filtros">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkOcupado">
+                <label class="form-check-label" id="">
+                    OCUPADO
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkManutencao">
+                <label class="form-check-label" id="">
+                    MANUTENÇÂO
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkDisponivel">
+                <label class="form-check-label" id="">
+                    DISPONIVEL
+                </label>
+            </div>
         </div>
     </div>
 
@@ -56,11 +58,18 @@
                 <p class="info"><strong>Telefone:</strong> <span class="telefone" id="telefone"></span></p>
                 <p class="info"><strong>Email:</strong> <span class="email" id="email"></span></p>
                 <p class="info"><strong>Curso:</strong> <span class="curso" id="curso"></span></p> -->
-            </div>
-        </div>
-    </div>
 
-    <div id="card-container" class="cards-area"></div>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="card-container" class="cards-area">
+        
+    </div>
+<div class="exibirPop">
+            <div class="pop"></div>
+        </div>
     <script src="./app2.js"> </script>
 
 </body>
