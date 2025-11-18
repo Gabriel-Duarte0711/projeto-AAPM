@@ -106,7 +106,6 @@ async function carregarArmarios() {
                 pop.innerHTML = `
                          <select class="select" id="select-estado" name="turma_id">
                          <option selected disabled>selecione o estado do armário</option>
-                         <option value="M">MANUTENÇÃO</option>
                          <option value="D">DISPONÍVEL</option>
                          </select>
                          <button id="atualizrEstado">atualizar</button>`
@@ -139,99 +138,99 @@ async function carregarArmarios() {
                         alert("Erro de conexão com o servidor.");
                     }
                 })
-            
-            popup.style.display = "flex";
-        }
-        card.addEventListener('click', () => {
-            abrirPopup();
-        })
-        popup.addEventListener("click", (e) => {
-            if (e.target === popup) {
-                popup.style.display = "none";
+
+                popup.style.display = "flex";
             }
-        });
-        infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
-        card.classList.add("manutencao");
-    
-    } else if (item.estado === "D") {
-        // DISPONIVEL
-        card.setAttribute('data-estado', item.estado)
-        estado = "DISPONIVEL"
+            card.addEventListener('click', () => {
+                abrirPopup();
+            })
+            popup.addEventListener("click", (e) => {
+                if (e.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+            card.classList.add("manutencao");
 
-        infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado">${estado}</span></p>`
+        } else if (item.estado === "D") {
+            // DISPONIVEL
+            card.setAttribute('data-estado', item.estado)
+            estado = "DISPONIVEL"
 
-        card.classList.add("disponivel");
+            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado">${estado}</span></p>`
+
+            card.classList.add("disponivel");
+        }
+
+
+        card.appendChild(infos);
+        container.appendChild(card);
+    });
+
+    const armarios = document.querySelectorAll('.card')
+    const inputPesquisa = document.getElementById('pesquisa')
+    inputPesquisa.addEventListener('input', () => {
+        const termo = inputPesquisa.value.toLowerCase().trim();
+
+        armarios.forEach(armario => {
+
+
+            const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
+            const telefone = armario.querySelector('.info[data-telefone]')?.dataset.telefone?.toLowerCase() ?? ""
+            const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
+            const curso = armario.querySelector('.info[data-curso]')?.dataset.curso?.toLowerCase() ?? ""
+            const turma = armario.querySelector('.info[data-turma]')?.dataset.turma?.toLowerCase() ?? ""
+            const numero = armario.dataset.numero?.toLowerCase() ?? "";
+
+
+            if (numero.includes(termo) || nome.includes(termo) || telefone.includes(termo) || email.includes(termo) || curso.includes(termo) || turma.includes(termo)) {
+                armario.style.display = 'flex'; // mostra
+
+            } else {
+                armario.style.display = 'none'; // esconde
+            }
+
+
+        })
+    })
+
+    const checkOcupado = document.getElementById('checkOcupado')
+    const checkManutencao = document.getElementById('checkManutencao')
+    const checkDisponivel = document.getElementById('checkDisponivel')
+    checkOcupado.addEventListener('change', () => {
+        armarios.forEach(armario => {
+            if (checkOcupado.checked) {
+                armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none'; // mostra
+                checkDisponivel.checked = false
+                checkManutencao.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     }
-
-
-    card.appendChild(infos);
-    container.appendChild(card);
-});
-
-const armarios = document.querySelectorAll('.card')
-const inputPesquisa = document.getElementById('pesquisa')
-inputPesquisa.addEventListener('input', () => {
-    const termo = inputPesquisa.value.toLowerCase().trim();
-
-    armarios.forEach(armario => {
-
-
-        const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
-        const telefone = armario.querySelector('.info[data-telefone]')?.dataset.telefone?.toLowerCase() ?? ""
-        const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
-        const curso = armario.querySelector('.info[data-curso]')?.dataset.curso?.toLowerCase() ?? ""
-        const turma = armario.querySelector('.info[data-turma]')?.dataset.turma?.toLowerCase() ?? ""
-        const numero = armario.dataset.numero?.toLowerCase() ?? "";
-
-
-        if (numero.includes(termo) || nome.includes(termo) || telefone.includes(termo) || email.includes(termo) || curso.includes(termo) || turma.includes(termo)) {
-            armario.style.display = 'flex'; // mostra
-
-        } else {
-            armario.style.display = 'none'; // esconde
-        }
-
-
+    )
+    checkManutencao.addEventListener('change', () => {
+        armarios.forEach(armario => {
+            if (checkManutencao.checked) {
+                armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none'; // mostra
+                checkDisponivel.checked = false
+                checkOcupado.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     })
-})
-
-const checkOcupado = document.getElementById('checkOcupado')
-const checkManutencao = document.getElementById('checkManutencao')
-const checkDisponivel = document.getElementById('checkDisponivel')
-checkOcupado.addEventListener('change', () => {
-    armarios.forEach(armario => {
-        if (checkOcupado.checked) {
-            armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none'; // mostra
-            checkDisponivel.checked = false
-            checkManutencao.checked = false
-        } else {
-            armario.style.display = 'flex'; // esconde
-        }
+    checkDisponivel.addEventListener('change', () => {
+        armarios.forEach(armario => {
+            if (checkDisponivel.checked) {
+                armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none'; // mostra
+                checkOcupado.checked = false
+                checkManutencao.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     })
-}
-)
-checkManutencao.addEventListener('change', () => {
-    armarios.forEach(armario => {
-        if (checkManutencao.checked) {
-            armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none'; // mostra
-            checkDisponivel.checked = false
-            checkOcupado.checked = false
-        } else {
-            armario.style.display = 'flex'; // esconde
-        }
-    })
-})
-checkDisponivel.addEventListener('change', () => {
-    armarios.forEach(armario => {
-        if (checkDisponivel.checked) {
-            armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none'; // mostra
-            checkOcupado.checked = false
-            checkManutencao.checked = false
-        } else {
-            armario.style.display = 'flex'; // esconde
-        }
-    })
-})
 
 }
 carregarArmarios();

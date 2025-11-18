@@ -157,3 +157,37 @@ body {
     transition: color 0.3s ease;
     cursor: pointer;
 }
+.select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s ease-in-out;
+}
+
+.select:hover {
+    border: 5px solid var(--light-blue);
+}
+
+#atualizrEstado {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    border: none;
+}
+
+#atualizrEstado:hover {
+    transform: scale(1.05);
+}
+
+
