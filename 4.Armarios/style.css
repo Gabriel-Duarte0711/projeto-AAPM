@@ -28,14 +28,16 @@ body {
     top: 10px;
     left: 10px;
 }
-.mb-3{
+
+.mb-3 {
     position: absolute;
     top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.form-control{
+
+.form-control {
     width: 650px;
     height: 58px;
     border-radius: 18px;
@@ -44,12 +46,15 @@ body {
     background-color: var(--dark-blue);
     color: var(--white);
 }
-.form-control::placeholder{
+
+.form-control::placeholder {
     color: var(--white);
 }
-.form-control:focus{
+
+.form-control:focus {
     box-shadow: 0 0 5px var(--white);
 }
+
 .cards-area {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -75,15 +80,54 @@ body {
     cursor: pointer;
 }
 
-.ocupado { background-color: red; }
-.manutencao { background-color: orange; }
-.disponivel { background-color: green; }
+.ocupado {
+    background-color: red;
+}
 
-.filtros{
+.manutencao {
+    background-color: orange;
+}
+
+.disponivel {
+    background-color: green;
+}
+
+.filtros {
     position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
     top: 80px;
     gap: 40px;
+}
+
+.form-check {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 18px;
+    transition: all 0.3s ease;
+    background: var(--dark-blue);
+}
+
+.form-check:hover {
+    transform: translateX(5px);
+    background: #e9ecef;
+}
+
+.form-check-input {
+    position: absolute;
+    cursor: pointer;
+    left: 40px;
+    top: 8px;
+}
+
+.form-check-label {
+    margin-left: 30px;
+    font-size: 14px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+    cursor: pointer;
 }
