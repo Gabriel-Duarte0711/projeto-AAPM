@@ -101,6 +101,32 @@ body {
     gap: 40px;
 }
 
+.exibirPop {
+    position: fixed;
+    /* aparece sobre tudo */
+
+    top: 0;
+    left: 0;
+    height: 100vh;
+    /* tela inteira */
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* escurece o fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.pop {
+    background: var(--white);
+    color: black;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+}
 .form-check {
     position: relative;
     display: flex;
