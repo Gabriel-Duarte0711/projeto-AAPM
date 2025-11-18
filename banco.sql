@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.10.0.7000
+-- HeidiSQL Versão:              12.12.0.7122
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -210,17 +210,24 @@ CREATE TABLE IF NOT EXISTS `tabela_curso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_curso: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_curso: ~14 rows (aproximadamente)
 INSERT INTO `tabela_curso` (`id`, `nome`) VALUES
-	(1, 'Informática'),
-	(2, 'Administração'),
-	(3, 'Contabilidade'),
-	(4, 'Enfermagem'),
-	(5, 'Eletrotécnica'),
-	(6, 'Mecânica'),
-	(7, 'Logística');
+	(1, 'Engenharia de Fundição'),
+	(2, 'Engenharia de Soldagem'),
+	(3, 'Superior de Tecnologia em Processos Metalúrgicos'),
+	(4, 'Técnico em Metalurgia'),
+	(5, 'Técnico em Desenvolvimento de Sistemas'),
+	(6, 'Técnico em Administração'),
+	(7, 'Construtor de Moldes e Ferramentas para Fundição'),
+	(8, 'Projetista de Moldes e Ferramentas para Fundição'),
+	(9, 'Assistente Administrativo'),
+	(10, 'Auxiliar de Linha de Produção'),
+	(11, 'Eletricista de Manutenção Eletroeletrônica'),
+	(12, 'Instalador e Reparador de Equipamentos de Telecomunicações'),
+	(13, 'Mecânico de Manutenção'),
+	(14, 'Soldador');
 
 -- Copiando estrutura para tabela aapm.tabela_login
 CREATE TABLE IF NOT EXISTS `tabela_login` (
@@ -246,20 +253,43 @@ CREATE TABLE IF NOT EXISTS `tabela_turma` (
   PRIMARY KEY (`id`),
   KEY `curso_id` (`curso_id`),
   CONSTRAINT `tabela_turma_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_turma: ~10 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_turma: ~33 rows (aproximadamente)
 INSERT INTO `tabela_turma` (`id`, `turma`, `curso_id`) VALUES
-	(1, '1º Ano A', 1),
-	(2, '1º Ano B', 1),
-	(3, '2º Ano A', 1),
-	(4, '1º Ano Administração A', 2),
-	(5, '1º Ano Administração B', 2),
-	(6, '3º Ano Contabilidade A', 3),
-	(7, '1º Enfermagem A', 4),
-	(8, '2º Eletrotécnica A', 5),
-	(9, '3º Mecânica A', 6),
-	(10, '1º Logística A', 7);
+	(1, 'PEF-03-FUA', 1),
+	(2, 'PES-04-EJS', 2),
+	(3, 'CSTPME225N1', 3),
+	(4, 'CSTPME124N4', 3),
+	(5, '1NA', 4),
+	(6, '2DS', 5),
+	(7, '2NA', 4),
+	(8, 'ADM1A-SESI', 6),
+	(9, 'ADM2A-SESI', 6),
+	(10, 'ADM2B-SESI', 6),
+	(11, 'DS1A-SESI', 5),
+	(12, 'DS1B-SESI', 5),
+	(13, 'DS2A-SESI', 5),
+	(14, 'DS2B-SESI', 5),
+	(15, 'MT1A-SESI', 4),
+	(16, 'MT1B-SESI', 4),
+	(17, 'MT1-SEDUC', 4),
+	(18, 'MT2-SESI', 4),
+	(19, 'I1CMFF', 7),
+	(20, 'I1PMFF', 8),
+	(21, 'M1ADM', 9),
+	(22, 'M1ALP', 10),
+	(23, 'M1EME', 11),
+	(24, 'M2IRET', 12),
+	(25, 'M2MM', 13),
+	(26, 'M4MM', 13),
+	(27, 'T1ADM', 9),
+	(28, 'T1EME', 11),
+	(29, 'T1SOL', 14),
+	(30, 'T2ALP', 10),
+	(31, 'T2MM', 13),
+	(32, 'T3EME', 11),
+	(33, 'T4MM', 13);
 
 -- Copiando estrutura para tabela aapm.tabela_usuario
 CREATE TABLE IF NOT EXISTS `tabela_usuario` (
