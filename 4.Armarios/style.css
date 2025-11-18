@@ -103,20 +103,14 @@ body {
 
 .exibirPop {
     position: fixed;
-    /* aparece sobre tudo */
-
     top: 0;
     left: 0;
     height: 100vh;
-    /* tela inteira */
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.6);
-    /* escurece o fundo */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
-    display: none;
 }
 
 .pop {
@@ -127,6 +121,7 @@ body {
     border-radius: 15px;
     text-align: center;
 }
+
 .form-check {
     position: relative;
     display: flex;
@@ -157,6 +152,7 @@ body {
     transition: color 0.3s ease;
     cursor: pointer;
 }
+
 .select {
     width: 100%;
     padding: 10px 12px;
@@ -190,4 +186,26 @@ body {
     transform: scale(1.05);
 }
 
+.pop {
+    background-color: var(--light-blue);
+    color: var(--white);
+    height: auto;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.577);
+}
 
+#excluirBtn, #atualizarBtn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    color: black;
+    border: none;
+}
+
+#excluirBtn:hover , #atualizarBtn:hover {
+    transform: scale(1.10);
+}
