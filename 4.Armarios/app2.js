@@ -102,7 +102,7 @@ async function carregarArmarios() {
             estado = "EM MANUNTEÇÂO"
             const popup = document.querySelector(".exibirPop");
             const pop = document.querySelector(".pop");
-            function abrirPopup() {
+            function abrirPopupManutencao() {
                 pop.innerHTML = "";
                 pop.innerHTML = `
                          <select class="select" id="select-estado" name="turma_id">
@@ -128,6 +128,7 @@ async function carregarArmarios() {
                             const dados = await requisicao.json();
                             console.log("armario atualizada com sucesso:", dados);
                             alert("armario atualizada com sucesso!");
+                            window.location.reload();
                         } else {
                             console.error("Erro na requisição:", requisicao.status);
                             alert("Erro ao fazer mudar armario. Código: " + requisicao.status);
@@ -143,7 +144,7 @@ async function carregarArmarios() {
             popup.style.display = "flex";
         }
         card.addEventListener('click', () => {
-            abrirPopup();
+            abrirPopupManutencao();
         })
         popup.addEventListener("click", (e) => {
             if (e.target === popup) {
