@@ -6,6 +6,7 @@ export async function listarArmariosL(req, res) {
       SELECT 
         a.numero_armario,
         u.nome,
+        u.id,
         u.telefone,
         u.email,
         c.nome AS curso,

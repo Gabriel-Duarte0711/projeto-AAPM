@@ -1,6 +1,6 @@
 const APIArmario = "http://localhost:3000/armarios"
-
-const APIUsuario = "http://localhost:3000/armarios/obterUsuario"
+const APIUsuario = "http://localhost:3000/usuario"
+const APIUsuarioArmario = "http://localhost:3000/armarios/obterUsuario"
 async function buscarArmariosDoBanco() {
     try {
         const response = await fetch(APIArmario);
@@ -20,7 +20,7 @@ async function buscarArmariosDoBanco() {
 
 async function buscarUserDoBanco() {
     try {
-        const response = await fetch(APIUsuario);
+        const response = await fetch(APIUsuarioArmario);
         if (!response.ok) {
             throw new Error('Erro na requisição à API');
         }
@@ -79,10 +79,41 @@ async function carregarArmarios() {
                          <p>Curso: ${user.curso}</p>
                          <p>Turma: ${user.turma}</p>
                          <p>Data de encerramento: ${dataFormatada}</p>
-                         <button id="excluirBtn">Excluir</button>
-                         <button id="atualizarBtn">Atualizar</button>`;
+                         <button type="button" id="btnExcluir">Excluir</button>
+                         <button type="button" id="btnAtualizar">Atualizar</button>`;
 
                     popup.style.display = "flex";
+                    // BOTAO DE EXCLUIR
+                    const btnExcluir = document.getElementById("btnExcluir")
+
+                    btnExcluir.addEventListener('click', async () => {
+                        try {
+                            const APIDeleteUser = `${APIUsuario}/${user.id}`;
+                            const requisicao = await fetch(APIDeleteUser, {
+                                method: "DELETE",
+                                headers: { "Content-Type": "application/json" },
+                            });
+                             const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                            const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ estado: "D" })
+                            });
+                            if (requisicao.ok && atualizarEstadoArmario.ok) {
+                                const dados = await requisicao.json();
+                                console.log("usuario deletado com sucesso:", dados);
+                                window.location.reload();
+                            } else {
+                                console.error("Erro na requisição:", requisicao.status);
+                                alert("Erro ao excluir usuario. Código: " + requisicao.status);
+                            }
+
+
+                        } catch (error) {
+                            console.error("Erro no fetch:", error);
+                            alert("Erro de conexão com o servidor.");
+                        }
+                    })
                 }
                 card.addEventListener('click', () => {
                     abrirPopup(user);
@@ -139,30 +170,30 @@ async function carregarArmarios() {
                         alert("Erro de conexão com o servidor.");
                     }
                 })
-            
-            popup.style.display = "flex";
-        }
-        card.addEventListener('contextmenu', function(event)  {
-            if(event.button === 2){
-                event.preventDefault();
-                console.log("clique direito")
-                abrirPopupManutencao();
-            }
-        })
-        popup.addEventListener("click", (e) => {
-            if (e.target === popup) {
-                popup.style.display = "none";
-            }
-        });
-        infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
-        card.classList.add("manutencao");
-    
-    } else if (item.estado === "D") {
-        // DISPONIVEL
-        card.setAttribute('data-estado', item.estado)
-        estado = "DISPONIVEL"
 
-       const popup = document.querySelector(".exibirPop");
+                popup.style.display = "flex";
+            }
+            card.addEventListener('contextmenu', function (event) {
+                if (event.button === 2) {
+                    event.preventDefault();
+                    console.log("clique direito")
+                    abrirPopupManutencao();
+                }
+            })
+            popup.addEventListener("click", (e) => {
+                if (e.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+            card.classList.add("manutencao");
+
+        } else if (item.estado === "D") {
+            // DISPONIVEL
+            card.setAttribute('data-estado', item.estado)
+            estado = "DISPONIVEL"
+
+            const popup = document.querySelector(".exibirPop");
             const pop = document.querySelector(".pop");
             function abrirPopupManutencao() {
                 pop.innerHTML = "";
@@ -201,100 +232,102 @@ async function carregarArmarios() {
                         alert("Erro de conexão com o servidor.");
                     }
                 })
-            
-            popup.style.display = "flex";
-        }
-        card.addEventListener('click', () => {
-            window.localStorage.setItem('armarioSelecionado', item.numero_armario);
-            window.localStorage.setItem('armarioEstado', item.estado);
-            window.location.href = "../3.Cadastro/index.html"
-        })
-        card.addEventListener('contextmenu', function(event)  {
-            if(event.button === 2){
-                event.preventDefault();
-                console.log("clique direito")
-                abrirPopupManutencao();
-            }
-        })
-        popup.addEventListener("click", (e) => {
-            if (e.target === popup) {
-                popup.style.display = "none";
-            }
-        });
-        infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
 
-        card.classList.add("disponivel");
+                popup.style.display = "flex";
+            }
+            card.addEventListener('click', () => {
+                window.localStorage.setItem('armarioSelecionado', item.numero_armario);
+                window.localStorage.setItem('armarioEstado', item.estado);
+                window.location.href = "../3.Cadastro/index.html"
+            })
+            card.addEventListener('contextmenu', function (event) {
+                if (event.button === 2) {
+                    event.preventDefault();
+                    console.log("clique direito")
+                    abrirPopupManutencao();
+                }
+            })
+            popup.addEventListener("click", (e) => {
+                if (e.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+
+            card.classList.add("disponivel");
+        }
+
+
+        card.appendChild(infos);
+        container.appendChild(card);
+    });
+
+    const armarios = document.querySelectorAll('.card')
+    const inputPesquisa = document.getElementById('pesquisa')
+    inputPesquisa.addEventListener('input', () => {
+        const termo = inputPesquisa.value.toLowerCase().trim();
+
+        armarios.forEach(armario => {
+
+
+            const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
+            const telefone = armario.querySelector('.info[data-telefone]')?.dataset.telefone?.toLowerCase() ?? ""
+            const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
+            const curso = armario.querySelector('.info[data-curso]')?.dataset.curso?.toLowerCase() ?? ""
+            const turma = armario.querySelector('.info[data-turma]')?.dataset.turma?.toLowerCase() ?? ""
+            const numero = armario.dataset.numero?.toLowerCase() ?? "";
+
+
+            if (numero.includes(termo) || nome.includes(termo) || telefone.includes(termo) || email.includes(termo) || curso.includes(termo) || turma.includes(termo)) {
+                armario.style.display = 'flex'; // mostra
+
+            } else {
+                armario.style.display = 'none'; // esconde
+            }
+
+
+        })
+    })
+
+    const checkOcupado = document.getElementById('checkOcupado')
+    const checkManutencao = document.getElementById('checkManutencao')
+    const checkDisponivel = document.getElementById('checkDisponivel')
+    checkOcupado.addEventListener('change', () => {
+        armarios.forEach(armario => {
+            if (checkOcupado.checked) {
+                armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none'; // mostra
+                checkDisponivel.checked = false
+                checkManutencao.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     }
-
-
-    card.appendChild(infos);
-    container.appendChild(card);
-});
-
-const armarios = document.querySelectorAll('.card')
-const inputPesquisa = document.getElementById('pesquisa')
-inputPesquisa.addEventListener('input', () => {
-    const termo = inputPesquisa.value.toLowerCase().trim();
-
-    armarios.forEach(armario => {
-
-
-        const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
-        const telefone = armario.querySelector('.info[data-telefone]')?.dataset.telefone?.toLowerCase() ?? ""
-        const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
-        const curso = armario.querySelector('.info[data-curso]')?.dataset.curso?.toLowerCase() ?? ""
-        const turma = armario.querySelector('.info[data-turma]')?.dataset.turma?.toLowerCase() ?? ""
-        const numero = armario.dataset.numero?.toLowerCase() ?? "";
-
-
-        if (numero.includes(termo) || nome.includes(termo) || telefone.includes(termo) || email.includes(termo) || curso.includes(termo) || turma.includes(termo)) {
-            armario.style.display = 'flex'; // mostra
-
-        } else {
-            armario.style.display = 'none'; // esconde
-        }
-
-
+    )
+    checkManutencao.addEventListener('change', () => {
+        armarios.forEach(armario => {
+            if (checkManutencao.checked) {
+                armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none'; // mostra
+                checkDisponivel.checked = false
+                checkOcupado.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
     })
-})
+    checkDisponivel.addEventListener('change', () => {
+        armarios.forEach(armario => {
+            if (checkDisponivel.checked) {
+                armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none'; // mostra
+                checkOcupado.checked = false
+                checkManutencao.checked = false
+            } else {
+                armario.style.display = 'flex'; // esconde
+            }
+        })
+    })
 
-const checkOcupado = document.getElementById('checkOcupado')
-const checkManutencao = document.getElementById('checkManutencao')
-const checkDisponivel = document.getElementById('checkDisponivel')
-checkOcupado.addEventListener('change', () => {
-    armarios.forEach(armario => {
-        if (checkOcupado.checked) {
-            armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none'; // mostra
-            checkDisponivel.checked = false
-            checkManutencao.checked = false
-        } else {
-            armario.style.display = 'flex'; // esconde
-        }
-    })
-}
-)
-checkManutencao.addEventListener('change', () => {
-    armarios.forEach(armario => {
-        if (checkManutencao.checked) {
-            armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none'; // mostra
-            checkDisponivel.checked = false
-            checkOcupado.checked = false
-        } else {
-            armario.style.display = 'flex'; // esconde
-        }
-    })
-})
-checkDisponivel.addEventListener('change', () => {
-    armarios.forEach(armario => {
-        if (checkDisponivel.checked) {
-            armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none'; // mostra
-            checkOcupado.checked = false
-            checkManutencao.checked = false
-        } else {
-            armario.style.display = 'flex'; // esconde
-        }
-    })
-})
+
 
 }
 carregarArmarios();
