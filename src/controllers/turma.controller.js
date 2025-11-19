@@ -23,3 +23,15 @@ export async function listarTurmas(req, res) {
     res.status(500).json({ erro: err.message });
   }
 };
+
+
+export async function obterTurma(req, res) {
+  try {
+    const [rows] = await db.execute("SELECT id, turma FROM tabela_turma WHERE id = ?",[
+      req.params.id,
+    ]);
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+};
