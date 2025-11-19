@@ -127,7 +127,68 @@ async function carregarArmarios() {
                         if (requisicao.ok) {
                             const dados = await requisicao.json();
                             console.log("armario atualizada com sucesso:", dados);
-                            alert("armario atualizada com sucesso!");
+                            window.location.reload();
+                        } else {
+                            console.error("Erro na requisição:", requisicao.status);
+                            alert("Erro ao fazer mudar armario. Código: " + requisicao.status);
+                        }
+
+
+                    } catch (error) {
+                        console.error("Erro no fetch:", error);
+                        alert("Erro de conexão com o servidor.");
+                    }
+                })
+            
+            popup.style.display = "flex";
+        }
+        card.addEventListener('contextmenu', function(event)  {
+            if(event.button === 2){
+                event.preventDefault();
+                console.log("clique direito")
+                abrirPopupManutencao();
+            }
+        })
+        popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+                popup.style.display = "none";
+            }
+        });
+        infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+        card.classList.add("manutencao");
+    
+    } else if (item.estado === "D") {
+        // DISPONIVEL
+        card.setAttribute('data-estado', item.estado)
+        estado = "DISPONIVEL"
+
+       const popup = document.querySelector(".exibirPop");
+            const pop = document.querySelector(".pop");
+            function abrirPopupManutencao() {
+                pop.innerHTML = "";
+                pop.innerHTML = `
+                         <select class="select" id="select-estado" name="turma_id">
+                         <option selected disabled>selecione o estado do armário</option>
+                         <option value="M">MANUTENCAO</option>
+                         </select>
+                         <button id="atualizrEstado">Atualizar</button>`
+                    ;
+                const att = document.getElementById("atualizrEstado")
+                att.addEventListener('click', async () => {
+                    const dropDownEstado = document.getElementById('select-estado')
+                    const valor = dropDownEstado.value
+
+                    try {
+                        const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                        const requisicao = await fetch(APIArmarioComNumero, {
+                            method: "PUT",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ estado: valor })
+                        });
+
+                        if (requisicao.ok) {
+                            const dados = await requisicao.json();
+                            console.log("armario atualizada com sucesso:", dados);
                             window.location.reload();
                         } else {
                             console.error("Erro na requisição:", requisicao.status);
@@ -144,7 +205,16 @@ async function carregarArmarios() {
             popup.style.display = "flex";
         }
         card.addEventListener('click', () => {
-            abrirPopupManutencao();
+            window.localStorage.setItem('armarioSelecionado', item.numero_armario);
+            window.localStorage.setItem('armarioEstado', item.estado);
+            window.location.href = "../3.Cadastro/index.html"
+        })
+        card.addEventListener('contextmenu', function(event)  {
+            if(event.button === 2){
+                event.preventDefault();
+                console.log("clique direito")
+                abrirPopupManutencao();
+            }
         })
         popup.addEventListener("click", (e) => {
             if (e.target === popup) {
@@ -152,14 +222,6 @@ async function carregarArmarios() {
             }
         });
         infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
-        card.classList.add("manutencao");
-    
-    } else if (item.estado === "D") {
-        // DISPONIVEL
-        card.setAttribute('data-estado', item.estado)
-        estado = "DISPONIVEL"
-
-        infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado">${estado}</span></p>`
 
         card.classList.add("disponivel");
     }

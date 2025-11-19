@@ -135,7 +135,9 @@ async function cadastrar(e) {
     }
 
 
-    const armario_id = 1;
+    const armario_id = window.localStorage.getItem('armarioSelecionado');
+    const armarioEstado = window.localStorage.getItem('armarioEstado');
+
     const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
 
     try {
@@ -144,11 +146,19 @@ async function cadastrar(e) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novaReserva)
         });
+        const armarioAtualizado = { estado: "O" }
+        const requisicaoArmario = await fetch(`http://localhost:3000/armario/${armario_id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(armarioAtualizado)
+        });
 
         if (requisicao.ok) {
             const dados = await requisicao.json();
+            const dadosArmario = await requisicaoArmario.json();
             console.log("reserva salva com sucesso:", dados);
             alert("reserva feita com sucesso!");
+            window.location.href = "../4.Armarios/index.html";
             formCadastrar.reset();
         } else {
             console.error("Erro na requisição:", requisicao.status);
