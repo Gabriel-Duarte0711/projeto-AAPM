@@ -1,4 +1,5 @@
 const APICurso = "http://localhost:3000/curso"
+const APIArmario = "http://localhost:3000/armarios"
 const dropDownCurso = document.getElementById('select-curso')
 
 async function buscarCursosDoBanco() {
@@ -136,7 +137,6 @@ async function cadastrar(e) {
 
 
     const armario_id = window.localStorage.getItem('armarioSelecionado');
-    const armarioEstado = window.localStorage.getItem('armarioEstado');
 
     const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
 
@@ -146,16 +146,20 @@ async function cadastrar(e) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novaReserva)
         });
-        const armarioAtualizado = { estado: "O" }
-        const requisicaoArmario = await fetch(`http://localhost:3000/armario/${armario_id}`, {
+        const APIArmarioComNumero = `${APIArmario}/${armario_id}`;
+        const requisicaoArmario = await fetch(APIArmarioComNumero, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(armarioAtualizado)
+            body: JSON.stringify({ estado: "O" })
         });
+
 
         if (requisicao.ok) {
             const dados = await requisicao.json();
-            const dadosArmario = await requisicaoArmario.json();
+            if (!requisicaoArmario.ok) {
+                alert("Erro ao atualizar o armário!");
+                return;
+            }
             console.log("reserva salva com sucesso:", dados);
             alert("reserva feita com sucesso!");
             window.location.href = "../4.Armarios/index.html";
