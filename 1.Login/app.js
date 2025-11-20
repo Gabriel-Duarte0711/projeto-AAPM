@@ -4,6 +4,7 @@ const inputEmail = document.getElementById("email")
 const inputSenha = document.getElementById("senha")
 const btnEntrar = document.getElementById("btnEntrar")
 const checkboxLembrar = document.getElementById("remember")
+
 async function buscarLoginDoBanco() {
     try {
         const response = await fetch(APILogin);
@@ -56,11 +57,11 @@ btnEntrar.addEventListener('click', async () => {
 
     const aluno_id = emailExiste.id;
     const pegarAluno = loginUsuario.find(logar => logar.aluno_id === aluno_id)
-console.log("Checkbox está marcado?", checkboxLembrar.checked);
+    console.log("Checkbox está marcado?", checkboxLembrar.checked);
     if (pegarAluno.senha === senha) {
         localStorage.removeItem("id");
         sessionStorage.removeItem("id");
-        
+
         if (checkboxLembrar.checked) {
             localStorage.setItem("id", aluno_id);
         } else {

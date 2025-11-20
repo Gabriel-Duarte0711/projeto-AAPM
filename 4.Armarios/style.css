@@ -21,6 +21,12 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+         /*fundo tela*/
+    background-image: url("..//fundo-tela.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+     background-attachment: fixed;
 }
 
 .logo-aapm {
@@ -103,19 +109,14 @@ body {
 
 .exibirPop {
     position: fixed;
-    /* aparece sobre tudo */
-
     top: 0;
     left: 0;
     height: 100vh;
-    /* tela inteira */
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.6);
-    /* escurece o fundo */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
     display: none;
 }
 
@@ -126,4 +127,118 @@ body {
     padding: 25px;
     border-radius: 15px;
     text-align: center;
+}
+
+.form-check {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 18px;
+    transition: all 0.3s ease;
+    background: var(--dark-blue);
+}
+
+.form-check:hover {
+    transform: translateX(5px);
+    background: #e9ecef;
+}
+
+.form-check-input {
+    position: absolute;
+    cursor: pointer;
+    left: 40px;
+    top: 8px;
+}
+
+.form-check-label {
+    margin-left: 30px;
+    font-size: 14px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+    cursor: pointer;
+}
+
+.select {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s ease-in-out;
+}
+
+.select:hover {
+    border: 5px solid var(--light-blue);
+}
+
+#atualizrEstado {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    border: none;
+}
+
+#atualizrEstado:hover {
+    transform: scale(1.05);
+}
+
+.pop {
+    background-color: var(--light-blue);
+    color: var(--white);
+    height: auto;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.577);
+}
+
+#btnExcluir, #btnAtualizar {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    color: black;
+    border: none;
+}
+
+#btnExcluir:hover , #btnAtualizar:hover {
+    transform: scale(1.10);
+}
+
+.dark-mode,
+.dark-mode body {
+    background-color: var(--light-blue) !important;
+    background-image: url("..//fundo-tela-dark.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--white)!important;
+}
+
+.dark-mode .form-check-input:checked{
+    background-color: var(--blue);
+    border: none;
+}
+
+.dark-mode .pop {
+    background-color: var(--dark-blue) !important;
+}
+
+.dark-mode #atualizrEstado {
+    background-color: var(--light-blue) !important;
+}
+.dark-mode #atualizrEstado:hover {
+    background-color: var(--blue) !important;
 }

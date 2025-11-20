@@ -18,6 +18,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+     /*fundo tela*/
+    background-image: url("..//fundo-tela.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 

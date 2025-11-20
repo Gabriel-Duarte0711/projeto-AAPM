@@ -47,6 +47,8 @@ export async function obterUsuario(req, res) {
   }
 };
 
+
+
 export async function atualizarDataEncerramento(req, res) {
   try {
     const { data_encerramento } = req.body;
@@ -63,7 +65,10 @@ export async function atualizarDataEncerramento(req, res) {
 
 export async function deletarUsuario(req, res) {
   try {
-    await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [req.params.id]);
+    const userId = req.params.id;
+
+    await db.execute("DELETE FROM tabela_login WHERE id = ?", [userId]);
+    await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [userId]);
     res.json({ mensagem: "Usuário deletado com sucesso!" });
   } catch (err) {
     res.status(500).json({ erro: err.message });

@@ -1,8 +1,9 @@
 import express from "express";
-import { listarCursos } from "../controllers/curso.controller.js"
+import { listarCursos, obterCursos } from "../controllers/curso.controller.js"
 
 const router = express.Router();
 router.get("/", listarCursos)
+router.get("/:id", obterCursos)
 
 
 export default router;

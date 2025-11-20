@@ -21,6 +21,11 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+     /*fundo tela*/
+    background-image: url("..//fundo-tela.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .logo-aapm {
@@ -65,15 +70,6 @@ body {
     margin-bottom: 10px;
 }
 
-.btn{
-    background-color: var(--dark-blue);
-    color: var(--white);
-    width: 200px;
-    height: 50px;
-    border-radius: 18px;
-    font-size: 20px;
-}
-
 a {
     text-decoration: none;
     color: white;
@@ -82,3 +78,22 @@ a {
 #Estacionamento {
     opacity: 50%;
 }
+
+
+.dark-mode,
+.dark-mode body {
+    background-color: var(--light-blue) !important;
+    background-image: url("..//fundo-tela-dark.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--white)!important;
+}
+
+.dark-mode .container-lg {
+    background-color: var(--dark-blue) !important;
+}
+.dark-mode .container-lg:hover {
+    background-color: var(--blue) !important;
+}
+

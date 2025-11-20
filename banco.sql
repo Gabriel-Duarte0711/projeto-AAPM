@@ -28,16 +28,16 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
 
 -- Copiando dados para a tabela aapm.tabela_armario: ~176 rows (aproximadamente)
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`) VALUES
-	(1, 'D'),
-	(2, 'O'),
-	(3, 'O'),
+	(1, 'O'),
+	(2, 'D'),
+	(3, 'D'),
 	(4, 'M'),
-	(5, 'O'),
+	(5, 'M'),
 	(6, 'D'),
 	(7, 'D'),
 	(8, 'M'),
 	(9, 'D'),
-	(10, 'D'),
+	(10, 'O'),
 	(11, 'D'),
 	(12, 'D'),
 	(13, 'M'),
@@ -46,7 +46,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`) VALUES
 	(16, 'M'),
 	(17, 'M'),
 	(18, 'D'),
-	(19, 'O'),
+	(19, 'M'),
 	(20, 'D'),
 	(21, 'D'),
 	(22, 'D'),
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `tabela_curso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_curso: ~14 rows (aproximadamente)
 INSERT INTO `tabela_curso` (`id`, `nome`) VALUES
@@ -238,12 +238,12 @@ CREATE TABLE IF NOT EXISTS `tabela_login` (
   PRIMARY KEY (`id`),
   KEY `aluno_id` (`aluno_id`),
   CONSTRAINT `tabela_login_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `tabela_usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_login: ~2 rows (aproximadamente)
 INSERT INTO `tabela_login` (`id`, `aluno_id`, `senha`, `perfil`) VALUES
-	(1, 1, '1', 'aluno'),
-	(2, 2, '999', 'admin');
+	(2, 2, '2', 'admin'),
+	(4, 4, '1', 'aluno');
 
 -- Copiando estrutura para tabela aapm.tabela_turma
 CREATE TABLE IF NOT EXISTS `tabela_turma` (
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `tabela_turma` (
   PRIMARY KEY (`id`),
   KEY `curso_id` (`curso_id`),
   CONSTRAINT `tabela_turma_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_turma: ~33 rows (aproximadamente)
 INSERT INTO `tabela_turma` (`id`, `turma`, `curso_id`) VALUES
@@ -303,7 +303,6 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `armario_id` int(11) NOT NULL,
   `data_encerramento` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
   UNIQUE KEY `cpf` (`matricula`) USING BTREE,
   UNIQUE KEY `armario_id` (`armario_id`),
   KEY `curso_id` (`curso_id`),
@@ -312,12 +311,12 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   CONSTRAINT `tabela_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tabela_usuario_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`),
   CONSTRAINT `tabela_usuario_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_usuario: ~2 rows (aproximadamente)
 INSERT INTO `tabela_usuario` (`id`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`) VALUES
-	(1, 'teste', '1', '11988877766', 'teste@gmail.com', 1, 1, 3, '2031-11-18'),
-	(2, 'admin', '999', '11988638137', 'admin@gmail.com', 2, 2, 2, '2025-11-18');
+	(2, 'admin', '2', '11988877766', 'admin@gmail.com', 5, 6, 2, NULL),
+	(4, 'teste', '1', '11988877766', 'teste@gmail.com', 5, 6, 1, NULL);
 
 -- Copiando estrutura para trigger aapm.trg_criar_login
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';

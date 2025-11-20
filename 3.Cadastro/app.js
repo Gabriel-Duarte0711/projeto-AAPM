@@ -1,4 +1,5 @@
 const APICurso = "http://localhost:3000/curso"
+const APIArmario = "http://localhost:3000/armarios"
 const dropDownCurso = document.getElementById('select-curso')
 
 async function buscarCursosDoBanco() {
@@ -34,7 +35,7 @@ const dropDownTurma = document.getElementById('select-turma')
 // carrega as turmas dps que o curso for selecionado
 dropDownCurso.addEventListener('change', () => {
     const curso_id = dropDownCurso.value;
-    const APITurma = `http://localhost:3000/turma/${curso_id}`;
+    const APITurma = `http://localhost:3000/turma/curso/${curso_id}`;
 
 
     async function buscarTurmasDoBanco() {
@@ -135,7 +136,8 @@ async function cadastrar(e) {
     }
 
 
-    const armario_id = 1;
+    const armario_id = window.localStorage.getItem('armarioSelecionado');
+
     const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
 
     try {
@@ -144,11 +146,23 @@ async function cadastrar(e) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novaReserva)
         });
+        const APIArmarioComNumero = `${APIArmario}/${armario_id}`;
+        const requisicaoArmario = await fetch(APIArmarioComNumero, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ estado: "O" })
+        });
+
 
         if (requisicao.ok) {
             const dados = await requisicao.json();
+            if (!requisicaoArmario.ok) {
+                alert("Erro ao atualizar o armário!");
+                return;
+            }
             console.log("reserva salva com sucesso:", dados);
             alert("reserva feita com sucesso!");
+            window.location.href = "../4.Armarios/index.html";
             formCadastrar.reset();
         } else {
             console.error("Erro na requisição:", requisicao.status);
