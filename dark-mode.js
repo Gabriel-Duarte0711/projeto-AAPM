@@ -1,30 +1,23 @@
-// ---- CARREGAR TEMA SALVO ----
-const savedTheme = localStorage.getItem("theme");
-
-// aplica o tema salvo, se existir
-if (savedTheme) {
-    document.documentElement.setAttribute("data-bs-theme", savedTheme);
-}
-
-// ---- BOTÃO DE TROCA DE TEMA ----
+// darkmode.js
 const btn = document.getElementById("toggleDark");
 
-if (btn) {
+if (btn) { // só executa se o botão existir na página
+    // 1 - aplica o tema salvo
+    const temaSalvo = localStorage.getItem("tema");
+    if (temaSalvo === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+
+    // 2 - ajusta o ícone
+    btn.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+
+    // 3 - alterna o tema ao clicar
     btn.addEventListener("click", () => {
-        const currentTheme = document.documentElement.getAttribute("data-bs-theme") || "light";
+        document.body.classList.toggle("dark-mode");
 
-        const newTheme = currentTheme === "light" ? "dark" : "light";
+        const temaAtual = document.body.classList.contains("dark-mode") ? "dark" : "light";
+        localStorage.setItem("tema", temaAtual);
 
-        // aplica
-        document.documentElement.setAttribute("data-bs-theme", newTheme);
-
-        // salva
-        localStorage.setItem("theme", newTheme);
-
-        // muda o ícone do botão
-        btn.textContent = newTheme === "dark" ? "☀️" : "🌙";
+        btn.textContent = temaAtual === "dark" ? "☀️" : "🌙";
     });
 }
-
-// deixa o ícone correto ao carregar a página
-if (savedTheme === "dark" && btn) btn.textContent = "☀️";

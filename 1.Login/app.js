@@ -4,26 +4,6 @@ const inputEmail = document.getElementById("email")
 const inputSenha = document.getElementById("senha")
 const btnEntrar = document.getElementById("btnEntrar")
 const checkboxLembrar = document.getElementById("remember")
-const btn = document.getElementById("toggleDark");
-
-// Carregar tema salvo antes de qualquer coisa
-const temaSalvo = localStorage.getItem("tema");
-
-if (temaSalvo === "dark") {
-    document.body.classList.add("dark-mode");
-}
-btn.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
-
-btn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-
-    const temaAtual = document.body.classList.contains("dark-mode") ? "dark" : "light";
-    localStorage.setItem("tema", temaAtual);
-
-    btn.textContent = temaAtual === "dark" ? "☀️" : "🌙";
-});
-
-
 
 async function buscarLoginDoBanco() {
     try {

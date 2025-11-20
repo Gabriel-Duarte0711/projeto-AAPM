@@ -89,41 +89,11 @@ a {
     background-repeat: no-repeat;
     color: var(--white)!important;
 }
-.dark-mode .form-check-input{
-    background-color: var(--dark-blue);
-    border: none;
-}
-.dark-mode .form-check-input:checked{
-    background-color: var(--blue);
-    border: none;
-}
 
-.dark-mode .mb-3 input {
+.dark-mode .container-lg {
     background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-    border: 1px solid #334155 !important;
 }
-.dark-mode .mb-3 input::placeholder {
-    color:var(--white) !important;
-}
-.dark-mode input.form-control {
-    background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-}
-
-.dark-mode .btn-primary {
+.dark-mode .container-lg:hover {
     background-color: var(--blue) !important;
-    border-color: var(--blue) !important;
-}
-.dark-mode .btn-primary:hover {
-    background-color: var(--dark-blue) !important;
 }
 
-.dark-mode .entre-aqui {
-    color: var(--white)!important;
-}
-.dark-mode h1,
-.dark-mode h3,
-.dark-mode span {
-    color: var(--white)!important;
-}

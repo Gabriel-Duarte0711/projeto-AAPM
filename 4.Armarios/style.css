@@ -216,3 +216,29 @@ body {
 #btnExcluir:hover , #btnAtualizar:hover {
     transform: scale(1.10);
 }
+
+.dark-mode,
+.dark-mode body {
+    background-color: var(--light-blue) !important;
+    background-image: url("..//fundo-tela-dark.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--white)!important;
+}
+
+.dark-mode .form-check-input:checked{
+    background-color: var(--blue);
+    border: none;
+}
+
+.dark-mode .pop {
+    background-color: var(--dark-blue) !important;
+}
+
+.dark-mode #atualizrEstado {
+    background-color: var(--light-blue) !important;
+}
+.dark-mode #atualizrEstado:hover {
+    background-color: var(--blue) !important;
+}
