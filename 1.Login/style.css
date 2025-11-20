@@ -18,8 +18,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    margin: 0;
+    padding: 0;
+    /*fundo tela*/
+    background-image: url("..//fundo-tela.svg");
+    background-size: cover;    
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
 
 .logo-aapm {
     position: absolute;
