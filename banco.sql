@@ -26,18 +26,18 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
   PRIMARY KEY (`numero_armario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_armario: ~30 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_armario: ~176 rows (aproximadamente)
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`) VALUES
 	(1, 'O'),
-	(2, 'D'),
+	(2, 'O'),
 	(3, 'D'),
-	(4, 'M'),
-	(5, 'M'),
+	(4, 'D'),
+	(5, 'D'),
 	(6, 'D'),
 	(7, 'D'),
-	(8, 'M'),
+	(8, 'D'),
 	(9, 'D'),
-	(10, 'O'),
+	(10, 'D'),
 	(11, 'D'),
 	(12, 'D'),
 	(13, 'M'),
@@ -47,7 +47,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`) VALUES
 	(17, 'M'),
 	(18, 'D'),
 	(19, 'M'),
-	(20, 'D'),
+	(20, 'O'),
 	(21, 'D'),
 	(22, 'D'),
 	(23, 'M'),
@@ -233,17 +233,17 @@ INSERT INTO `tabela_curso` (`id`, `nome`) VALUES
 CREATE TABLE IF NOT EXISTS `tabela_login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `aluno_id` int(11) NOT NULL,
-  `senha` varchar(50) DEFAULT NULL,
+  `senha` varchar(255) DEFAULT NULL,
   `perfil` enum('aluno','admin') DEFAULT 'aluno',
   PRIMARY KEY (`id`),
   KEY `aluno_id` (`aluno_id`),
   CONSTRAINT `tabela_login_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `tabela_usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_login: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_login: ~2 rows (aproximadamente)
 INSERT INTO `tabela_login` (`id`, `aluno_id`, `senha`, `perfil`) VALUES
-	(2, 2, '2', 'admin'),
-	(4, 4, '1', 'aluno');
+	(1, 1, '$2b$10$9qiAN1BpNXx2pTqv8PA8ZuHdKuBkZ23rxScUHSvYqtJvr7oh9N0F6', 'aluno'),
+	(2, 2, '$2b$10$lBsQpIQqr9AdMR2nMxrkReiXWARvevdsMvbNboMiFonT8fZSYxGFi', 'admin');
 
 -- Copiando estrutura para tabela aapm.tabela_turma
 CREATE TABLE IF NOT EXISTS `tabela_turma` (
@@ -299,14 +299,14 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `CPF` varchar(20) NOT NULL,
-  `matricula` char(11) NOT NULL,
+  `matricula` char(50) NOT NULL,
   `telefone` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
   `curso_id` int(11) NOT NULL,
-  `turma_id` int(11) DEFAULT NULL,
+  `turma_id` int(11) NOT NULL,
   `armario_id` int(11) NOT NULL,
   `data_encerramento` date DEFAULT NULL,
-  `pagamento` enum('C','D','P','A') DEFAULT NULL,
+  `pagamento` enum('C','D','P','A') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `armario_id` (`armario_id`),
   UNIQUE KEY `matricula` (`matricula`) USING BTREE,
@@ -317,28 +317,12 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   CONSTRAINT `tabela_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tabela_usuario_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`),
   CONSTRAINT `tabela_usuario_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_usuario: ~2 rows (aproximadamente)
 INSERT INTO `tabela_usuario` (`id`, `nome`, `CPF`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`, `pagamento`) VALUES
-	(2, 'admin', '123', '2', '11988877766', 'admin@gmail.com', 5, 6, 2, NULL, NULL),
-	(4, 'teste', '121', '1', '11988877766', 'teste@gmail.com', 5, 6, 1, NULL, NULL);
-
--- Copiando estrutura para trigger aapm.trg_criar_login
-SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
-DELIMITER //
-CREATE TRIGGER trg_criar_login
-AFTER INSERT ON tabela_usuario
-FOR EACH ROW
-BEGIN
-    -- Só cria login se ainda não existir para esse aluno
-    IF NOT EXISTS (SELECT 1 FROM tabela_login WHERE aluno_id = NEW.id) THEN
-        INSERT INTO tabela_login (aluno_id, senha)
-        VALUES (NEW.id, NEW.matricula);
-    END IF;
-END//
-DELIMITER ;
-SET SQL_MODE=@OLDTMP_SQL_MODE;
+	(1, 'Gabs', '55522233311', '3321', '11988877766', 'gabs@gmail.com', 10, 22, 1, NULL, 'A'),
+	(2, 'admin', '55522233322', '1111', '11988877766', 'admin@gmail.com', 5, 6, 2, NULL, 'P');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

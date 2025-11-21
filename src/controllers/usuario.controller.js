@@ -1,5 +1,7 @@
 
 import { db } from "../config/db.js"
+
+import bcrypt from "bcrypt"
 // ============================
 //  Rotas CRUD
 // ============================
@@ -11,11 +13,18 @@ export async function criarUsuario(req, res) {
     if (!nome || !CPF || !matricula || !telefone || !email || !curso_id || !turma_id || !armario_id || !pagamento)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
-    await db.execute(
+    const [resultado] = await db.execute(
       "INSERT INTO tabela_usuario (nome, CPF, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [nome, CPF,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento],
 
     );
+    const aluno_id = resultado.insertId;
+    const hashedPassword = await bcrypt.hash(CPF, 10)
+
+    await db.execute(
+      "INSERT INTO tabela_login (aluno_id, senha) VALUES (?, ?)",
+      [aluno_id, hashedPassword]
+    )
 
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
   } catch (err) {
@@ -67,7 +76,7 @@ export async function deletarUsuario(req, res) {
   try {
     const userId = req.params.id;
 
-    await db.execute("DELETE FROM tabela_login WHERE id = ?", [userId]);
+    await db.execute("DELETE FROM tabela_login WHERE aluno_id = ?", [userId]);
     await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [userId]);
     res.json({ mensagem: "Usuário deletado com sucesso!" });
   } catch (err) {
