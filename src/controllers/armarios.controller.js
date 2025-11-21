@@ -6,16 +6,19 @@ export async function listarArmariosL(req, res) {
       SELECT 
         a.numero_armario,
         u.nome,
-        u.id,
+        u.CPF,
+        u.matricula,
         u.telefone,
         u.email,
+        u.pagamento,
+        u.id,
         c.nome AS curso,
         t.turma,
         u.data_encerramento
       FROM tabela_usuario u
       JOIN tabela_armario a ON u.armario_id = a.numero_armario
       JOIN tabela_curso c ON u.curso_id = c.id
-      JOIN tabela_turma t ON c.id = t.curso_id
+      JOIN tabela_turma t ON u.turma_id = t.id
     `;
 
     const [rows] = await db.query(sql);

@@ -124,11 +124,10 @@ async function cadastrar(e) {
         alert("Por gentileza, preencha os campos obrigatórios (nome, CPF, matricula, telefone, email, curso, turma e pagamento).");
         return;
     }
-    
-    const CPFJaExiste = usuarios.some(u => u.CPF === CPF);
 
+    const CPFJaExiste = usuarios.some(u => String(u.CPF).trim() === CPF);
 
-    if(CPFJaExiste){
+    if (CPFJaExiste) {
         alert("CPF já cadastrado");
         return;
     }
@@ -149,7 +148,7 @@ async function cadastrar(e) {
 
     const armario_id = window.localStorage.getItem('armarioSelecionado');
 
-    const novaReserva = { nome, CPF,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento }
+    const novaReserva = { nome, CPF, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento }
 
     try {
         const requisicao = await fetch(APIUsuario, {

@@ -63,24 +63,36 @@ async function carregarArmarios() {
                 const dataFormatada = data.toLocaleDateString("pt-BR");
                 infos.innerHTML += `
             <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>
+            <p class="info" data-cpf="${user.cpf}"></p>
+            <p class="info" data-matricula="${user.matricula}"></p>
             <p class="info" data-telefone="${user.telefone}"></p>
             <p class="info" data-email="${user.email}"></p>
             <p class="info" data-curso="${user.curso}"></p>
             <p class="info" data-turma="${user.turma}"></p>
+            <p class="info" data-pagamento="${user.pagamento}"></p>
             <p class="info" data-turma="${dataFormatada}"></p>`;
                 const popup = document.querySelector(".exibirPop");
                 const pop = document.querySelector(".pop");
                 function abrirPopup(user) {
                     pop.innerHTML = "";
                     pop.innerHTML = `
-                       <h2>${user.nome}</h2>
-                         <p>Telefone: ${user.telefone}</p>
-                         <p>Email: ${user.email}</p>
-                         <p>Curso: ${user.curso}</p>
-                         <p>Turma: ${user.turma}</p>
-                         <p>Data de encerramento: ${dataFormatada}</p>
-                         <button type="button" id="btnExcluir">Excluir</button>
-                         <button type="button" id="btnAtualizar">Atualizar</button>`;
+                    <h2 class="pop-title">${user.nome}</h2>
+
+                    <div class="pop-info-group">
+                        <p><span>Telefone:</span> ${user.telefone}</p>
+                        <p><span>CPF:</span> ${user.cpf}</p>
+                        <p><span>Email:</span> ${user.email}</p>
+                        <p><span>Curso:</span> ${user.curso}</p>
+                        <p><span>Turma:</span> ${user.turma}</p>
+                        <p><span>Pagamento:</span> ${user.pagamento}</p>
+                        <p><span>Data de encerramento:</span> ${dataFormatada}</p>
+                    </div>
+
+                    <div class="pop-buttons">
+                        <button type="button" id="btnExcluir">Excluir</button>
+                        <button type="button" id="btnAtualizar">Atualizar</button>
+                    </div>
+                    `;
 
                     popup.style.display = "flex";
                     // BOTAO DE EXCLUIR
@@ -93,7 +105,7 @@ async function carregarArmarios() {
                                 method: "DELETE",
                                 headers: { "Content-Type": "application/json" },
                             });
-                             const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
                             const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
                                 method: "PUT",
                                 headers: { "Content-Type": "application/json" },
