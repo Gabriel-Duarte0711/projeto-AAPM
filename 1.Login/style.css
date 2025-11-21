@@ -122,11 +122,12 @@ body {
 }
 
 .dark-mode .btn-primary {
-    background-color: var(--blue) !important;
-    border-color: var(--blue) !important;
+    background-color: var(--white) !important;
+    color: var(--dark-blue) !important;
 }
 .dark-mode .btn-primary:hover {
-    background-color: var(--dark-blue) !important;
+    background-color: var(--blue) !important;
+    color: white !important;
 }
 
 .dark-mode .entre-aqui {
