@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
   PRIMARY KEY (`numero_armario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_armario: ~176 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_armario: ~30 rows (aproximadamente)
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`) VALUES
 	(1, 'O'),
 	(2, 'D'),
@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `tabela_login` (
   CONSTRAINT `tabela_login_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `tabela_usuario` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_login: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_login: ~1 rows (aproximadamente)
 INSERT INTO `tabela_login` (`id`, `aluno_id`, `senha`, `perfil`) VALUES
 	(2, 2, '2', 'admin'),
 	(4, 4, '1', 'aluno');
@@ -250,51 +250,55 @@ CREATE TABLE IF NOT EXISTS `tabela_turma` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `turma` varchar(100) NOT NULL,
   `curso_id` int(11) NOT NULL,
+  `periodo` enum('M','V','N','I') DEFAULT NULL,
+  `semestre_inicio` enum('1','2') DEFAULT NULL,
+  `ano_inicio` year(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `curso_id` (`curso_id`),
   CONSTRAINT `tabela_turma_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_turma: ~33 rows (aproximadamente)
-INSERT INTO `tabela_turma` (`id`, `turma`, `curso_id`) VALUES
-	(1, 'PEF-03-FUA', 1),
-	(2, 'PES-04-EJS', 2),
-	(3, 'CSTPME225N1', 3),
-	(4, 'CSTPME124N4', 3),
-	(5, '1NA', 4),
-	(6, '2DS', 5),
-	(7, '2NA', 4),
-	(8, 'ADM1A-SESI', 6),
-	(9, 'ADM2A-SESI', 6),
-	(10, 'ADM2B-SESI', 6),
-	(11, 'DS1A-SESI', 5),
-	(12, 'DS1B-SESI', 5),
-	(13, 'DS2A-SESI', 5),
-	(14, 'DS2B-SESI', 5),
-	(15, 'MT1A-SESI', 4),
-	(16, 'MT1B-SESI', 4),
-	(17, 'MT1-SEDUC', 4),
-	(18, 'MT2-SESI', 4),
-	(19, 'I1CMFF', 7),
-	(20, 'I1PMFF', 8),
-	(21, 'M1ADM', 9),
-	(22, 'M1ALP', 10),
-	(23, 'M1EME', 11),
-	(24, 'M2IRET', 12),
-	(25, 'M2MM', 13),
-	(26, 'M4MM', 13),
-	(27, 'T1ADM', 9),
-	(28, 'T1EME', 11),
-	(29, 'T1SOL', 14),
-	(30, 'T2ALP', 10),
-	(31, 'T2MM', 13),
-	(32, 'T3EME', 11),
-	(33, 'T4MM', 13);
+INSERT INTO `tabela_turma` (`id`, `turma`, `curso_id`, `periodo`, `semestre_inicio`, `ano_inicio`) VALUES
+	(1, 'PEF-03-FUA', 1, NULL, NULL, NULL),
+	(2, 'PES-04-EJS', 2, NULL, NULL, NULL),
+	(3, 'CSTPME225N1', 3, NULL, NULL, NULL),
+	(4, 'CSTPME124N4', 3, NULL, NULL, NULL),
+	(5, '1NA', 4, NULL, NULL, NULL),
+	(6, '2DS', 5, NULL, NULL, NULL),
+	(7, '2NA', 4, NULL, NULL, NULL),
+	(8, 'ADM1A-SESI', 6, NULL, NULL, NULL),
+	(9, 'ADM2A-SESI', 6, NULL, NULL, NULL),
+	(10, 'ADM2B-SESI', 6, NULL, NULL, NULL),
+	(11, 'DS1A-SESI', 5, NULL, NULL, NULL),
+	(12, 'DS1B-SESI', 5, NULL, NULL, NULL),
+	(13, 'DS2A-SESI', 5, NULL, NULL, NULL),
+	(14, 'DS2B-SESI', 5, NULL, NULL, NULL),
+	(15, 'MT1A-SESI', 4, NULL, NULL, NULL),
+	(16, 'MT1B-SESI', 4, NULL, NULL, NULL),
+	(17, 'MT1-SEDUC', 4, NULL, NULL, NULL),
+	(18, 'MT2-SESI', 4, NULL, NULL, NULL),
+	(19, 'I1CMFF', 7, NULL, NULL, NULL),
+	(20, 'I1PMFF', 8, NULL, NULL, NULL),
+	(21, 'M1ADM', 9, NULL, NULL, NULL),
+	(22, 'M1ALP', 10, NULL, NULL, NULL),
+	(23, 'M1EME', 11, NULL, NULL, NULL),
+	(24, 'M2IRET', 12, NULL, NULL, NULL),
+	(25, 'M2MM', 13, NULL, NULL, NULL),
+	(26, 'M4MM', 13, NULL, NULL, NULL),
+	(27, 'T1ADM', 9, NULL, NULL, NULL),
+	(28, 'T1EME', 11, NULL, NULL, NULL),
+	(29, 'T1SOL', 14, NULL, NULL, NULL),
+	(30, 'T2ALP', 10, NULL, NULL, NULL),
+	(31, 'T2MM', 13, NULL, NULL, NULL),
+	(32, 'T3EME', 11, NULL, NULL, NULL),
+	(33, 'T4MM', 13, NULL, NULL, NULL);
 
 -- Copiando estrutura para tabela aapm.tabela_usuario
 CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
+  `CPF` varchar(20) NOT NULL,
   `matricula` char(11) NOT NULL,
   `telefone` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -302,9 +306,11 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `turma_id` int(11) DEFAULT NULL,
   `armario_id` int(11) NOT NULL,
   `data_encerramento` date DEFAULT NULL,
+  `pagamento` enum('C','D','P','A') DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `cpf` (`matricula`) USING BTREE,
   UNIQUE KEY `armario_id` (`armario_id`),
+  UNIQUE KEY `matricula` (`matricula`) USING BTREE,
+  UNIQUE KEY `CPF` (`CPF`),
   KEY `curso_id` (`curso_id`),
   KEY `tabela_armario_ibfk_2` (`armario_id`),
   KEY `tabela_usuario_ibfk_3` (`turma_id`),
@@ -314,9 +320,9 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_usuario: ~2 rows (aproximadamente)
-INSERT INTO `tabela_usuario` (`id`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`) VALUES
-	(2, 'admin', '2', '11988877766', 'admin@gmail.com', 5, 6, 2, NULL),
-	(4, 'teste', '1', '11988877766', 'teste@gmail.com', 5, 6, 1, NULL);
+INSERT INTO `tabela_usuario` (`id`, `nome`, `CPF`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`, `pagamento`) VALUES
+	(2, 'admin', '123', '2', '11988877766', 'admin@gmail.com', 5, 6, 2, NULL, NULL),
+	(4, 'teste', '121', '1', '11988877766', 'teste@gmail.com', 5, 6, 1, NULL, NULL);
 
 -- Copiando estrutura para trigger aapm.trg_criar_login
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';

@@ -78,9 +78,11 @@ dropDownCurso.addEventListener('change', () => {
 const APIUsuario = "http://localhost:3000/usuario"
 
 const inputNome = document.getElementById("nome")
+const inputCPF = document.getElementById("CPF")
 const inputMatricula = document.getElementById("matricula")
 const inputTelefone = document.getElementById("telefone")
 const inputEmail = document.getElementById("email")
+const dropDownPagamento = document.getElementById("select-pagamento")
 const formCadastrar = document.getElementById("formsCadastro")
 
 async function cadastrar(e) {
@@ -104,10 +106,12 @@ async function cadastrar(e) {
     }
     const nome = inputNome.value.trim();
     const matricula = inputMatricula.value.trim();
+    const CPF = inputCPF.value.trim();
     const telefone = inputTelefone.value.trim().replace(/\D/g, '');
     const email = inputEmail.value.trim();
     const curso_id = dropDownCurso.value;
     const turma_id = dropDownTurma.value;
+    const pagamento = dropDownPagamento.value;
 
     const usuarios = await buscarUsuarioDoBanco();
 
@@ -116,17 +120,24 @@ async function cadastrar(e) {
         return;
     }
 
-    if (!nome || !matricula || !telefone || !email || !curso_id || !turma_id) {
-        alert("Por gentileza, preencha os campos obrigatórios (nome, matricula, telefone, email, curso e turma).");
+    if (!nome || !CPF || !matricula || !telefone || !email || !curso_id || !turma_id || !pagamento) {
+        alert("Por gentileza, preencha os campos obrigatórios (nome, CPF, matricula, telefone, email, curso, turma e pagamento).");
         return;
     }
+    
+    const CPFJaExiste = usuarios.some(u => u.CPF === CPF);
 
+
+    if(CPFJaExiste){
+        alert("CPF já cadastrado");
+        return;
+    }
     const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
     if (matriculaJaExiste) {
         alert("Matrícula já cadastrada");
         return;
     }
-    if (!validator.isMobilePhone('+55' + telefone, 'pt-BR')) {
+    if (!validator.isMobilePhone(telefone, 'pt-BR')) {
         alert("telefone invalido")
         return;
     }
@@ -138,7 +149,7 @@ async function cadastrar(e) {
 
     const armario_id = window.localStorage.getItem('armarioSelecionado');
 
-    const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
+    const novaReserva = { nome, CPF,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento }
 
     try {
         const requisicao = await fetch(APIUsuario, {
