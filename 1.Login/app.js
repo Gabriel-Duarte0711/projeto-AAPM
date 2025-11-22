@@ -5,6 +5,15 @@ const inputSenha = document.getElementById("senha")
 const btnEntrar = document.getElementById("btnEntrar")
 const checkboxLembrar = document.getElementById("remember")
 
+const Toast = Swal.mixin({
+  toast: true,          
+  position: 'top-end',   
+  showConfirmButton: false,
+  timer: 2000,           
+  timerProgressBar: true,
+});
+
+
 async function buscarLoginDoBanco() {
     try {
         const response = await fetch(APILogin);
@@ -42,7 +51,7 @@ btnEntrar.addEventListener('click', async () => {
     const loginUsuario = await buscarLoginDoBanco();
     const usuario = await buscarUsuarioDoBanco();
     if (!loginUsuario || !usuario) {
-        alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        Toast.fire("Erro ao conectar ao servidor. Tente novamente mais tarde.");
         return;
     }
     const email = inputEmail.value.trim();
@@ -51,7 +60,7 @@ btnEntrar.addEventListener('click', async () => {
     const emailExiste = usuario.find(user => user.email === email)
 
     if (!emailExiste) {
-        alert("email nao cadastrado")
+        Toast.fire("Email nao cadastrado")
         return;
     }
 
@@ -76,6 +85,6 @@ btnEntrar.addEventListener('click', async () => {
         }
 
     } else {
-        alert("Senha incorreta");
+        Toast.fire("Senha incorreta");
     }
 })
