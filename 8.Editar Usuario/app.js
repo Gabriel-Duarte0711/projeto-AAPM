@@ -1,8 +1,12 @@
-
 const dropDownCurso = document.getElementById('select-curso')
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get('id');
 const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
-const aluno_id = sessionId || localId;
+
+const aluno_id = userId || sessionId || localId;
+
+console.log('ID do usuário sendo editado:', aluno_id);
 async function buscarCursosDoBanco() {
     try {
         const response = await fetch(APICurso);
@@ -20,16 +24,16 @@ async function buscarCursosDoBanco() {
     }
 }
 
-// cadastro de um aluno
 const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`
 
 const inputNome = document.getElementById("nome")
+const inputCPF = document.getElementById("CPF")
 const inputMatricula = document.getElementById("matricula")
 const inputTelefone = document.getElementById("telefone")
 const inputEmail = document.getElementById("email")
-const inputCurso = document.getElementById("curso")
-const inputTurma = document.getElementById("turma")
-const formCadastrar = document.getElementById("formsCadastro")
+const selectCurso = document.getElementById("select-curso")
+const selectTurma = document.getElementById("select-turma")
+const selectPagamento = document.getElementById("select-pagamento")
 
 async function carregarUsuario() {
     async function buscarUsuarioDoBanco() {
@@ -86,13 +90,61 @@ async function carregarUsuario() {
     }
     const cursos = await buscarCursoDoBanco();
     const turmas = await buscarTurmasDoBanco();
-    console.log(usuarios.turma_id)
-    console.log(turmas)
+
     inputNome.value = usuarios.nome;
+    inputCPF.value = usuarios.CPF;
     inputMatricula.value = usuarios.matricula;
     inputTelefone.value = usuarios.telefone;
     inputEmail.value = usuarios.email;
-    inputCurso.value =  cursos.nome;
-    inputTurma.value = turmas.turma;
+
+    selectCurso.innerHTML = `<option value="${cursos.id}" selected>${cursos.nome}</option>`;
+    selectTurma.innerHTML = `<option value="${turmas.id}" selected>${turmas.turma}</option>`;
+    selectPagamento.value = usuarios.pagamento;
 }
 carregarUsuario()
+
+const formCadastrar = document.getElementById("formsCadastro")
+
+formCadastrar.addEventListener('submit', async (e) => {
+    e.preventDefault(); 
+
+    const dadosAtualizados = {
+        nome: inputNome.value,
+        CPF: inputCPF.value,
+        matricula: inputMatricula.value,
+        telefone: inputTelefone.value,
+        email: inputEmail.value,
+        curso_id: selectCurso.value,
+        turma_id: selectTurma.value,
+        pagamento: selectPagamento.value,
+    };
+    
+    console.log('Dados que serão enviados:', dadosAtualizados);
+    
+    try {
+        const response = await fetch(APIUsuario, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dadosAtualizados)
+        });
+        
+        if (response.ok) {
+            const resultado = await response.json();
+            console.log('Usuário atualizado com sucesso!', resultado);
+            
+            alert('Usuário atualizado com sucesso!');
+            
+            window.location.href = "../4.Armarios/index.html";
+            
+        } else {
+            console.error('Erro na requisição:', response.status);
+            alert('Erro ao atualizar usuário. Código: ' + response.status);
+        }
+        
+    } catch (error) {
+        console.error('Erro no fetch:', error);
+        alert('Erro de conexão com o servidor.');
+    }
+});
