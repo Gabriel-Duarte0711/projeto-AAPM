@@ -21,12 +21,12 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
-         /*fundo tela*/
+    /*fundo tela*/
     background-image: url("..//fundo-tela.svg");
-    background-size: cover;    
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-     background-attachment: fixed;
+    background-attachment: fixed;
 }
 
 .logo-aapm {
@@ -106,6 +106,7 @@ body {
     top: 80px;
     gap: 40px;
 }
+
 .exibirPop {
     position: fixed;
     top: 0;
@@ -130,6 +131,8 @@ body {
     color: var(--white);
     box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.25);
     animation: fadeInScale 0.25s ease-out;
+    background-color: var(--light-blue);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.577);
 }
 
 
@@ -138,6 +141,7 @@ body {
         opacity: 0;
         transform: scale(0.8);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -154,20 +158,24 @@ body {
 .pop-info-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;    
-    margin-bottom: 8px;
-    text-align: left;       
+    gap: 4px;
+    margin-bottom: 4px;
+    text-align: left;
 }
 
 .pop-info-group span {
-    font-weight: 600;
-    color: #dbeafe;
+    font-weight: 700;
+    color: var(--white);
+}
+.pop-info-group p {
+    font-weight: 50;
+    color: var(--white);
 }
 
 .pop-buttons {
     display: flex;
     flex-direction: column;
-    gap: 5px;        
+    gap: 5px;
 }
 
 .form-check {
@@ -234,14 +242,9 @@ body {
     transform: scale(1.05);
 }
 
-.pop {
-    background-color: var(--light-blue);
-    color: var(--white);
-    height: auto;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.577);
-}
 
-#btnExcluir, #btnAtualizar {
+#btnExcluir,
+#btnAtualizar {
     margin-top: 10px;
     width: 100%;
     padding: 10px 12px;
@@ -254,7 +257,8 @@ body {
     border: none;
 }
 
-#btnExcluir:hover , #btnAtualizar:hover {
+#btnExcluir:hover,
+#btnAtualizar:hover {
     transform: scale(1.10);
 }
 
@@ -262,13 +266,13 @@ body {
 .dark-mode body {
     background-color: var(--light-blue) !important;
     background-image: url("..//fundo-tela-dark.svg");
-    background-size: cover;    
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: var(--white)!important;
+    color: var(--white) !important;
 }
 
-.dark-mode .form-check-input:checked{
+.dark-mode .form-check-input:checked {
     background-color: var(--blue);
     border: none;
 }
@@ -280,6 +284,7 @@ body {
 .dark-mode #atualizrEstado {
     background-color: var(--light-blue) !important;
 }
+
 .dark-mode #atualizrEstado:hover {
     background-color: var(--blue) !important;
 }
