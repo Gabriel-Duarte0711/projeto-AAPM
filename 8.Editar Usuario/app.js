@@ -4,6 +4,14 @@ const userId = urlParams.get('id');
 const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+});
+
 const aluno_id = userId || sessionId || localId;
 
 console.log('ID do usuário sendo editado:', aluno_id);
@@ -106,7 +114,7 @@ carregarUsuario()
 const formCadastrar = document.getElementById("formsCadastro")
 
 formCadastrar.addEventListener('submit', async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     const dadosAtualizados = {
         nome: inputNome.value,
@@ -118,9 +126,9 @@ formCadastrar.addEventListener('submit', async (e) => {
         turma_id: selectTurma.value,
         pagamento: selectPagamento.value,
     };
-    
+
     console.log('Dados que serão enviados:', dadosAtualizados);
-    
+
     try {
         const response = await fetch(APIUsuario, {
             method: "PUT",
@@ -129,22 +137,26 @@ formCadastrar.addEventListener('submit', async (e) => {
             },
             body: JSON.stringify(dadosAtualizados)
         });
-        
+
         if (response.ok) {
             const resultado = await response.json();
             console.log('Usuário atualizado com sucesso!', resultado);
-            
-            alert('Usuário atualizado com sucesso!');
-            
-            window.location.href = "../4.Armarios/index.html";
-            
+            Swal.fire({
+                title: "Usuário atualizado!",
+                icon: "success",
+                draggable: true,
+                timer: 1500,          
+                showConfirmButton: false 
+            }).then(() => {
+                window.location.href = "../4.Armarios/index.html";
+            });
         } else {
             console.error('Erro na requisição:', response.status);
-            alert('Erro ao atualizar usuário. Código: ' + response.status);
+            Toast.fire('Erro ao atualizar usuário. Código: ' + response.status);
         }
-        
+
     } catch (error) {
         console.error('Erro no fetch:', error);
-        alert('Erro de conexão com o servidor.');
+        Toast.fire('Erro de conexão com o servidor.');
     }
 });

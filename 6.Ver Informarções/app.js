@@ -1,8 +1,16 @@
-
 const dropDownCurso = document.getElementById('select-curso')
 const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const aluno_id = sessionId || localId;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+});
+
 async function buscarCursosDoBanco() {
     try {
         const response = await fetch(APICurso);

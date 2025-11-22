@@ -2,6 +2,14 @@ const APICurso = "http://localhost:3000/curso"
 const APIArmario = "http://localhost:3000/armarios"
 const dropDownCurso = document.getElementById('select-curso')
 
+const Toast = Swal.mixin({
+  toast: true,          
+  position: 'top-end',   
+  showConfirmButton: false,
+  timer: 2000,           
+  timerProgressBar: true,
+});
+
 async function buscarCursosDoBanco() {
     try {
         const response = await fetch(APICurso);
@@ -116,32 +124,32 @@ async function cadastrar(e) {
     const usuarios = await buscarUsuarioDoBanco();
 
     if (!usuarios) {
-        alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        Toast.fire("Erro ao conectar ao servidor. Tente novamente mais tarde.");
         return;
     }
 
     if (!nome || !CPF || !matricula || !telefone || !email || !curso_id || !turma_id || !pagamento) {
-        alert("Por gentileza, preencha os campos obrigatórios (nome, CPF, matricula, telefone, email, curso, turma e pagamento).");
+        Toast.fire("Por gentileza, preencha os campos obrigatórios (nome, CPF, matricula, telefone, email, curso, turma e pagamento).");
         return;
     }
 
     const CPFJaExiste = usuarios.some(u => String(u.CPF).trim() === CPF);
 
     if (CPFJaExiste) {
-        alert("CPF já cadastrado");
+        Toast.fire("CPF já cadastrado");
         return;
     }
     const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
     if (matriculaJaExiste) {
-        alert("Matrícula já cadastrada");
+        Toast.fire("Matrícula já cadastrada");
         return;
     }
     if (!validator.isMobilePhone(telefone, 'pt-BR')) {
-        alert("telefone invalido")
+        Toast.fire("Telefone invalido")
         return;
     }
     if (!validator.isEmail(email)) {
-        alert("email invalido")
+        Toast.fire("Email invalido")
         return;
     }
 
@@ -167,22 +175,22 @@ async function cadastrar(e) {
         if (requisicao.ok) {
             const dados = await requisicao.json();
             if (!requisicaoArmario.ok) {
-                alert("Erro ao atualizar o armário!");
+                Toast.fire("Erro ao atualizar o armário!");
                 return;
             }
             console.log("reserva salva com sucesso:", dados);
-            alert("reserva feita com sucesso!");
+            Toast.fire("reserva feita com sucesso!");
             window.location.href = "../4.Armarios/index.html";
             formCadastrar.reset();
         } else {
             console.error("Erro na requisição:", requisicao.status);
-            alert("Erro ao fazer reserva. Código: " + requisicao.status);
+            Toast.fire("Erro ao fazer reserva. Código: " + requisicao.status);
         }
 
 
     } catch (error) {
         console.error("Erro no fetch:", error);
-        alert("Erro de conexão com o servidor.");
+        Toast.fire("Erro de conexão com o servidor.");
     }
 }
 formCadastrar.addEventListener("submit", cadastrar);

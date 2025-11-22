@@ -1,6 +1,15 @@
 const APIArmario = "http://localhost:3000/armarios"
 const APIUsuario = "http://localhost:3000/usuario"
 const APIUsuarioArmario = "http://localhost:3000/armarios/obterUsuario"
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+});
+
 async function buscarArmariosDoBanco() {
     try {
         const response = await fetch(APIArmario);
@@ -132,13 +141,13 @@ async function carregarArmarios() {
                                 window.location.reload();
                             } else {
                                 console.error("Erro na requisição:", requisicao.status);
-                                alert("Erro ao excluir usuario. Código: " + requisicao.status);
+                                Toast.fire("Erro ao excluir usuario. Código: " + requisicao.status);
                             }
 
 
                         } catch (error) {
                             console.error("Erro no fetch:", error);
-                            alert("Erro de conexão com o servidor.");
+                            Toast.fire("Erro de conexão com o servidor.");
                         }
                     })
                 }
@@ -188,13 +197,13 @@ async function carregarArmarios() {
                             window.location.reload();
                         } else {
                             console.error("Erro na requisição:", requisicao.status);
-                            alert("Erro ao fazer mudar armario. Código: " + requisicao.status);
+                            Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
                         }
 
 
                     } catch (error) {
                         console.error("Erro no fetch:", error);
-                        alert("Erro de conexão com o servidor.");
+                        Toast.fire("Erro de conexão com o servidor.");
                     }
                 })
 
@@ -250,13 +259,13 @@ async function carregarArmarios() {
                             window.location.reload();
                         } else {
                             console.error("Erro na requisição:", requisicao.status);
-                            alert("Erro ao fazer mudar armario. Código: " + requisicao.status);
+                            Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
                         }
 
 
                     } catch (error) {
                         console.error("Erro no fetch:", error);
-                        alert("Erro de conexão com o servidor.");
+                        Toast.fire("Erro de conexão com o servidor.");
                     }
                 })
 

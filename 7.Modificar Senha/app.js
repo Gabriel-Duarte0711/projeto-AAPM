@@ -2,6 +2,14 @@ const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const aluno_id = sessionId || localId;
 
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+});
+
 const inputSenhaAtual = document.getElementById("senhaAtual")
 const inputSenhaNova = document.getElementById("senhaNova")
 const inputConfirmarSenha = document.getElementById("confirmarSenha")
@@ -26,26 +34,26 @@ async function buscarSenhaDoBanco() {
     }
 }
 function verificarSenha(senha) {
-        const erros = [];
+    const erros = [];
 
-        if (!validator.isLength(senha, { min: 8 })) {
-            erros.push("Senha precisa ter pelo menos 8 caracteres");
-        }
-        if (!/[a-z]/.test(senha)) {
-            erros.push("Senha precisa ter pelo menos uma letra minúscula");
-        }
-        if (!/[A-Z]/.test(senha)) {
-            erros.push("Senha precisa ter pelo menos uma letra maiúscula");
-        }
-        if (!/[0-9]/.test(senha)) {
-            erros.push("Senha precisa ter pelo menos um número");
-        }
-        if (!/[^A-Za-z0-9]/.test(senha)) {
-            erros.push("Senha precisa ter pelo menos um símbolo especial");
-        }
-
-        return erros;
+    if (!validator.isLength(senha, { min: 8 })) {
+        erros.push("Senha precisa ter pelo menos 8 caracteres;");
     }
+    if (!/[a-z]/.test(senha)) {
+        erros.push("Senha precisa ter pelo menos uma letra minúscula;");
+    }
+    if (!/[A-Z]/.test(senha)) {
+        erros.push("Senha precisa ter pelo menos uma letra maiúscula;");
+    }
+    if (!/[0-9]/.test(senha)) {
+        erros.push("Senha precisa ter pelo menos um número;");
+    }
+    if (!/[^A-Za-z0-9]/.test(senha)) {
+        erros.push("Senha precisa ter pelo menos um símbolo especial;");
+    }
+
+    return erros;
+}
 btnModificar.addEventListener('click', async () => {
     console.log(aluno_id)
     console.log("click")
@@ -56,41 +64,45 @@ btnModificar.addEventListener('click', async () => {
     const senhaNova = inputSenhaNova.value;
     const confirmarSenha = inputConfirmarSenha.value;
     if (senhaAtual !== buscarSenha.senha) {
-        alert('Senha atual incorreta');
+        Toast.fire('Senha atual incorreta');
         return;
     }
 
-    if(senhaNova !== confirmarSenha){
-         alert("Senha nova e confirmação não coincidem");
+    if (senhaNova !== confirmarSenha) {
+        Toast.fire("Senha nova e confirmação não coincidem");
         return;
     }
-    
+
     const resultado = verificarSenha(senhaNova);
     if (resultado.length > 0) {
-        alert("Senha fraca:\n" + resultado.join("\n"));
+        Toast.fire("Senha fraca:\n" + resultado.join("\n"));
         return;
-    } 
+    }
 
     try {
         const requisicao = await fetch(APILogin, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({senha: senhaNova})
+            body: JSON.stringify({ senha: senhaNova })
         });
 
         if (requisicao.ok) {
             const dados = await requisicao.json();
             console.log("senha atualizada com sucesso:", dados);
-            alert("senha atualizada com sucesso!");
+            Swal.fire({
+                title: "Senha atualizada!",
+                icon: "success",
+                draggable: true
+            });
             formsModificarSenha.reset();
         } else {
             console.error("Erro na requisição:", requisicao.status);
-            alert("Erro ao mudar senha. Código: " + requisicao.status);
+            Toast.fire("Erro ao mudar senha. Código: " + requisicao.status);
         }
 
 
     } catch (error) {
         console.error("Erro no fetch:", error);
-        alert("Erro de conexão com o servidor.");
+        Toast.fire("Erro de conexão com o servidor.");
     }
 })

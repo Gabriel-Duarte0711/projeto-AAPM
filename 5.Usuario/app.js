@@ -1,4 +1,3 @@
-
 const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const id = sessionId || localId;
@@ -7,6 +6,14 @@ const APIUsuarioDate = `http://localhost:3000/usuario`
 const saudacoes = document.getElementById('saudacoes')
 const numArmario = document.getElementById('numArmario')
 const dataFim = document.getElementById('dataFim')
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+});
 
 async function buscarUsuarioDoBanco() {
     try {
@@ -53,16 +60,16 @@ async function carregarUsuario() {
         if (requisicao.ok) {
             const dados = await requisicao.json();
             console.log("data atualizada com sucesso:", dados);
-            alert("data atualizada com sucesso!");
+            Toast.fire("data atualizada com sucesso!");
         } else {
             console.error("Erro na requisição:", requisicao.status);
-            alert("Erro ao fazer mudar data. Código: " + requisicao.status);
+            Toast.fire("Erro ao fazer mudar data. Código: " + requisicao.status);
         }
 
 
     } catch (error) {
         console.error("Erro no fetch:", error);
-        alert("Erro de conexão com o servidor.");
+        Toast.fire("Erro de conexão com o servidor.");
     }
     })
 }
