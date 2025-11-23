@@ -1,90 +1,66 @@
 const APILogin = "http://localhost:3000/login"
-const APIUsuario = "http://localhost:3000/usuario"
 const inputEmail = document.getElementById("email")
 const inputSenha = document.getElementById("senha")
 const btnEntrar = document.getElementById("btnEntrar")
 const checkboxLembrar = document.getElementById("remember")
 
 const Toast = Swal.mixin({
-  toast: true,          
-  position: 'top-end',   
-  showConfirmButton: false,
-  timer: 2000,           
-  timerProgressBar: true,
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
 });
 
 
-async function buscarLoginDoBanco() {
-    try {
-        const response = await fetch(APILogin);
-        if (!response.ok) {
-            throw new Error('Erro na requisição à API');
-        }
 
-        const dados = await response.json();
-        console.log('Dados recebidos:', dados);
-        return dados; // retorna os dados para serem usados depois
-
-    } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        return null;
-    }
-}
-async function buscarUsuarioDoBanco() {
-    try {
-        const response = await fetch(APIUsuario);
-        if (!response.ok) {
-            throw new Error('Erro na requisição à API');
-        }
-
-        const dados = await response.json();
-        console.log('Dados recebidos:', dados);
-        return dados; // retorna os dados para serem usados depois
-
-    } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        return null;
-    }
-}
 btnEntrar.addEventListener('click', async () => {
     event.preventDefault();
-    const loginUsuario = await buscarLoginDoBanco();
-    const usuario = await buscarUsuarioDoBanco();
-    if (!loginUsuario || !usuario) {
-        Toast.fire("Erro ao conectar ao servidor. Tente novamente mais tarde.");
-        return;
-    }
+
+
     const email = inputEmail.value.trim();
     const senha = inputSenha.value.trim();
 
-    const emailExiste = usuario.find(user => user.email === email)
-
-    if (!emailExiste) {
-        Toast.fire("Email nao cadastrado")
+    if (!email || !senha) {
+        Toast.fire("Preencha todos os campos!");
         return;
     }
+    try {
+        const response = await fetch(APILogin, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, senha })
+        })
 
-    const aluno_id = emailExiste.id;
-    const pegarAluno = loginUsuario.find(logar => logar.aluno_id === aluno_id)
-    console.log("Checkbox está marcado?", checkboxLembrar.checked);
-    if (pegarAluno.senha === senha) {
-        localStorage.removeItem("id");
-        sessionStorage.removeItem("id");
+        const dado = await response.json();
 
+        if (!response.ok) {
+            Toast.fire(dado.erro || "Erro ao fazer login");
+            return;
+        }
+
+        const aluno_id = dado.aluno.id;
+        const perfil = dado.aluno.perfil;
+
+        // Salvar ID
         if (checkboxLembrar.checked) {
             localStorage.setItem("id", aluno_id);
+            sessionStorage.removeItem("id");
         } else {
             sessionStorage.setItem("id", aluno_id);
             localStorage.removeItem("id");
         }
 
-        if (pegarAluno.perfil === "aluno") {
+        // Redirecionar
+        if (perfil === "aluno") {
             window.location.href = "../5.Usuario/index.html";
-        } else if (pegarAluno.perfil === "admin") {
+        } else {
             window.location.href = "../2.Dashboard/index.html";
         }
 
-    } else {
-        Toast.fire("Senha incorreta");
+    } catch (error) {
+        console.log("Erro:", error);
+        Toast.fire("Erro de conexão com o servidor.");
     }
+
 })
