@@ -14,7 +14,7 @@ const Toast = Swal.mixin({
 
 
 
-btnEntrar.addEventListener('click', async () => {
+btnEntrar.addEventListener('click', async (event) => {
     event.preventDefault();
 
 
@@ -26,10 +26,12 @@ btnEntrar.addEventListener('click', async () => {
         return;
     }
     try {
+        const lembrar = checkboxLembrar.checked
         const response = await fetch(APILogin, {
             method: "POST",
+            credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, senha })
+            body: JSON.stringify({ email, senha, lembrar })
         })
 
         const dado = await response.json();
@@ -38,18 +40,7 @@ btnEntrar.addEventListener('click', async () => {
             Toast.fire(dado.erro || "Erro ao fazer login");
             return;
         }
-
-        const aluno_id = dado.aluno.id;
         const perfil = dado.aluno.perfil;
-
-        // Salvar ID
-        if (checkboxLembrar.checked) {
-            localStorage.setItem("id", aluno_id);
-            sessionStorage.removeItem("id");
-        } else {
-            sessionStorage.setItem("id", aluno_id);
-            localStorage.removeItem("id");
-        }
 
         // Redirecionar
         if (perfil === "aluno") {

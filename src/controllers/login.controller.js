@@ -1,6 +1,7 @@
 
 import { db } from "../config/db.js"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken";
 
 // ============================
 //  Rotas CRUD
@@ -29,9 +30,10 @@ export async function obterLogin(req, res) {
 export async function atualizarSenha(req, res) {
   try {
     const { senha } = req.body;
+    const hashedPassword = await bcrypt.hash(senha, 10)
     await db.execute(
       "UPDATE tabela_login SET senha = ? where aluno_id = ?",
-      [senha, req.params.aluno_id]
+      [hashedPassword, req.params.aluno_id]
     );
     res.json({ mensagem: "senha atualizada com sucesso!" });
   } catch (err) {
@@ -41,10 +43,10 @@ export async function atualizarSenha(req, res) {
 
 export async function login(req, res) {
   try {
-    const { email, senha } = req.body;
+    const { email, senha, lembrar } = req.body;
 
     const [alunoRows] = await db.execute(
-      "SELECT id, nome,email FROM tabela_usuario WHERE email = ?",
+      "SELECT id, nome, email FROM tabela_usuario WHERE email = ?",
       [email]
     );
 
@@ -71,8 +73,25 @@ export async function login(req, res) {
       return res.status(401).json({ erro: "Senha incorreta" });
     }
 
+    const token = jwt.sign(
+      { id: aluno.id, email: aluno.email, perfil: dadosLogin.perfil },
+      process.env.JWT_SECRET,
+      { expiresIn: "168h" }
+    );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "none",
+      maxAge: lembrar
+        ? 7 * 24 * 60 * 60 * 1000 // 7 dias
+        : 2 * 60 * 60 * 1000
+    })
+    console.log("Login recebido:", req.body);
+    console.log("Resultado do SELECT aluno:", alunoRows);
     return res.json({
       mensagem: "Login bem-sucedido",
+      token: token,
       aluno: {
         id: aluno.id,
         nome: aluno.nome,
@@ -81,7 +100,7 @@ export async function login(req, res) {
       }
     });
 
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     return res.status(500).json({ erro: "Erro interno no servidor" });
   }
