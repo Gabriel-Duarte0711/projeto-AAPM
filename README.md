@@ -40,9 +40,6 @@ npm update
 3. **Configure o banco de dados**
 - Importe o arquivo `banco.sql` no seu MariaDB/MySQL
 - Edite suas credenciais em `src/config/db.js`:
-```javascript
-password: "sua_senha"
-```
 
 4. **Inicie o servidor**
 ```bash
