@@ -28,7 +28,7 @@ Atualmente o controle é feito manualmente, causando desorganização e dificuld
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/projeto-AAPM.git
+git clone https://github.com/Gabriel-Duarte0711/projeto-AAPM.git
 cd projeto-AAPM
 ```
 
