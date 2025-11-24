@@ -122,34 +122,64 @@ async function carregarArmarios() {
                     // BOTAO DE EXCLUIR
                     const btnExcluir = document.getElementById("btnExcluir")
 
-                    btnExcluir.addEventListener('click', async () => {
-                        try {
-                            const APIDeleteUser = `${APIUsuario}/${user.id}`;
-                            const requisicao = await fetch(APIDeleteUser, {
-                                method: "DELETE",
-                                headers: { "Content-Type": "application/json" },
-                            });
-                            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                            const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
-                                method: "PUT",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ estado: "D" })
-                            });
-                            if (requisicao.ok && atualizarEstadoArmario.ok) {
-                                const dados = await requisicao.json();
-                                console.log("usuario deletado com sucesso:", dados);
-                                window.location.reload();
-                            } else {
-                                console.error("Erro na requisição:", requisicao.status);
-                                Toast.fire("Erro ao excluir usuario. Código: " + requisicao.status);
+                    btnExcluir.addEventListener("click", async () => {
+                        Swal.fire({
+                            title: "Tem certeza?",
+                            text: "Essa ação irá remover o aluno e liberar o armário!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: "Sim, excluir",
+                            cancelButtonText: "Cancelar"
+                        }).then(async (result) => {
+                            if (!result.isConfirmed) return;
+
+                            try {
+                                const APIDeleteUser = `${APIUsuario}/${user.id}`;
+                                const requisicao = await fetch(APIDeleteUser, {
+                                    method: "DELETE",
+                                    headers: { "Content-Type": "application/json" },
+                                });
+
+                                const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                                const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
+                                    method: "PUT",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ estado: "D" })
+                                });
+
+                                if (requisicao.ok && atualizarEstadoArmario.ok) {
+                                    Swal.fire({
+                                        title: "Excluído!",
+                                        text: "O aluno foi removido e o armário liberado.",
+                                        icon: "success",
+                                        timer: 1500,
+                                        showConfirmButton: false
+                                    });
+
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 1500);
+
+                                } else {
+                                    Swal.fire({
+                                        title: "Erro!",
+                                        text: "Erro ao excluir o aluno.",
+                                        icon: "error"
+                                    });
+                                }
+
+                            } catch (error) {
+                                console.error("Erro no fetch:", error);
+
+                                Swal.fire({
+                                    title: "Erro!",
+                                    text: "Erro de conexão com o servidor.",
+                                    icon: "error"
+                                });
                             }
+                        });
+                    });
 
-
-                        } catch (error) {
-                            console.error("Erro no fetch:", error);
-                            Toast.fire("Erro de conexão com o servidor.");
-                        }
-                    })
                 }
                 card.addEventListener('click', () => {
                     abrirPopup(user);
@@ -194,7 +224,16 @@ async function carregarArmarios() {
                         if (requisicao.ok) {
                             const dados = await requisicao.json();
                             console.log("armario atualizada com sucesso:", dados);
-                            window.location.reload();
+                            Swal.fire({
+                                title: "Atualizado!",
+                                text: "O estado do armário foi atualizado!",
+                                icon: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
                         } else {
                             console.error("Erro na requisição:", requisicao.status);
                             Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
@@ -256,7 +295,16 @@ async function carregarArmarios() {
                         if (requisicao.ok) {
                             const dados = await requisicao.json();
                             console.log("armario atualizada com sucesso:", dados);
-                            window.location.reload();
+                            Swal.fire({
+                                title: "Atualizado!",
+                                text: "O estado do armário foi atualizado!",
+                                icon: "success",
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
                         } else {
                             console.error("Erro na requisição:", requisicao.status);
                             Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);

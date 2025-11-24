@@ -288,3 +288,7 @@ body {
 .dark-mode #atualizrEstado:hover {
     background-color: var(--blue) !important;
 }
+
+.swal2-confirm {
+    background-color: var(--light-blue);
+}
