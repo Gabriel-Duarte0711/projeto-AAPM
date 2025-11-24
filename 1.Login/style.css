@@ -21,7 +21,7 @@ body {
     margin: 0;
     padding: 0;
     /*fundo tela*/
-    background-image: url("..//fundo-tela.svg");
+    background-image: url("..//Imagens/fundo-tela.svg");
     background-size: cover;    
     background-position: center;
     background-repeat: no-repeat;
@@ -93,7 +93,7 @@ body {
 .dark-mode,
 .dark-mode body {
     background-color: var(--light-blue) !important;
-    background-image: url("..//fundo-tela-dark.svg");
+    background-image: url("..//Imagens/fundo-tela-dark.svg");
     background-size: cover;    
     background-position: center;
     background-repeat: no-repeat;

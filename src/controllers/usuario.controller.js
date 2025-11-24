@@ -42,7 +42,6 @@ export async function listarUsuario(req, res) {
   }
 };
 
-
 export async function obterUsuario(req, res) {
   try {
     const [rows] = await db.execute("SELECT * FROM tabela_usuario WHERE id = ?", [
@@ -55,8 +54,6 @@ export async function obterUsuario(req, res) {
     res.status(500).json({ erro: err.message });
   }
 };
-
-
 
 export async function atualizarDataEncerramento(req, res) {
   try {
@@ -132,3 +129,4 @@ export async function atualizarUsuario(req, res) {
     res.status(500).json({ erro: err.message });
   }
 }
+

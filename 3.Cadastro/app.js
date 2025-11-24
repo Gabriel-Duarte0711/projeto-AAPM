@@ -1,14 +1,5 @@
 const APICurso = "http://localhost:3000/curso"
-const APIArmario = "http://localhost:3000/armarios"
 const dropDownCurso = document.getElementById('select-curso')
-
-const Toast = Swal.mixin({
-  toast: true,          
-  position: 'top-end',   
-  showConfirmButton: false,
-  timer: 2000,           
-  timerProgressBar: true,
-});
 
 async function buscarCursosDoBanco() {
     try {
@@ -43,7 +34,7 @@ const dropDownTurma = document.getElementById('select-turma')
 // carrega as turmas dps que o curso for selecionado
 dropDownCurso.addEventListener('change', () => {
     const curso_id = dropDownCurso.value;
-    const APITurma = `http://localhost:3000/turma/curso/${curso_id}`;
+    const APITurma = `http://localhost:3000/turma/${curso_id}`;
 
 
     async function buscarTurmasDoBanco() {
@@ -86,11 +77,9 @@ dropDownCurso.addEventListener('change', () => {
 const APIUsuario = "http://localhost:3000/usuario"
 
 const inputNome = document.getElementById("nome")
-const inputCPF = document.getElementById("CPF")
 const inputMatricula = document.getElementById("matricula")
 const inputTelefone = document.getElementById("telefone")
 const inputEmail = document.getElementById("email")
-const dropDownPagamento = document.getElementById("select-pagamento")
 const formCadastrar = document.getElementById("formsCadastro")
 
 async function cadastrar(e) {
@@ -114,49 +103,42 @@ async function cadastrar(e) {
     }
     const nome = inputNome.value.trim();
     const matricula = inputMatricula.value.trim();
-    const CPF = inputCPF.value.trim();
     const telefone = inputTelefone.value.trim().replace(/\D/g, '');
     const email = inputEmail.value.trim();
     const curso_id = dropDownCurso.value;
     const turma_id = dropDownTurma.value;
-    const pagamento = dropDownPagamento.value;
 
     const usuarios = await buscarUsuarioDoBanco();
 
     if (!usuarios) {
-        Toast.fire("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
         return;
     }
 
-    if (!nome || !CPF || !matricula || !telefone || !email || !curso_id || !turma_id || !pagamento) {
-        Toast.fire("Por gentileza, preencha os campos obrigatórios (nome, CPF, matricula, telefone, email, curso, turma e pagamento).");
+    if (!nome || !matricula || !telefone || !email || !curso_id || !turma_id) {
+        alert("Por gentileza, preencha os campos obrigatórios (nome, matricula, telefone, email, curso e turma).");
         return;
     }
 
-    const CPFJaExiste = usuarios.some(u => String(u.CPF).trim() === CPF);
-
-    if (CPFJaExiste) {
-        Toast.fire("CPF já cadastrado");
-        return;
-    }
     const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
     if (matriculaJaExiste) {
-        Toast.fire("Matrícula já cadastrada");
+        alert("Matrícula já cadastrada");
         return;
     }
-    if (!validator.isMobilePhone(telefone, 'pt-BR')) {
-        Toast.fire("Telefone invalido")
+    if (!validator.isMobilePhone('+55' + telefone, 'pt-BR')) {
+        alert("telefone invalido")
         return;
     }
     if (!validator.isEmail(email)) {
-        Toast.fire("Email invalido")
+        alert("email invalido")
         return;
     }
 
 
     const armario_id = window.localStorage.getItem('armarioSelecionado');
+    const armarioEstado = window.localStorage.getItem('armarioEstado');
 
-    const novaReserva = { nome, CPF, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento }
+    const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
 
     try {
         const requisicao = await fetch(APIUsuario, {
@@ -164,33 +146,29 @@ async function cadastrar(e) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(novaReserva)
         });
-        const APIArmarioComNumero = `${APIArmario}/${armario_id}`;
-        const requisicaoArmario = await fetch(APIArmarioComNumero, {
+        const armarioAtualizado = { estado: "O" }
+        const requisicaoArmario = await fetch(`http://localhost:3000/armario/${armario_id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ estado: "O" })
+            body: JSON.stringify(armarioAtualizado)
         });
-
 
         if (requisicao.ok) {
             const dados = await requisicao.json();
-            if (!requisicaoArmario.ok) {
-                Toast.fire("Erro ao atualizar o armário!");
-                return;
-            }
+            const dadosArmario = await requisicaoArmario.json();
             console.log("reserva salva com sucesso:", dados);
-            Toast.fire("reserva feita com sucesso!");
+            alert("reserva feita com sucesso!");
             window.location.href = "../4.Armarios/index.html";
             formCadastrar.reset();
         } else {
             console.error("Erro na requisição:", requisicao.status);
-            Toast.fire("Erro ao fazer reserva. Código: " + requisicao.status);
+            alert("Erro ao fazer reserva. Código: " + requisicao.status);
         }
 
 
     } catch (error) {
         console.error("Erro no fetch:", error);
-        Toast.fire("Erro de conexão com o servidor.");
+        alert("Erro de conexão com o servidor.");
     }
 }
 formCadastrar.addEventListener("submit", cadastrar);
