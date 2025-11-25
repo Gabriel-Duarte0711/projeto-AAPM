@@ -106,3 +106,43 @@ btnModificar.addEventListener('click', async () => {
         Toast.fire("Erro de conexão com o servidor.");
     }
 })
+
+function mostrarSenha1() {
+    const input = document.getElementById("password1");
+    const icon = input.nextElementSibling; 
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.add("hide");
+    } else {
+        input.type = "password";
+        icon.classList.remove("hide");
+    }
+}
+
+function mostrarSenha2() {
+    const input = document.getElementById("password2");
+    const icon = input.nextElementSibling;
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.add("hide");
+    } else {
+        input.type = "password";
+        icon.classList.remove("hide");
+    }
+}
+
+function mostrarSenha3() {
+    const input = document.getElementById("password3");
+    const icon = input.nextElementSibling;
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.add("hide");
+    } else {
+        input.type = "password";
+        icon.classList.remove("hide");
+    }
+}
+

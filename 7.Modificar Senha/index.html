@@ -54,18 +54,21 @@
         </div>
 
         <form id="formsModificarSenha">
-            <div class="mb-3">
-                <input type="password" class="form-control" placeholder="Senha atual" id="senhaAtual" name="senhaAtual">
+            <div class="mb-3 input-icon">
+                <input type="password" class="form-control" id="password1" placeholder="Senha Atual">
+                <span class="icon" onclick="mostrarSenha1()"></span>
             </div>
 
-            <div class="mb-3">
-                <input type="password" class="form-control" placeholder="Nova senha" id="senhaNova" name="senhaNova">
+            <div class="mb-3 input-icon">
+                <input type="password" class="form-control" id="password2" placeholder="Senha Nova">
+                <span class="icon" onclick="mostrarSenha2()"></span>
             </div>
 
-            <div class="mb-3">
-                <input type="password" class="form-control" placeholder="Confirmar senha" id="confirmarSenha"
-                    name="confirmarSenha">
+            <div class="mb-3 input-icon">
+                <input type="password" class="form-control" id="password3" placeholder="Confirmar Senha">
+                <span class="icon" onclick="mostrarSenha3()"></span>
             </div>
+
 
             <button type="button" class="btn btn-primary" id="btnModificar">Modificar</button>
         </form>
