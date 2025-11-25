@@ -1,6 +1,6 @@
 const APILogin = "http://localhost:3000/login"
 const inputEmail = document.getElementById("email")
-const inputSenha = document.getElementById("senha")
+const inputSenha = document.getElementById("password")
 const btnEntrar = document.getElementById("btnEntrar")
 const checkboxLembrar = document.getElementById("remember")
 
@@ -40,9 +40,15 @@ btnEntrar.addEventListener('click', async (event) => {
             Toast.fire(dado.erro || "Erro ao fazer login");
             return;
         }
+       
+        if (checkboxLembrar.checked) {
+            localStorage.setItem("id", dado.aluno.id);
+        } else {
+            sessionStorage.setItem("id", dado.aluno.id);
+        }
+
         const perfil = dado.aluno.perfil;
 
-        // Redirecionar
         if (perfil === "aluno") {
             window.location.href = "../5.Usuario/index.html";
         } else {
@@ -59,13 +65,13 @@ btnEntrar.addEventListener('click', async (event) => {
 const password = document.getElementById('password')
 const icon = document.getElementById('icon')
 
-function mostrarSenha (){
-   if(password.type === 'password') {
-    password.setAttribute('type', 'text')
-    icon.classList.add('hide')
-   }
-   else{
-    password.setAttribute('type', 'password')
-    icon.classList.remove('hide')
-}
+function mostrarSenha() {
+    if (password.type === 'password') {
+        password.setAttribute('type', 'text')
+        icon.classList.add('hide')
+    }
+    else {
+        password.setAttribute('type', 'password')
+        icon.classList.remove('hide')
+    }
 }
