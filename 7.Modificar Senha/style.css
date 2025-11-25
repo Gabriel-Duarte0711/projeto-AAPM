@@ -111,7 +111,7 @@ body {
     text-decoration: none;
 }
 
-.menu-flutuante h1 {
+.menu-flutuante h1, span {
     font-size: 18px;
     text-align: left;
     padding: 10px;
@@ -119,7 +119,7 @@ body {
     transition: 0.3s;
 }
 
-.menu-flutuante h1:hover {
+.menu-flutuante h1:hover, span:hover {
     background-color: var(--light-blue);
 }
 
