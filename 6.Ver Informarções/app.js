@@ -28,61 +28,6 @@ async function buscarCursosDoBanco() {
     }
 }
 
-// pega os curso do banco e coloca no dropDown
-// async function carregarCursos() {
-//     const dadosCursos = await buscarCursosDoBanco();
-
-//     dadosCursos.forEach(cursos => {
-//         const createOption = document.createElement('option')
-//         createOption.value = cursos.id;
-//         createOption.textContent = cursos.nome;
-//         dropDownCurso.appendChild(createOption)
-//     });
-// }
-// carregarCursos();
-
-// carrega as turmas dps que o curso for selecionado
-// dropDownCurso.addEventListener('change', () => {
-//     const curso_id = dropDownCurso.value;
-//     const APITurma = `http://localhost:3000/turma/${curso_id}`;
-
-
-//     async function buscarTurmasDoBanco() {
-//         try {
-//             const response = await fetch(APITurma);
-//             if (!response.ok) {
-//                 throw new Error('Erro na requisição à API');
-//             }
-
-//             const dados = await response.json();
-//             console.log('Dados recebidos:', dados);
-//             return dados; // retorna os dados para serem usados depois
-
-//         } catch (error) {
-//             console.error('Erro ao buscar dados:', error);
-//             return null;
-//         }
-//     }
-//     async function carregarTurmas() {
-//         const dadosTurmas = await buscarTurmasDoBanco();
-//         dropDownTurma.innerHTML = ""
-//         const optionDefault = document.createElement('option');
-//         optionDefault.textContent = "Selecione uma turma";
-//         optionDefault.value = "";
-//         optionDefault.disabled = true;
-//         optionDefault.selected = true;
-//         dropDownTurma.appendChild(optionDefault);
-//         dadosTurmas.forEach(turmas => {
-//             const createOption = document.createElement('option')
-//             createOption.value = turmas.id;
-//             createOption.textContent = turmas.turma;
-//             dropDownTurma.appendChild(createOption)
-//         });
-//     }
-//     carregarTurmas();
-// })
-
-
 // cadastro de um aluno
 const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`
 
