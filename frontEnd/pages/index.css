@@ -1,12 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
 :root {
     --blue: #3B82F6;
     --dark-blue: #0A1E52;
@@ -27,13 +18,6 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-
-.logo-aapm {
-    position: absolute;
-    top: 10px;
-    left: 10px;
 }
 
 .entre-aqui {
@@ -70,12 +54,13 @@ body {
     width: 24px;
     height: 24px;
     cursor: pointer;
-    background-image: url("../Imagens/olho.png");
+    background-image: url("../assets/images/olho.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
+
 #icon.hide{
-    background-image: url("../Imagens/olho-fechado.png");
+    background-image: url("../assets/images/olho-fechado.png");
     background-size: contain;
 }
 .mb-3 input::placeholder {
@@ -97,17 +82,13 @@ body {
     font-size: 20px;
 }
 
-.form-check-label {
+.form-check label, p{
     color: white;
 }
 
 .form-check-input {
     background-color: var(--light-blue);
     border: none;
-}
-
-.link-offset-2 {
-    color: white;
 }
 
 .esqueceu-a-senha {
@@ -117,59 +98,3 @@ body {
     gap: 60px;
 }
 
-/* TEMA DARK */
-
-.dark-mode,
-.dark-mode body {
-    background-color: var(--light-blue) !important;
-    background-image: url("..//Imagens/fundo-tela-dark.svg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--white) !important;
-}
-
-.dark-mode .form-check-input {
-    background-color: var(--dark-blue);
-    border: none;
-}
-
-.dark-mode .form-check-input:checked {
-    background-color: var(--blue);
-    border: none;
-}
-
-.dark-mode .mb-3 input {
-    background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-    border: 1px solid #334155 !important;
-}
-
-.dark-mode .mb-3 input::placeholder {
-    color: var(--white) !important;
-}
-
-.dark-mode input.form-control {
-    background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-}
-
-.dark-mode .btn-primary {
-    background-color: var(--white) !important;
-    color: var(--dark-blue) !important;
-}
-
-.dark-mode .btn-primary:hover {
-    background-color: var(--blue) !important;
-    color: white !important;
-}
-
-.dark-mode .entre-aqui {
-    color: var(--white) !important;
-}
-
-.dark-mode h1,
-.dark-mode h3,
-.dark-mode span {
-    color: var(--white) !important;
-}
