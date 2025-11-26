@@ -1,11 +1,11 @@
 async function carregarLayout() {
 
     try {
-        const resposta = await fetch("../assets/layout/layout.html");
-        const layout = await resposta.text();
+        const response = await fetch('/frontend/assets/layout/layout.html');
+        const layout = await response.text(); 
         document.body.insertAdjacentHTML("afterbegin", layout);
 
-        inicializarDarkMode(); 
+        inicializarDarkMode();
 
     } catch (erro) {
         console.error("Erro ao carregar o layout:", erro);

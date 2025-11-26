@@ -1,37 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
-:root {
-    --blue: #3B82F6;
-    --dark-blue: #0A1E52;
-    --light-blue: #1E3A8A;
-    --white: #FFFFFF;
-}
-
 body {
-    background-color: var(--blue);
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-     /*fundo tela*/
-    background-image: url("..//Imagens/fundo-tela.svg");
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.logo-aapm {
-    position: absolute;
-    top: 10px;
-    left: 10px;
 }
 
 .perfil {
@@ -77,17 +47,4 @@ body {
     font-size: 80px;
     margin-bottom: 10px;
     color: white;
-}
-.dark-mode,
-.dark-mode body {
-    background-color: var(--light-blue) !important;
-    background-image: url("..//Imagens/fundo-tela-dark.svg");
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--white)!important;
-}
-
-.dark-mode .container-lg {
-    background-color: var(--dark-blue) !important;
 }

@@ -139,6 +139,15 @@ a:hover {
     border: 1px solid var(--border-color) !important;
 }
 
+.dark-mode .container-lg {
+    background-color: var(--dark-blue) !important;
+}
+
+.dark-mode .menu-flutuante{
+    background-color: var(--dark-blue) !important;
+    color: var(--white) !important;
+}
+
 .dark-mode .form-control::placeholder {
     color: var(--white) !important;
     opacity: 0.7;

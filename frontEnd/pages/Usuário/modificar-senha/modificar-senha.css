@@ -1,38 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
-:root{
-    --blue: #3B82F6;
-    --dark-blue:#0A1E52;
-    --light-blue:#1E3A8A;
-    --white:#FFFFFF;
-}
 body {
-    background-color: var(--blue);
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-     /*fundo tela*/
-    background-image: url("..//Imagens/fundo-tela.svg");
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
-
 }
 
-.logo-aapm {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-.entre-aqui{
+.entre-aqui {
     position: relative;
     color: white;
     display: flex;
@@ -45,7 +17,8 @@ body {
     font-size: 60px;
 }
 
-.mb-3 input, .mb-3 select{
+.mb-3 input,
+.mb-3 select {
     background-color: var(--light-blue);
     width: 600px;
     height: 60px;
@@ -67,19 +40,22 @@ body {
     width: 24px;
     height: 24px;
     cursor: pointer;
-    background-image: url("../Imagens/olho.png");
+    background-image: url("../../../assets/images/olho.png");
     background-size: contain;
     background-repeat: no-repeat;
 }
-.icon.hide{
-    background-image: url("../Imagens/olho-fechado.png");
+
+.icon.hide {
+    background-image: url("../../../assets/images/olho-fechado.png");
     background-size: contain;
 }
 
-.mb-3 input::placeholder, .mb-3 select::placeholder{
+.mb-3 input::placeholder,
+.mb-3 select::placeholder {
     color: white;
     padding-left: 15px;
 }
+
 .btn-primary {
     background-color: var(--dark-blue);
     width: 600px;
@@ -94,24 +70,25 @@ body {
     position: absolute;
     top: 200px;
     left: 0px;
-    width: 300px; 
-    background-color: var(--dark-blue);
+    width: 300px;
     color: var(--white);
     padding: 10px 0;
     border-radius: 10px;
+    background-color: var(--light-blue);
 }
 
 .menu-flutuante .menu {
     display: flex;
-    flex-direction: column; 
-    gap: 20px; 
+    flex-direction: column;
+    gap: 20px;
 }
 
 .menu-flutuante a {
     text-decoration: none;
 }
 
-.menu-flutuante h1, span {
+.menu-flutuante h1,
+span {
     font-size: 18px;
     text-align: left;
     padding: 10px;
@@ -119,30 +96,7 @@ body {
     transition: 0.3s;
 }
 
-.menu-flutuante h1:hover, span:hover {
-    background-color: var(--light-blue);
-}
-
-.dark-mode,
-.dark-mode body {
-    background-color: var(--light-blue) !important;
-    background-image: url("..//Imagens/fundo-tela-dark.svg");
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--white)!important;
-}
-
-.dark-mode .mb-3 input {
-    background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-    border: 1px solid #334155 !important;
-}
-.dark-mode .btn-primary {
-    background-color: var(--white) !important;
-    color: var(--dark-blue) !important;
-}
-.dark-mode .btn-primary:hover {
-    background-color: var(--blue) !important;
-    color: white !important;
+.menu-flutuante h1:hover,
+span:hover {
+    background-color: #3B82F6;
 }
