@@ -34,7 +34,8 @@ const dropDownTurma = document.getElementById('select-turma')
 // carrega as turmas dps que o curso for selecionado
 dropDownCurso.addEventListener('change', () => {
     const curso_id = dropDownCurso.value;
-    const APITurma = `http://localhost:3000/turma/${curso_id}`;
+    console.log(curso_id)
+    const APITurma = `http://localhost:3000/turma/curso/${curso_id}`;
 
 
     async function buscarTurmasDoBanco() {
