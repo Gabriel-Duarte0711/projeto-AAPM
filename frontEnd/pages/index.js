@@ -40,7 +40,7 @@ btnEntrar.addEventListener('click', async (event) => {
             Toast.fire(dado.erro || "Erro ao fazer login");
             return;
         }
-       
+
         if (checkboxLembrar.checked) {
             localStorage.setItem("id", dado.aluno.id);
         } else {
@@ -50,9 +50,9 @@ btnEntrar.addEventListener('click', async (event) => {
         const perfil = dado.aluno.perfil;
 
         if (perfil === "aluno") {
-            window.location.href = "../5.Usuario/index.html";
+            window.location.href = "/frontend/pages/Usuário/tela-principal/tela-principal.html";
         } else {
-            window.location.href = "../2.Dashboard/index.html";
+            window.location.href = "/frontend/pages/Admin/dashboard/dashboard.html";
         }
 
     } catch (error) {

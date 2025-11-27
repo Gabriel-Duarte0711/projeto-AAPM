@@ -266,3 +266,36 @@ a:hover {
     background-color: var(--white);
     color: var(--dark-blue);
 }
+
+/* ========== ESTADOS DOS ARMÁRIOS ========== */
+.card.ocupado {
+    background-color: #dc3545 !important;
+    border-color: #bd2130 !important;
+}
+
+.card.disponivel {
+    background-color: #28a745 !important;
+    border-color: #1e7e34 !important;
+}
+
+.card.manutencao {
+    background-color: #ffc107 !important;
+    border-color: #d39e00 !important;
+    color: #212529 !important; /* Texto escuro no laranja */
+}
+
+/* Dark mode - cores mais escuras */
+.dark-mode .card.ocupado {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+.dark-mode .card.disponivel {
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.dark-mode .card.manutencao {
+    background-color: #e0a800 !important;
+    border-color: #d39e00 !important;
+}
