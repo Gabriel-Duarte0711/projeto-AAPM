@@ -37,7 +37,7 @@ body {
     width: 100%;
     max-width: 1300px;
     margin: 0 auto;
-    padding-top: 200px;
+    padding-top: 300px;
 }
 
 .cards-area .card:hover {
@@ -208,7 +208,6 @@ body {
     transform: scale(1.05);
 }
 
-
 #btnExcluir,
 #btnAtualizar {
     margin-top: 10px;
@@ -247,4 +246,30 @@ body {
 
 .swal2-confirm {
     background-color: var(--light-blue);
+}
+
+/* ========== ESTADOS DOS ARMÁRIOS ========== */
+.card.ocupado {
+    background-color: #dc3545 !important;
+}
+
+.card.disponivel {
+    background-color: #28a745 !important;
+}
+
+.card.manutencao {
+    background-color: #ffc107 !important;
+}
+
+/* Dark mode - cores mais escuras */
+.dark-mode .card.ocupado {
+    background-color: #c82333 !important;
+}
+
+.dark-mode .card.disponivel {
+    background-color: #218838 !important;
+}
+
+.dark-mode .card.manutencao {
+    background-color: #e0a800 !important;
 }

@@ -112,7 +112,7 @@ async function carregarArmarios() {
 
                     <div class="pop-buttons">
                         <button type="button" id="btnExcluir">Excluir</button>
-                        <a href="..//8.Editar Usuario/index.html?id=${user.id}">
+                        <a href="../editar-usuario/editar-usuario.html?id=${user.id}">
                             <button type="button" id="btnAtualizar">Editar</button>
                         </a>
                     </div>
@@ -322,7 +322,7 @@ async function carregarArmarios() {
             card.addEventListener('click', () => {
                 window.localStorage.setItem('armarioSelecionado', item.numero_armario);
                 window.localStorage.setItem('armarioEstado', item.estado);
-                window.location.href = "../3.Cadastro/index.html"
+                window.location.href = "../cadastrar-usuario/cadastrar-usuario.html"
             })
             card.addEventListener('contextmenu', function (event) {
                 if (event.button === 2) {

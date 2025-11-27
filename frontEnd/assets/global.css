@@ -208,43 +208,6 @@ a:hover {
     color: var(--white) !important;
 }
 
-/* Tables no dark mode */
-.dark-mode .table {
-    color: var(--text-primary) !important;
-    background-color: var(--bg-card) !important;
-}
-
-.dark-mode .table th {
-    background-color: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-}
-
-.dark-mode .table td {
-    border-color: var(--border-color) !important;
-}
-
-/* Modals no dark mode */
-.dark-mode .modal-content {
-    background-color: var(--bg-card) !important;
-    border-color: var(--border-color) !important;
-}
-
-.dark-mode .modal-header,
-.dark-mode .modal-footer {
-    border-color: var(--border-color) !important;
-}
-
-/* Navbar no dark mode */
-.dark-mode .navbar {
-    background-color: var(--bg-card) !important;
-    border-bottom: 1px solid var(--border-color) !important;
-}
-
-.dark-mode .navbar-brand,
-.dark-mode .nav-link {
-    color: var(--text-primary) !important;
-}
-
 
 /* Transições suaves */
 .transition-all {
@@ -262,40 +225,34 @@ a:hover {
     background-color: var(--blue);
 }
 
-.dark-mode .dark-mode-toggle {
-    background-color: var(--white);
-    color: var(--dark-blue);
+.dark-mode .swal2-popup {
+    background-color: var(--dark-blue) !important;
+    color: var(--white) !important;
 }
 
-/* ========== ESTADOS DOS ARMÁRIOS ========== */
-.card.ocupado {
-    background-color: #dc3545 !important;
-    border-color: #bd2130 !important;
+.dark-mode .swal2-title {
+    color: var(--white) !important;
 }
 
-.card.disponivel {
-    background-color: #28a745 !important;
-    border-color: #1e7e34 !important;
+.dark-mode .swal2-html-container {
+    color: var(--text-secondary) !important;
 }
 
-.card.manutencao {
-    background-color: #ffc107 !important;
-    border-color: #d39e00 !important;
-    color: #212529 !important; /* Texto escuro no laranja */
+.dark-mode .swal2-input,
+.dark-mode .swal2-textarea {
+    background-color: var(--light-blue) !important;
+    color: var(--white) !important;
+    border: 1px solid var(--border-color) !important;
 }
 
-/* Dark mode - cores mais escuras */
-.dark-mode .card.ocupado {
-    background-color: #c82333 !important;
-    border-color: #bd2130 !important;
+.dark-mode .swal2-confirm {
+    background-color: var(--blue) !important;
 }
 
-.dark-mode .card.disponivel {
-    background-color: #218838 !important;
-    border-color: #1e7e34 !important;
+.dark-mode .swal2-cancel {
+    background-color: var(--light-blue) !important;
 }
 
-.dark-mode .card.manutencao {
-    background-color: #e0a800 !important;
-    border-color: #d39e00 !important;
+.dark-mode .swal2-icon.swal2-success .swal2-success-ring {
+    border-color: rgba(59, 130, 246, 0.3) !important;
 }
