@@ -70,8 +70,8 @@ body {
     color: white;
 }
 
-.form-check-input {
-    background-color: var(--light-blue);
+#remember {
+    background-color: rgb(255, 255, 255) !important;
     border: none;
 }
 
@@ -81,4 +81,3 @@ body {
     align-items: end;
     gap: 60px;
 }
-

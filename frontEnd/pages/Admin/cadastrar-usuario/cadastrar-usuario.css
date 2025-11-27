@@ -1,38 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
-:root{
-    --blue: #3B82F6;
-    --dark-blue:#0A1E52;
-    --light-blue:#1E3A8A;
-    --white:#FFFFFF;
-}
 body {
-    background-color: var(--blue);
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-     /*fundo tela*/
-    background-image: url("..//Imagens/fundo-tela.svg");
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
 
-}
-
-.logo-aapm {
-    position: absolute;
-    top: 10px;
-    left: 10px;
 }
 
 .entre-aqui{
+    margin-top: 50px;;
     position: relative;
     color: white;
     display: flex;
@@ -59,6 +33,7 @@ body {
     color: white;
     padding-left: 15px;
 }
+
 .btn-primary {
     background-color: var(--dark-blue);
     width: 600px;
@@ -68,54 +43,5 @@ body {
     color: white;
     font-size: 20px;
 }
-.form-check-label {
-    color: white;
-}
-.form-check-input{
-    background-color: var(--light-blue);
-    border: none;
-}
-.link-offset-2{
-    color: white;
-}
-.esqueceu-a-senha {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    gap: 60px;
-}
 
 
-.dark-mode,
-.dark-mode body {
-    background-color: var(--light-blue) !important;
-    background-image: url("..//Imagens/fundo-tela-dark.svg");
-    background-size: cover;    
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--white)!important;
-}
-
-.dark-mode .mb-3 input {
-    background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-    border: 1px solid #4679c0 !important;
-}
-.dark-mode .mb-3 input::placeholder {
-    color:var(--white) !important;
-}
-
-.dark-mode .btn-primary {
-    background-color: var(--white) !important;
-    color: var(--dark-blue) !important;
-}
-.dark-mode .btn-primary:hover {
-    background-color: var(--blue) !important;
-    color: white !important;
-}
-
-.dark-mode .form-select {
-    background-color: var(--dark-blue) !important;
-    color: var(--white) !important;
-    border: 1px solid #4679c0 !important;
-}
