@@ -148,7 +148,7 @@ formCadastrar.addEventListener('submit', async (e) => {
                 timer: 1500,          
                 showConfirmButton: false 
             }).then(() => {
-                window.location.href = "../4.Armarios/index.html";
+                window.location.href = "../armarios/armarios.html";
             });
         } else {
             console.error('Erro na requisição:', response.status);

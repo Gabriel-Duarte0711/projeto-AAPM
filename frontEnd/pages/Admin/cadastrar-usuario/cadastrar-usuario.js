@@ -78,10 +78,12 @@ dropDownCurso.addEventListener('change', () => {
 const APIUsuario = "http://localhost:3000/usuario"
 
 const inputNome = document.getElementById("nome")
+const inputCPF = document.getElementById("CPF");
 const inputMatricula = document.getElementById("matricula")
 const inputTelefone = document.getElementById("telefone")
 const inputEmail = document.getElementById("email")
 const formCadastrar = document.getElementById("formsCadastro")
+const inputPagamento = document.getElementById("select-pagamento");
 
 async function cadastrar(e) {
     e.preventDefault();
@@ -103,11 +105,13 @@ async function cadastrar(e) {
         }
     }
     const nome = inputNome.value.trim();
+    const cpf = inputCPF.value.trim();
     const matricula = inputMatricula.value.trim();
     const telefone = inputTelefone.value.trim().replace(/\D/g, '');
     const email = inputEmail.value.trim();
     const curso_id = dropDownCurso.value;
     const turma_id = dropDownTurma.value;
+    const pagamento = inputPagamento.value.trim();
 
     const usuarios = await buscarUsuarioDoBanco();
 
@@ -116,7 +120,7 @@ async function cadastrar(e) {
         return;
     }
 
-    if (!nome || !matricula || !telefone || !email || !curso_id || !turma_id) {
+    if (!nome || !cpf || !matricula || !telefone || !email || !curso_id || !turma_id || !pagamento) {
         alert("Por gentileza, preencha os campos obrigatórios (nome, matricula, telefone, email, curso e turma).");
         return;
     }
@@ -139,7 +143,18 @@ async function cadastrar(e) {
     const armario_id = window.localStorage.getItem('armarioSelecionado');
     const armarioEstado = window.localStorage.getItem('armarioEstado');
 
-    const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
+    const novaReserva = {
+        nome,
+        CPF: cpf,
+        matricula,
+        telefone,
+        email,
+        curso_id: Number(curso_id),
+        turma_id: Number(turma_id),
+        pagamento,
+        armario_id: Number(armario_id),
+        data_encerramento: null
+    };
 
     try {
         const requisicao = await fetch(APIUsuario, {
@@ -148,7 +163,7 @@ async function cadastrar(e) {
             body: JSON.stringify(novaReserva)
         });
         const armarioAtualizado = { estado: "O" }
-        const requisicaoArmario = await fetch(`http://localhost:3000/armario/${armario_id}`, {
+        const requisicaoArmario = await fetch(`http://localhost:3000/armarios/${armario_id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(armarioAtualizado)
@@ -159,7 +174,7 @@ async function cadastrar(e) {
             const dadosArmario = await requisicaoArmario.json();
             console.log("reserva salva com sucesso:", dados);
             alert("reserva feita com sucesso!");
-            window.location.href = "../4.Armarios/index.html";
+            window.location.href = "../armarios/armarios.html";
             formCadastrar.reset();
         } else {
             console.error("Erro na requisição:", requisicao.status);

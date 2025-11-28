@@ -24,5 +24,4 @@ router.put("/:id", atualizarUsuario)
 router.put("/data", atualizarDataEncerramento)
 router.delete("/:id", deletarUsuario)
 
-
 export default router;
