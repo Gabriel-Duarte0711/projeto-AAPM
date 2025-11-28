@@ -1,4 +1,6 @@
-const dropDownCurso = document.getElementById('select-curso')
+const dropDownCurso = document.getElementById('select-curso');
+const dropDownTurma = document.getElementById('select-turma');
+
 const urlParams = new URLSearchParams(window.location.search);
 const userId = urlParams.get('id');
 const sessionId = sessionStorage.getItem("id");
@@ -15,103 +17,98 @@ const Toast = Swal.mixin({
 const aluno_id = userId || sessionId || localId;
 
 console.log('ID do usuário sendo editado:', aluno_id);
-async function buscarCursosDoBanco() {
-    try {
-        const response = await fetch(APICurso);
-        if (!response.ok) {
-            throw new Error('Erro na requisição à API');
-        }
 
-        const dados = await response.json();
-        console.log('Dados recebidos:', dados);
-        return dados; // retorna os dados para serem usados depois
+const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`;
+
+const inputNome = document.getElementById("nome");
+const inputCPF = document.getElementById("CPF");
+const inputMatricula = document.getElementById("matricula");
+const inputTelefone = document.getElementById("telefone");
+const inputEmail = document.getElementById("email");
+const selectPagamento = document.getElementById("select-pagamento");
+
+
+async function carregarCursos(usuarios) {
+    try {
+        const response = await fetch("http://localhost:3000/curso");
+        const cursos = await response.json();
+
+        dropDownCurso.innerHTML = "";
+
+        cursos.forEach(curso => {
+            const option = document.createElement("option");
+            option.value = curso.id;
+            option.textContent = curso.nome;
+
+            if (curso.id === usuarios.curso_id) {
+                option.selected = true;
+            }
+
+            dropDownCurso.appendChild(option);
+        });
 
     } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        return null;
+        console.error("Erro ao carregar cursos:", error);
     }
 }
 
-const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`
+async function carregarTurmas(usuarios) {
+    const curso_id = dropDownCurso.value;
 
-const inputNome = document.getElementById("nome")
-const inputCPF = document.getElementById("CPF")
-const inputMatricula = document.getElementById("matricula")
-const inputTelefone = document.getElementById("telefone")
-const inputEmail = document.getElementById("email")
-const selectCurso = document.getElementById("select-curso")
-const selectTurma = document.getElementById("select-turma")
-const selectPagamento = document.getElementById("select-pagamento")
+    try {
+        const response = await fetch(`http://localhost:3000/turma/curso/${curso_id}`);
+        const turmas = await response.json();
+
+        dropDownTurma.innerHTML = "";
+
+        turmas.forEach(turma => {
+            const option = document.createElement("option");
+            option.value = turma.id;
+            option.textContent = turma.turma;
+
+            if (turma.id === usuarios.turma_id) {
+                option.selected = true;
+            }
+
+            dropDownTurma.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("Erro ao carregar turmas:", error);
+    }
+}
+
+dropDownCurso.addEventListener("change", () => {
+    carregarTurmas({ turma_id: null }); // limpa seleção
+});
+
 
 async function carregarUsuario() {
-    async function buscarUsuarioDoBanco() {
-        try {
-            const response = await fetch(APIUsuario);
-            if (!response.ok) {
-                throw new Error('Erro na requisição à API');
-            }
+    try {
+        const response = await fetch(APIUsuario);
+        const usuarios = await response.json();
 
-            const dados = await response.json();
-            console.log('Dados recebidos:', dados);
-            return dados; // retorna os dados para serem usados depois
+        console.log("Dados do usuário:", usuarios);
 
-        } catch (error) {
-            console.error('Erro ao buscar dados:', error);
-            return null;
-        }
+        inputNome.value = usuarios.nome;
+        inputCPF.value = usuarios.CPF;
+        inputMatricula.value = usuarios.matricula;
+        inputTelefone.value = usuarios.telefone;
+        inputEmail.value = usuarios.email;
+        selectPagamento.value = usuarios.pagamento;
+
+        // carregar listas completas e marcar selecionados
+        await carregarCursos(usuarios);
+        await carregarTurmas(usuarios);
+
+    } catch (error) {
+        console.error("Erro ao buscar usuário:", error);
     }
-    const usuarios = await buscarUsuarioDoBanco();
-
-    const APICurso = `http://localhost:3000/curso/${usuarios.curso_id}`
-    const APITurma = `http://localhost:3000/turma/${usuarios.turma_id}`
-    async function buscarCursoDoBanco() {
-        try {
-            const response = await fetch(APICurso);
-            if (!response.ok) {
-                throw new Error('Erro na requisição à API');
-            }
-
-            const dados = await response.json();
-            console.log('Dados recebidos:', dados);
-            return dados; // retorna os dados para serem usados depois
-
-        } catch (error) {
-            console.error('Erro ao buscar dados:', error);
-            return null;
-        }
-    }
-    async function buscarTurmasDoBanco() {
-        try {
-            const response = await fetch(APITurma);
-            if (!response.ok) {
-                throw new Error('Erro na requisição à API');
-            }
-
-            const dados = await response.json();
-            console.log('Dados recebidos:', dados);
-            return dados; // retorna os dados para serem usados depois
-
-        } catch (error) {
-            console.error('Erro ao buscar dados:', error);
-            return null;
-        }
-    }
-    const cursos = await buscarCursoDoBanco();
-    const turmas = await buscarTurmasDoBanco();
-
-    inputNome.value = usuarios.nome;
-    inputCPF.value = usuarios.CPF;
-    inputMatricula.value = usuarios.matricula;
-    inputTelefone.value = usuarios.telefone;
-    inputEmail.value = usuarios.email;
-
-    selectCurso.innerHTML = `<option value="${cursos.id}" selected>${cursos.nome}</option>`;
-    selectTurma.innerHTML = `<option value="${turmas.id}" selected>${turmas.turma}</option>`;
-    selectPagamento.value = usuarios.pagamento;
 }
-carregarUsuario()
 
-const formCadastrar = document.getElementById("formsCadastro")
+carregarUsuario();
+
+const formCadastrar = document.getElementById("formsCadastro");
 
 formCadastrar.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -122,12 +119,12 @@ formCadastrar.addEventListener('submit', async (e) => {
         matricula: inputMatricula.value,
         telefone: inputTelefone.value,
         email: inputEmail.value,
-        curso_id: selectCurso.value,
-        turma_id: selectTurma.value,
+        curso_id: Number(dropDownCurso.value),
+        turma_id: Number(dropDownTurma.value),
         pagamento: selectPagamento.value,
     };
 
-    console.log('Dados que serão enviados:', dadosAtualizados);
+    console.log("Enviando dados:", dadosAtualizados);
 
     try {
         const response = await fetch(APIUsuario, {
@@ -139,24 +136,20 @@ formCadastrar.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            const resultado = await response.json();
-            console.log('Usuário atualizado com sucesso!', resultado);
             Swal.fire({
                 title: "Usuário atualizado!",
                 icon: "success",
-                draggable: true,
-                timer: 1500,          
-                showConfirmButton: false 
+                timer: 1500,
+                showConfirmButton: false
             }).then(() => {
                 window.location.href = "../armarios/armarios.html";
             });
         } else {
-            console.error('Erro na requisição:', response.status);
             Toast.fire('Erro ao atualizar usuário. Código: ' + response.status);
         }
 
     } catch (error) {
-        console.error('Erro no fetch:', error);
+        console.error("Erro no fetch:", error);
         Toast.fire('Erro de conexão com o servidor.');
     }
 });

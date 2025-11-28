@@ -1,6 +1,15 @@
 const APICurso = "http://localhost:3000/curso"
 const dropDownCurso = document.getElementById('select-curso')
 
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+});
+
 async function buscarCursosDoBanco() {
     try {
         const response = await fetch(APICurso);
@@ -58,7 +67,7 @@ dropDownCurso.addEventListener('change', () => {
         const dadosTurmas = await buscarTurmasDoBanco();
         dropDownTurma.innerHTML = ""
         const optionDefault = document.createElement('option');
-        optionDefault.textContent = "Selecione uma turma";
+        optionDefault.textContent = "";
         optionDefault.value = "";
         optionDefault.disabled = true;
         optionDefault.selected = true;
@@ -116,26 +125,26 @@ async function cadastrar(e) {
     const usuarios = await buscarUsuarioDoBanco();
 
     if (!usuarios) {
-        alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
+        Toast.fire("Erro ao conectar ao servidor. Tente novamente mais tarde.");
         return;
     }
 
     if (!nome || !cpf || !matricula || !telefone || !email || !curso_id || !turma_id || !pagamento) {
-        alert("Por gentileza, preencha os campos obrigatórios (nome, matricula, telefone, email, curso e turma).");
+        Toast.fire("Por gentileza, preencha os campos obrigatórios (nome, cpf, matricula, telefone, email, curso, turma e pagamento).");
         return;
     }
 
     const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
     if (matriculaJaExiste) {
-        alert("Matrícula já cadastrada");
+        Toast.fire("Matrícula já cadastrada");
         return;
     }
     if (!validator.isMobilePhone('+55' + telefone, 'pt-BR')) {
-        alert("telefone invalido")
+        Toast.fire("Telefone invalido")
         return;
     }
     if (!validator.isEmail(email)) {
-        alert("email invalido")
+        Toast.fire("Email invalido")
         return;
     }
 
@@ -173,18 +182,25 @@ async function cadastrar(e) {
             const dados = await requisicao.json();
             const dadosArmario = await requisicaoArmario.json();
             console.log("reserva salva com sucesso:", dados);
-            alert("reserva feita com sucesso!");
-            window.location.href = "../armarios/armarios.html";
-            formCadastrar.reset();
+            Swal.fire({
+                title: "Reserva Concluída!",
+                text: "A reserva foi concluída com sucesso.",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "../armarios/armarios.html";
+                formCadastrar.reset();
+            });
         } else {
             console.error("Erro na requisição:", requisicao.status);
-            alert("Erro ao fazer reserva. Código: " + requisicao.status);
+            Toast.fire("Erro ao fazer reserva. Código: " + requisicao.status);
         }
 
 
     } catch (error) {
         console.error("Erro no fetch:", error);
-        alert("Erro de conexão com o servidor.");
+        Toast.fire("Erro de conexão com o servidor.");
     }
 }
 formCadastrar.addEventListener("submit", cadastrar);
