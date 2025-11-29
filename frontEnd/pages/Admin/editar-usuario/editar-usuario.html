@@ -33,39 +33,44 @@
         </div>
 
         <form id="formsCadastro" action="/usuario" method="post">
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="nome" id="nome" name="nome">
+            <div class="input-box">
+                <input type="text" class="form-control" id="nome" name="nome">
+                <label>Nome</label>
             </div>
 
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="CPF" id="CPF" name="CPF">
+            <div class="input-box">
+                <input type="text" class="form-control" id="CPF" name="CPF">
+                <label>CPF</label>
             </div>
 
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="matricula" id="matricula" name="matricula">
+            <div class="input-box">
+                <input type="text" class="form-control" id="matricula" name="matricula">
+                <label>Matrícula</label>
             </div>
 
-            <div class="mb-3">
-                <input type="tel" class="form-control" placeholder="telefone" id="telefone" name="telefone">
+            <div class="input-box">
+                <input type="tel" class="form-control" id="telefone" name="telefone">
+                <label>Telefone</label>
             </div>
 
-            <div class="mb-3">
-                <input type="email" class="form-control" placeholder="email" id="email" name="email">
+            <div class="input-box">
+                <input type="email" class="form-control" id="email" name="email">
+                <label>Email</label>
             </div>
 
-            <div class="mb-3">
+            <div class="select-box">
                 <select class="form-select" id="select-curso" name="curso_id">
                     <option selected disabled>Selecione o curso</option>
                 </select>
             </div>
 
-            <div class="mb-3">
+            <div class="select-box">
                 <select class="form-select" id="select-turma" name="turma_id">
                     <option selected>Selecione um curso primeiro</option>
                 </select>
             </div>
 
-            <div class="mb-3">
+            <div class="select-box">
                 <select class="form-select" id="select-pagamento" name="pagamento">
                     <option selected disabled>Pagamento</option>
                     <option value="C">Cartão de crédito</option>

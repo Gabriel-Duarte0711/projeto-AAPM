@@ -12,8 +12,6 @@ const Toast = Swal.mixin({
     timerProgressBar: true,
 });
 
-
-
 btnEntrar.addEventListener('click', async (event) => {
     event.preventDefault();
 

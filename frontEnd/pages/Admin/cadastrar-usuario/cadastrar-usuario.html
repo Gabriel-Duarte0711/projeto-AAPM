@@ -38,54 +38,51 @@
         <form id="formsCadastro" action="/usuario" method="post">
             <div class="input-box">
                 <input type="text" class="form-control" id="nome" required>
-                <label for="nome">Nome</label>
+                <label>Nome</label>
             </div>
 
             <div class="input-box">
                 <input type="text" class="form-control" id="CPF" name="CPF" required>
-                <label for="nome">CPF</label>
+                <label>CPF</label>
             </div>
 
             <div class="input-box">
                 <input type="text" class="form-control" id="matricula" name="matricula" required>
-                <label for="nome">Matrícula</label>
+                <label>Matrícula</label>
             </div>
 
             <div class="input-box">
                 <input type="tel" class="form-control" id="telefone" name="telefone" required>
-                <label for="nome">Telefone</label>
+                <label>Telefone</label>
             </div>
 
             <div class="input-box">
                 <input type="email" class="form-control" id="email" name="email" required>
-                <label for="nome">Email</label>
+                <label>Email</label>
             </div>
             
             <div class="select-box">
-                <select id="select-curso" name="curso_id" required>
-                    <option value="" disabled selected></option>
+                <select class="form-select" id="select-curso" name="curso_id" required>
+                    <option selected disabled>Selecione o curso</option>
                 </select>
-                <label>Selecione o curso</label>
             </div>
 
             <div class="select-box">
-                <select id="select-turma" name="turma_id" required>
-                    <option value="" disabled selected></option>
+                <select class="form-select" id="select-turma" name="turma_id" required>
+                     <option selected disabled>Selecione a turma</option>
+    
                 </select>
-                <label>Selecione a turma</label>
             </div>
 
             <div class="select-box">
-                <select id="select-pagamento" name="pagamento" required>
-                    <option value="" disabled selected></option>
+                <select class="form-select" id="select-pagamento" name="pagamento" required>
+                    <option selected disabled>Pagamento</option>
                     <option value="C">Cartão de crédito</option>
                     <option value="D">Cartão de débito</option>
                     <option value="A">Dinheiro</option>
                     <option value="P">Pix</option>
                 </select>
-                <label>Pagamento</label>
             </div>
-
 
             <button type="submit" class="btn btn-primary" id="btnCadastrar">Registrar</button>
         </form>

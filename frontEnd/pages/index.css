@@ -17,14 +17,6 @@ body {
     font-size: 60px;
 }
 
-.mb-3 input {
-    background-color: var(--light-blue);
-    width: 600px;
-    height: 60px;
-    border: none;
-    border-radius: 18px;
-}
-
 .input-icon {
     position: relative;
     width: 600px;
@@ -46,10 +38,6 @@ body {
 #icon.hide{
     background-image: url("../assets/images/olho-fechado.png");
     background-size: contain;
-}
-.mb-3 input::placeholder {
-    color: white;
-    padding-left: 15px;
 }
 
 .form-control {
