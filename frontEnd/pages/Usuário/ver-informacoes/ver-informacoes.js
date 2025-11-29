@@ -33,10 +33,12 @@ const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`
 
 const inputNome = document.getElementById("nome")
 const inputMatricula = document.getElementById("matricula")
+const inputCpf = document.getElementById("CPF")
 const inputTelefone = document.getElementById("telefone")
 const inputEmail = document.getElementById("email")
 const inputCurso = document.getElementById("curso")
 const inputTurma = document.getElementById("turma")
+const inputPagamento = document.getElementById("pagamento")
 const formCadastrar = document.getElementById("formsCadastro")
 
 async function carregarUsuario() {
@@ -51,11 +53,14 @@ async function carregarUsuario() {
             console.log('Dados recebidos:', dados);
             return dados; // retorna os dados para serem usados depois
 
+
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
             return null;
         }
+
     }
+
     const usuarios = await buscarUsuarioDoBanco();
 
     const APICurso = `http://localhost:3000/curso/${usuarios.curso_id}`
@@ -98,10 +103,27 @@ async function carregarUsuario() {
     console.log(turmas)
     inputNome.value = usuarios.nome;
     inputMatricula.value = usuarios.matricula;
+    inputCpf.value = usuarios.CPF;
     inputTelefone.value = usuarios.telefone;
     inputEmail.value = usuarios.email;
-    inputCurso.value =  cursos.nome;
+    inputCurso.value = cursos.nome;
     inputTurma.value = turmas.turma;
+    if (usuarios) {
+        let pagamentoTexto = ""
+        if (usuarios.pagamento === "A") {
+            pagamentoTexto = "Dinheiro";
+        } else if (usuarios.pagamento === "C") {
+            pagamentoTexto = "Cartão de crédito";
+        } else if (usuarios.pagamento === "D") {
+            pagamentoTexto = "Cartão de débito";
+        } else if (usuarios.pagamento === "P") {
+            pagamentoTexto = "Pix";
+        } else {
+            pagamentoTexto = "Não informado";
+        }
+
+        inputPagamento.value = pagamentoTexto
+    }
 }
 carregarUsuario()
 // async function cadastrar(e) {

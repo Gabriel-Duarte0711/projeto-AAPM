@@ -28,9 +28,8 @@
 
 <body>
     <div class="desktop">
-
         <div class="entre-aqui">
-            <span class="material-symbols-outlined">person</span>
+            <h1 class="material-symbols-outlined">person</h1>
             <h3>Modifique sua senha:</h3>
         </div>
 
@@ -53,18 +52,21 @@
         </div>
 
         <form id="formsModificarSenha">
-            <div class="mb-3 input-icon">
-                <input type="password" class="form-control" id="password1" placeholder="Senha Atual">
+            <div class="input-box input-icon">
+                <input type="password" class="form-control" id="password1" required>
+                <label>Senha Atual</label>
                 <span class="icon" onclick="mostrarSenha1()"></span>
             </div>
 
-            <div class="mb-3 input-icon">
-                <input type="password" class="form-control" id="password2" placeholder="Senha Nova">
+            <div class="input-box input-icon">
+                <input type="password" class="form-control" id="password2" required>
+                <label>Nova Senha</label>
                 <span class="icon" onclick="mostrarSenha2()"></span>
             </div>
 
-            <div class="mb-3 input-icon">
-                <input type="password" class="form-control" id="password3" placeholder="Confirmar Senha">
+            <div class="input-box input-icon">
+                <input type="password" class="form-control" id="password3" required>
+                <label>Confirmar Nova Senha</label>
                 <span class="icon" onclick="mostrarSenha3()"></span>
             </div>
 

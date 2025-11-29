@@ -17,16 +17,6 @@ body {
     font-size: 60px;
 }
 
-.mb-3 input,
-.mb-3 select {
-    background-color: var(--light-blue);
-    width: 600px;
-    height: 60px;
-    border: none;
-    border-radius: 18px;
-    color: white;
-}
-
 .input-icon {
     position: relative;
     width: 600px;
@@ -45,15 +35,13 @@ body {
     background-repeat: no-repeat;
 }
 
+.icon:hover{
+    background-color: #1E3A8A;
+}
+
 .icon.hide {
     background-image: url("../../../assets/images/olho-fechado.png");
     background-size: contain;
-}
-
-.mb-3 input::placeholder,
-.mb-3 select::placeholder {
-    color: white;
-    padding-left: 15px;
 }
 
 .btn-primary {
@@ -96,7 +84,7 @@ span {
     transition: 0.3s;
 }
 
-.menu-flutuante h1:hover,
-span:hover {
+.menu-flutuante h1:hover {
     background-color: #3B82F6;
 }
+

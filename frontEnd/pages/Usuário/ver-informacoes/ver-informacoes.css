@@ -17,19 +17,6 @@ body {
     font-size: 60px;
 }
 
-.mb-3 input, .mb-3 select{
-    background-color: var(--light-blue);
-    width: 600px;
-    height: 60px;
-    border: none;
-    border-radius: 18px;
-    color: white;
-}
-
-.mb-3 input::placeholder, .mb-3 select::placeholder{
-    color: white;
-    padding-left: 15px;
-}
 
 .menu-flutuante {
     position: absolute;
@@ -64,5 +51,7 @@ body {
     background-color:#3B82F6;
 }
 
-
+.input-box label {
+    top: -20px !important ;
+}
 
