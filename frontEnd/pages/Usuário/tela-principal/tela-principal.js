@@ -15,8 +15,6 @@ const Toast = Swal.mixin({
     timerProgressBar: true,
 });
 
-
-
 async function buscarUsuarioDoBanco() {
     try {
         const response = await fetch(APIUsuario);

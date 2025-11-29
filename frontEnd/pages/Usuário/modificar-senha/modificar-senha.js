@@ -2,6 +2,10 @@ const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const aluno_id = sessionId || localId;
 
+if (!aluno_id) {
+    window.location.replace("../../index.html");
+}
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -140,8 +144,6 @@ btnModificar.addEventListener('click', async () => {
 });
 
 
-// ======= FUNÇÕES DE MOSTRAR SENHA =======
-
 function mostrarSenha1() {
     const input = document.getElementById("password1");
     const icon = input.nextElementSibling;
@@ -180,3 +182,22 @@ function mostrarSenha3() {
         icon.classList.remove("hide");
     }
 }
+
+document.getElementById("btnSair").addEventListener("click", () => {
+
+    Swal.fire({
+        title: "Deseja realmente sair?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim, sair",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            sessionStorage.clear();
+            localStorage.clear();
+            window.location.href = "../../index.html"; 
+        }
+
+    });
+});

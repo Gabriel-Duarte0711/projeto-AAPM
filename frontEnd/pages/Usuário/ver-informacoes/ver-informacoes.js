@@ -3,6 +3,10 @@ const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const aluno_id = sessionId || localId;
 
+if (!aluno_id) {
+    window.location.replace("../../index.html");
+}
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -126,6 +130,29 @@ async function carregarUsuario() {
     }
 }
 carregarUsuario()
+
+document.getElementById("btnSair").addEventListener("click", () => {
+
+    Swal.fire({
+        title: "Deseja realmente sair?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim, sair",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+            sessionStorage.clear();
+            localStorage.clear();
+            window.location.href = "../../index.html"; 
+        }
+
+    });
+});
+
+
+
+
 // async function cadastrar(e) {
 //     e.preventDefault();
 
