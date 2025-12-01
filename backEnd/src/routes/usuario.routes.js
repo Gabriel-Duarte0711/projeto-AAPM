@@ -7,15 +7,14 @@ import {
     atualizarDataEncerramento,
     deletarUsuario
 } from "../controllers/usuario.controller.js"
-import { autenticarToken } from "../middleware/auth.middleware.js";
 const router = express.Router();
 
-router.get("/me", autenticarToken, (req, res) => {
-    res.json({
-        mensagem: "Acesso permitido",
-        usuario: req.usuario
-    });
-});
+// router.get("/me", autenticarToken, (req, res) => {
+//     res.json({
+//         mensagem: "Acesso permitido",
+//         usuario: req.usuario
+//     });
+// });
 
 router.get("/", listarUsuario)
 router.post("/", criarUsuario)

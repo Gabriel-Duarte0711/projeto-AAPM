@@ -84,26 +84,18 @@ async function carregarArmarios() {
                 const data = new Date(user.data_encerramento);
                 const dataFormatada = data.toLocaleDateString("pt-BR");
                 infos.innerHTML += `
-            <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>
-            <p class="info" data-cpf="${user.CPF}"></p>
-            <p class="info" data-matricula="${user.matricula}"></p>
-            <p class="info" data-telefone="${user.telefone}"></p>
-            <p class="info" data-email="${user.email}"></p>
-            <p class="info" data-curso="${user.curso}"></p>
-            <p class="info" data-turma="${user.turma}"></p>
-            <p class="info" data-pagamento="${user.pagamento}"></p>
-            <p class="info" data-encerramento="${dataFormatada}"></p>`;
+            <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>`;
                 const popup = document.querySelector(".exibirPop");
                 const pop = document.querySelector(".pop");
                 function abrirPopup(user) {
                     pop.innerHTML = "";
                     pop.innerHTML = `
-                    <h2 class="pop-title">${user.nome}</h2>
+                    <h2 class="pop-title" data-nome="${user.nome}">${user.nome}</h2>
 
                     <div class="pop-info-group">
                         <p><span>Telefone:</span> ${user.telefone}</p>
-                        <p><span>CPF:</span> ${user.CPF}</p>
-                        <p><span>Email:</span> ${user.email}</p>
+                        <p data-cpf="${user.CPF}"><span>CPF:</span> ${user.CPF}</p>
+                        <p data-email="${user.email}"><span>Email:</span> ${user.email}</p>
                         <p><span>Curso:</span> ${user.curso}</p>
                         <p><span>Turma:</span> ${user.turma}</p>
                         <p><span>Pagamento:</span> ${pagamentoTexto}</p>
@@ -355,16 +347,13 @@ async function carregarArmarios() {
 
 
             const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
-            const telefone = armario.querySelector('.info[data-telefone]')?.dataset.telefone?.toLowerCase() ?? ""
+            const cpf = armario.querySelector('.info[data-cpf]')?.dataset.cpf?.toLowerCase() ?? ""
             const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
-            const curso = armario.querySelector('.info[data-curso]')?.dataset.curso?.toLowerCase() ?? ""
-            const turma = armario.querySelector('.info[data-turma]')?.dataset.turma?.toLowerCase() ?? ""
             const numero = armario.dataset.numero?.toLowerCase() ?? "";
 
 
-            if (numero.includes(termo) || nome.includes(termo) || telefone.includes(termo) || email.includes(termo) || curso.includes(termo) || turma.includes(termo)) {
+            if (numero.includes(termo) || nome.includes(termo) || cpf.includes(termo) || email.includes(termo) ) {
                 armario.style.display = 'flex'; // mostra
-
             } else {
                 armario.style.display = 'none'; // esconde
             }

@@ -54,6 +54,10 @@ body {
 
 /* ========== CUSTOMIZAÇÕES DO BOOTSTRAP ========== */
 
+#formulario{
+    height: 100vh;
+}
+
 /* Botões */
 .btn-primary {
     background-color: var(--dark-blue) !important;
