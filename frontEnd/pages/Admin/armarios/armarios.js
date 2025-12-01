@@ -1,3 +1,5 @@
+const { body } = require("express-validator");
+
 const APIArmario = "http://localhost:3000/armarios"
 const APIUsuario = "http://localhost:3000/usuario"
 const APIUsuarioArmario = "http://localhost:3000/armarios/obterUsuario"
@@ -87,7 +89,9 @@ async function carregarArmarios() {
             <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>`;
                 const popup = document.querySelector(".exibirPop");
                 const pop = document.querySelector(".pop");
+
                 function abrirPopup(user) {
+                    body.classList.add("travar")
                     pop.innerHTML = "";
                     pop.innerHTML = `
                     <h2 class="pop-title" data-nome="${user.nome}">${user.nome}</h2>
