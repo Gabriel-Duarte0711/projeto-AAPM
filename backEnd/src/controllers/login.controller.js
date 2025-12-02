@@ -76,22 +76,12 @@ export async function login(req, res) {
     const token = jwt.sign(
       { id: aluno.id, email: aluno.email, perfil: dadosLogin.perfil },
       process.env.JWT_SECRET,
-      { expiresIn: "168h" }
+       { expiresIn: lembrar ? "168h" : "2h" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "none",
-      maxAge: lembrar
-        ? 7 * 24 * 60 * 60 * 1000 // 7 dias
-        : 2 * 60 * 60 * 1000
-    })
-    console.log("Login recebido:", req.body);
-    console.log("Resultado do SELECT aluno:", alunoRows);
     return res.json({
       mensagem: "Login bem-sucedido",
-      token: token,
+      token,
       aluno: {
         id: aluno.id,
         nome: aluno.nome,

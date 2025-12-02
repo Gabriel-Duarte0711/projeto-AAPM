@@ -5,6 +5,10 @@ body {
     align-items: center;
 }
 
+body.travar{
+    background-color: #c82333;
+}
+
 .mb-3 {
     position: absolute;
     top: 80px;
@@ -90,6 +94,7 @@ body {
 }
 
 .pop {
+
     width: 380px;
     padding: 30px;
     border-radius: 22px;

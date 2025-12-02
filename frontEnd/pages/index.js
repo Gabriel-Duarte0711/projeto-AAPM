@@ -27,7 +27,6 @@ btnEntrar.addEventListener('click', async (event) => {
         const lembrar = checkboxLembrar.checked
         const response = await fetch(APILogin, {
             method: "POST",
-            credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, senha, lembrar })
         })
@@ -41,8 +40,10 @@ btnEntrar.addEventListener('click', async (event) => {
 
         if (checkboxLembrar.checked) {
             localStorage.setItem("id", dado.aluno.id);
+            localStorage.setItem("token", dado.token); 
         } else {
             sessionStorage.setItem("id", dado.aluno.id);
+            sessionStorage.setItem("token", dado.token);
         }
 
         const perfil = dado.aluno.perfil;
