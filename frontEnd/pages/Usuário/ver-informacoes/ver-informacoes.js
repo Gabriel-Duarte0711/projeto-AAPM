@@ -3,10 +3,6 @@ const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const aluno_id = sessionId || localId;
 
-if (!aluno_id) {
-    window.location.replace("../../index.html");
-}
-
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

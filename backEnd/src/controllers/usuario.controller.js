@@ -55,20 +55,6 @@ export async function obterUsuario(req, res) {
   }
 };
 
-export async function atualizarDataEncerramento(req, res) {
-  try {
-    const { data_encerramento } = req.body;
-    await db.execute(
-      "UPDATE tabela_usuario SET data_encerramento = ?",
-      [data_encerramento]
-    );
-    res.json({ mensagem: "Usuário atualizado com sucesso!" });
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-};
-
-
 export async function deletarUsuario(req, res) {
   try {
     const userId = req.params.id;
@@ -129,4 +115,26 @@ export async function atualizarUsuario(req, res) {
     res.status(500).json({ erro: err.message });
   }
 }
-
+export const atualizarDataEncerramento = async (req, res) => {
+    const { data_encerramento } = req.body;
+    
+    if (!data_encerramento) {
+        return res.status(400).json({ erro: 'Data não fornecida' });
+    }
+    
+    try {
+        // ✅ Trocar 'pool' por 'db'
+        const [resultado] = await db.execute(
+            'UPDATE tabela_usuario SET data_encerramento = ?', 
+            [data_encerramento]
+        );
+        
+        res.json({ 
+            sucesso: true, 
+            mensagem: `Aluno(s) atualizado(s)` 
+        });
+    } catch (error) {
+        console.error('Erro ao atualizar data:', error);
+        res.status(500).json({ erro: 'Erro ao atualizar dados' });
+    }
+};

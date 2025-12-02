@@ -1,0 +1,56 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.entre-aqui{
+    position: absolute;
+    top: 30px;
+    left: 50vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.entre-aqui .material-symbols-outlined {
+    font-size: 60px;
+}
+
+
+.menu-flutuante {
+    position: absolute;
+    top: 200px;
+    left: 0px;
+    width: 300px; 
+    color: var(--white);
+    padding: 10px 0;
+    border-radius: 10px;
+    background-color: var(--light-blue);
+}
+
+.menu-flutuante .menu {
+    display: flex;
+    flex-direction: column; 
+    gap: 20px; 
+}
+
+.menu-flutuante a {
+    text-decoration: none;
+}
+
+.menu-flutuante h1, span {
+    font-size: 18px;
+    text-align: left;
+    padding: 10px;
+    color: var(--white);
+    transition: 0.3s;
+}
+
+.menu-flutuante h1:hover {
+    background-color:#3B82F6;
+}
+
+

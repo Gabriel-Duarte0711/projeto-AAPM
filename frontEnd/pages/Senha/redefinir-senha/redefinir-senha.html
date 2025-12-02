@@ -29,29 +29,28 @@
 </head>
 
 <body>
-    <div class="desktop">
-        <div class="entre-aqui">
-            <span class="material-symbols-outlined">person</span>
-            <h2>Redefina a sua senha:</h2>
+    <div class="entre-aqui">
+        <span class="material-symbols-outlined">person</span>
+        <h2>Redefina a sua senha:</h2>
+    </div>
+
+    <form>
+
+        <div class="input-box input-icon">
+            <input type="password" class="form-control" id="password" required>
+            <label>Senha</label>
+            <span id="icon" onclick="mostrarSenha()"></span>
         </div>
 
-        <form>
-            
-            <div class="input-box input-icon">
-                <input type="password" class="form-control" id="password" required>
-                <label>Senha</label>
-                <span id="icon" onclick="mostrarSenha()"></span>
-            </div>
+        <div class="input-box input-icon">
+            <input type="password" class="form-control" id="password" required>
+            <label>Confirmar Senha</label>
+            <span id="icon" onclick="mostrarSenha()"></span>
+        </div>
 
-            <div class="input-box input-icon">
-                <input type="password" class="form-control" id="password" required>
-                <label>Confirmar Senha</label>
-                <span id="icon" onclick="mostrarSenha()"></span>
-            </div>
+        <button type="button" class="btn btn-primary" id="btnRedefinir">Redefinir</button>
 
-            <button type="button" class="btn btn-primary" id="btnRedefinir">Redefinir</button>
-
-        </form>
+    </form>
     </div>
 
 

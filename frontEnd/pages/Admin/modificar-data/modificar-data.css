@@ -1,0 +1,77 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-principal{
+    position: absolute;
+    top: 200px;
+}
+
+.div-header {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.div-header .material-symbols-outlined {
+    font-size: 60px;
+}
+
+
+.menu-flutuante {
+    position: absolute;
+    top: 200px;
+    left: 0px;
+    width: 300px;
+    color: var(--white);
+    padding: 10px 0;
+    border-radius: 10px;
+    background-color: var(--light-blue);
+}
+
+.menu-flutuante .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-flutuante a {
+    text-decoration: none;
+}
+
+.menu-flutuante h1,
+span {
+    font-size: 18px;
+    text-align: left;
+    padding: 10px;
+    color: var(--white);
+    transition: 0.3s;
+}
+
+.menu-flutuante h1:hover {
+    background-color: #3B82F6;
+}
+
+.containerDateInput {
+    width: 50vh;
+}
+
+.btn-primary {
+    background-color: #0A1E52 !important;
+    color: white;
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+label {
+    color: white;
+}

@@ -54,6 +54,15 @@ body {
 
 /* ========== CUSTOMIZAÇÕES DO BOOTSTRAP ========== */
 
+.perfil {
+    position: absolute;
+    top: 20px;
+    right: 80px;
+}
+.perfil span{
+    font-size: 40px;
+}
+
 /* Botões */
 .btn-primary {
     background-color: var(--dark-blue) !important;
