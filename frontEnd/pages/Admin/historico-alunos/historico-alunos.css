@@ -4,10 +4,12 @@ body {
     align-items: center;
 
 }
-.entre-aqui{
+.div-principal {
     position: absolute;
-    top: 30px;
-    left: 50vh;
+    top: 200px;
+}
+
+.div-header {
     color: white;
     display: flex;
     flex-direction: column;
@@ -15,7 +17,7 @@ body {
     align-items: start;
 }
 
-.entre-aqui .material-symbols-outlined {
+.div-header .material-symbols-outlined {
     font-size: 60px;
 }
 
@@ -24,7 +26,7 @@ body {
     position: absolute;
     top: 200px;
     left: 0px;
-    width: 300px; 
+    width: 300px;
     color: var(--white);
     padding: 10px 0;
     border-radius: 10px;
@@ -33,15 +35,16 @@ body {
 
 .menu-flutuante .menu {
     display: flex;
-    flex-direction: column; 
-    gap: 20px; 
+    flex-direction: column;
+    gap: 20px;
 }
 
 .menu-flutuante a {
     text-decoration: none;
 }
 
-.menu-flutuante h1, span {
+.menu-flutuante h1,
+span {
     font-size: 18px;
     text-align: left;
     padding: 10px;
@@ -50,7 +53,5 @@ body {
 }
 
 .menu-flutuante h1:hover {
-    background-color:#3B82F6;
+    background-color: #3B82F6;
 }
-
-

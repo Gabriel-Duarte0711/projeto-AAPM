@@ -115,6 +115,7 @@ export async function atualizarUsuario(req, res) {
     res.status(500).json({ erro: err.message });
   }
 }
+
 export const atualizarDataEncerramento = async (req, res) => {
     const { data_encerramento } = req.body;
     
