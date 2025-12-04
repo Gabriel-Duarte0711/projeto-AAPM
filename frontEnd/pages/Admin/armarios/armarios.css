@@ -1,12 +1,7 @@
-
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-body.travar{
-    background-color: #c82333;
 }
 
 .mb-3 {
