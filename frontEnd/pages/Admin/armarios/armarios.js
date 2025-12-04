@@ -59,7 +59,7 @@ async function carregarArmarios() {
         infos.classList.add("infos")
         let estado;
         ;
-        infos.innerHTML += `<p class="info"><strong>Armario:</strong> <span class="armario">${item.numero_armario}</span></p>`;
+        infos.innerHTML += `<p class="info"><strong>Armário:</strong> <span class="armario">${item.numero_armario}</span></p>`;
 
         if (item.estado === "O") {
             // OCUPADO 
@@ -187,9 +187,9 @@ async function carregarArmarios() {
                 card.classList.add("ocupado");
 
             } else if (item.estado === "M") {
-                // MANUNTENCAO
+                // MANUTENÇÂO
                 card.setAttribute('data-estado', item.estado)
-                estado = "EM MANUTENÇÂO"
+                estado = "Em manutenção"
                 const popup = document.querySelector(".exibirPop");
                 const pop = document.querySelector(".pop");
                 function abrirPopupManutencao() {
@@ -259,7 +259,7 @@ async function carregarArmarios() {
             } else if (item.estado === "D") {
                 // DISPONIVEL
                 card.setAttribute('data-estado', item.estado)
-                estado = "DISPONIVEL"
+                estado = "Disponível"
 
                 const popup = document.querySelector(".exibirPop");
                 const pop = document.querySelector(".pop");
