@@ -18,8 +18,7 @@ import "dotenv/config";
 // ============================
 const app = express()
 app.use(cors({
-    origin: ["http://localhost:5500", "http://127.0.0.1:5500"],
-    credentials: true
+    origin: ["http://localhost:3000", "http://127.0.0.1:5500"],
 }));
 app.use(bodyParser.json());
 app.use(cookieParser())
@@ -32,7 +31,8 @@ app.use("/curso", cursoRoute)
 app.use("/usuario", alunoRoute)
 app.use("/turma", turmaRoute)
 app.use("/login", loginRoute)
-app.use("/armarios", armariosRoutes);console.log("JWT:", process.env.JWT_SECRET);
+app.use("/armarios", armariosRoutes);
+console.log("JWT:", process.env.JWT_SECRET);
 // ============================
 //  Inicia o servidor
 // ============================

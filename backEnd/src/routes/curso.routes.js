@@ -1,6 +1,6 @@
 import express from "express";
 import { listarCursos, obterCursos } from "../controllers/curso.controller.js"
-
+import { autenticarToken } from "../middlewares/auth.middleware.js"
 const router = express.Router();
 router.get("/", listarCursos)
 router.get("/:id", obterCursos)

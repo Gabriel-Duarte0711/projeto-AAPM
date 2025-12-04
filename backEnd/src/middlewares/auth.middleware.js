@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 
 export function autenticarToken(req, res, next) {
-    const authHeader = req.headers.authorization;
-
+    const authHeader = req.headers['authorization']
+    
     if (!authHeader) {
         return res.status(401).json({ erro: "Token não enviado" });
     }
