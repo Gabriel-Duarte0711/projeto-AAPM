@@ -3,9 +3,9 @@ import { listarArmariosG, listarArmariosL, atualizarEstado } from "../controller
 import { autenticarToken } from "../middlewares/auth.middleware.js"
 const router = express.Router();
 
-router.get("/", autenticarToken, listarArmariosG);
-router.get("/obterUsuario", autenticarToken, listarArmariosL);
-router.put("/:numero_armario", autenticarToken, atualizarEstado)
+router.get("/", listarArmariosG);
+router.get("/obterUsuario", listarArmariosL);
+router.put("/:numero_armario", atualizarEstado)
 
 
 export default router;
