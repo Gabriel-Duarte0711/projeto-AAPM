@@ -83,13 +83,14 @@ async function carregarArmarios() {
 
                 const data = new Date(user.data_encerramento);
                 const dataFormatada = data.toLocaleDateString("pt-BR");
-                infos.innerHTML += `
+                
+                    infos.innerHTML += `
             <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>`;
-                const popup = document.querySelector(".exibirPop");
-                const pop = document.querySelector(".pop");
-                function abrirPopup(user) {
-                    pop.innerHTML = "";
-                    pop.innerHTML = `
+                    const popup = document.querySelector(".exibirPop");
+                    const pop = document.querySelector(".pop");
+                    function abrirPopup(user) {
+                        pop.innerHTML = "";
+                        pop.innerHTML = `
                     <h2 class="pop-title" data-nome="${user.nome}">${user.nome}</h2>
 
                     <div class="pop-info-group">
@@ -110,233 +111,233 @@ async function carregarArmarios() {
                     </div>
                     `;
 
-                    popup.style.display = "flex";
-                    // BOTAO DE EXCLUIR
-                    const btnExcluir = document.getElementById("btnExcluir")
+                        popup.style.display = "flex";
+                        // BOTAO DE EXCLUIR
+                        const btnExcluir = document.getElementById("btnExcluir")
 
-                    btnExcluir.addEventListener("click", async () => {
-                        Swal.fire({
-                            title: "Tem certeza?",
-                            text: "Essa ação irá remover o aluno e liberar o armário!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Sim, excluir",
-                            cancelButtonText: "Cancelar"
-                        }).then(async (result) => {
-                            if (!result.isConfirmed) return;
+                        btnExcluir.addEventListener("click", async () => {
+                            Swal.fire({
+                                title: "Tem certeza?",
+                                text: "Essa ação irá remover o aluno e liberar o armário!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Sim, excluir",
+                                cancelButtonText: "Cancelar"
+                            }).then(async (result) => {
+                                if (!result.isConfirmed) return;
 
-                            try {
-                                const APIDeleteUser = `${APIUsuario}/${user.id}`;
-                                const requisicao = await fetch(APIDeleteUser, {
-                                    method: "DELETE",
-                                    headers: { "Content-Type": "application/json" },
-                                });
-
-                                const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                                const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
-                                    method: "PUT",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ estado: "D" })
-                                });
-
-                                if (requisicao.ok && atualizarEstadoArmario.ok) {
-                                    Swal.fire({
-                                        title: "Excluído!",
-                                        text: "O aluno foi removido e o armário liberado.",
-                                        icon: "success",
-                                        timer: 1500,
-                                        showConfirmButton: false
+                                try {
+                                    const APIDeleteUser = `${APIUsuario}/${user.id}`;
+                                    const requisicao = await fetch(APIDeleteUser, {
+                                        method: "DELETE",
+                                        headers: { "Content-Type": "application/json" },
                                     });
 
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 1500);
+                                    const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                                    const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
+                                        method: "PUT",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ estado: "D" })
+                                    });
 
-                                } else {
+                                    if (requisicao.ok && atualizarEstadoArmario.ok) {
+                                        Swal.fire({
+                                            title: "Excluído!",
+                                            text: "O aluno foi removido e o armário liberado.",
+                                            icon: "success",
+                                            timer: 1500,
+                                            showConfirmButton: false
+                                        });
+
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 1500);
+
+                                    } else {
+                                        Swal.fire({
+                                            title: "Erro!",
+                                            text: "Erro ao excluir o aluno.",
+                                            icon: "error"
+                                        });
+                                    }
+
+                                } catch (error) {
+                                    console.error("Erro no fetch:", error);
+
                                     Swal.fire({
                                         title: "Erro!",
-                                        text: "Erro ao excluir o aluno.",
+                                        text: "Erro de conexão com o servidor.",
                                         icon: "error"
                                     });
                                 }
-
-                            } catch (error) {
-                                console.error("Erro no fetch:", error);
-
-                                Swal.fire({
-                                    title: "Erro!",
-                                    text: "Erro de conexão com o servidor.",
-                                    icon: "error"
-                                });
-                            }
+                            });
                         });
-                    });
 
+                    }
+                    card.addEventListener('click', () => {
+                        abrirPopup(user);
+                    })
+                    popup.addEventListener("click", (e) => {
+                        if (e.target === popup) {
+                            popup.style.display = "none";
+                        }
+                    });
                 }
-                card.addEventListener('click', () => {
-                    abrirPopup(user);
+
+                card.classList.add("ocupado");
+
+            } else if (item.estado === "M") {
+                // MANUNTENCAO
+                card.setAttribute('data-estado', item.estado)
+                estado = "EM MANUTENÇÂO"
+                const popup = document.querySelector(".exibirPop");
+                const pop = document.querySelector(".pop");
+                function abrirPopupManutencao() {
+                    pop.innerHTML = "";
+                    pop.innerHTML = `
+                         <select class="select" id="select-estado" name="turma_id">
+                         <option selected disabled>selecione o estado do armário</option>
+                         <option value="D">DISPONÍVEL</option>
+                         </select>
+                         <button id="atualizrEstado">Atualizar</button>`
+                        ;
+                    const att = document.getElementById("atualizrEstado")
+                    att.addEventListener('click', async () => {
+                        const dropDownEstado = document.getElementById('select-estado')
+                        const valor = dropDownEstado.value
+
+                        try {
+                            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                            const requisicao = await fetch(APIArmarioComNumero, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ estado: valor })
+                            });
+
+                            if (requisicao.ok) {
+                                const dados = await requisicao.json();
+                                console.log("armario atualizada com sucesso:", dados);
+                                Swal.fire({
+                                    title: "Atualizado!",
+                                    text: "O estado do armário foi atualizado!",
+                                    icon: "success",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
+                            } else {
+                                console.error("Erro na requisição:", requisicao.status);
+                                Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
+                            }
+
+
+                        } catch (error) {
+                            console.error("Erro no fetch:", error);
+                            Toast.fire("Erro de conexão com o servidor.");
+                        }
+                    })
+
+                    popup.style.display = "flex";
+                }
+                card.addEventListener('contextmenu', function (event) {
+                    if (event.button === 2) {
+                        event.preventDefault();
+                        console.log("clique direito")
+                        abrirPopupManutencao();
+                    }
                 })
                 popup.addEventListener("click", (e) => {
                     if (e.target === popup) {
                         popup.style.display = "none";
                     }
                 });
-            }
+                infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+                card.classList.add("manutencao");
 
-            card.classList.add("ocupado");
+            } else if (item.estado === "D") {
+                // DISPONIVEL
+                card.setAttribute('data-estado', item.estado)
+                estado = "DISPONIVEL"
 
-        } else if (item.estado === "M") {
-            // MANUNTENCAO
-            card.setAttribute('data-estado', item.estado)
-            estado = "EM MANUTENÇÂO"
-            const popup = document.querySelector(".exibirPop");
-            const pop = document.querySelector(".pop");
-            function abrirPopupManutencao() {
-                pop.innerHTML = "";
-                pop.innerHTML = `
-                         <select class="select" id="select-estado" name="turma_id">
-                         <option selected disabled>selecione o estado do armário</option>
-                         <option value="D">DISPONÍVEL</option>
-                         </select>
-                         <button id="atualizrEstado">Atualizar</button>`
-                    ;
-                const att = document.getElementById("atualizrEstado")
-                att.addEventListener('click', async () => {
-                    const dropDownEstado = document.getElementById('select-estado')
-                    const valor = dropDownEstado.value
-
-                    try {
-                        const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                        const requisicao = await fetch(APIArmarioComNumero, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ estado: valor })
-                        });
-
-                        if (requisicao.ok) {
-                            const dados = await requisicao.json();
-                            console.log("armario atualizada com sucesso:", dados);
-                            Swal.fire({
-                                title: "Atualizado!",
-                                text: "O estado do armário foi atualizado!",
-                                icon: "success",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        } else {
-                            console.error("Erro na requisição:", requisicao.status);
-                            Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
-                        }
-
-
-                    } catch (error) {
-                        console.error("Erro no fetch:", error);
-                        Toast.fire("Erro de conexão com o servidor.");
-                    }
-                })
-
-                popup.style.display = "flex";
-            }
-            card.addEventListener('contextmenu', function (event) {
-                if (event.button === 2) {
-                    event.preventDefault();
-                    console.log("clique direito")
-                    abrirPopupManutencao();
-                }
-            })
-            popup.addEventListener("click", (e) => {
-                if (e.target === popup) {
-                    popup.style.display = "none";
-                }
-            });
-            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
-            card.classList.add("manutencao");
-
-        } else if (item.estado === "D") {
-            // DISPONIVEL
-            card.setAttribute('data-estado', item.estado)
-            estado = "DISPONIVEL"
-
-            const popup = document.querySelector(".exibirPop");
-            const pop = document.querySelector(".pop");
-            function abrirPopupManutencao() {
-                pop.innerHTML = "";
-                pop.innerHTML = `
+                const popup = document.querySelector(".exibirPop");
+                const pop = document.querySelector(".pop");
+                function abrirPopupManutencao() {
+                    pop.innerHTML = "";
+                    pop.innerHTML = `
                          <select class="select" id="select-estado" name="turma_id">
                          <option selected disabled>selecione o estado do armário</option>
                          <option value="M">MANUTENCAO</option>
                          </select>
                          <button id="atualizrEstado">Atualizar</button>`
-                    ;
-                const att = document.getElementById("atualizrEstado")
-                att.addEventListener('click', async () => {
-                    const dropDownEstado = document.getElementById('select-estado')
-                    const valor = dropDownEstado.value
+                        ;
+                    const att = document.getElementById("atualizrEstado")
+                    att.addEventListener('click', async () => {
+                        const dropDownEstado = document.getElementById('select-estado')
+                        const valor = dropDownEstado.value
 
-                    try {
-                        const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                        const requisicao = await fetch(APIArmarioComNumero, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ estado: valor })
-                        });
-
-                        if (requisicao.ok) {
-                            const dados = await requisicao.json();
-                            console.log("armario atualizada com sucesso:", dados);
-                            Swal.fire({
-                                title: "Atualizado!",
-                                text: "O estado do armário foi atualizado!",
-                                icon: "success",
-                                timer: 1500,
-                                showConfirmButton: false
+                        try {
+                            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                            const requisicao = await fetch(APIArmarioComNumero, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({ estado: valor })
                             });
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        } else {
-                            console.error("Erro na requisição:", requisicao.status);
-                            Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
+
+                            if (requisicao.ok) {
+                                const dados = await requisicao.json();
+                                console.log("armario atualizada com sucesso:", dados);
+                                Swal.fire({
+                                    title: "Atualizado!",
+                                    text: "O estado do armário foi atualizado!",
+                                    icon: "success",
+                                    timer: 1500,
+                                    showConfirmButton: false
+                                });
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
+                            } else {
+                                console.error("Erro na requisição:", requisicao.status);
+                                Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
+                            }
+
+
+                        } catch (error) {
+                            console.error("Erro no fetch:", error);
+                            Toast.fire("Erro de conexão com o servidor.");
                         }
+                    })
 
-
-                    } catch (error) {
-                        console.error("Erro no fetch:", error);
-                        Toast.fire("Erro de conexão com o servidor.");
+                    popup.style.display = "flex";
+                }
+                card.addEventListener('click', () => {
+                    window.localStorage.setItem('armarioSelecionado', item.numero_armario);
+                    window.localStorage.setItem('armarioEstado', item.estado);
+                    window.location.href = "../cadastrar-usuario/cadastrar-usuario.html"
+                })
+                card.addEventListener('contextmenu', function (event) {
+                    if (event.button === 2) {
+                        event.preventDefault();
+                        console.log("clique direito")
+                        abrirPopupManutencao();
                     }
                 })
+                popup.addEventListener("click", (e) => {
+                    if (e.target === popup) {
+                        popup.style.display = "none";
+                    }
+                });
+                infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
 
-                popup.style.display = "flex";
+                card.classList.add("disponivel");
             }
-            card.addEventListener('click', () => {
-                window.localStorage.setItem('armarioSelecionado', item.numero_armario);
-                window.localStorage.setItem('armarioEstado', item.estado);
-                window.location.href = "../cadastrar-usuario/cadastrar-usuario.html"
-            })
-            card.addEventListener('contextmenu', function (event) {
-                if (event.button === 2) {
-                    event.preventDefault();
-                    console.log("clique direito")
-                    abrirPopupManutencao();
-                }
-            })
-            popup.addEventListener("click", (e) => {
-                if (e.target === popup) {
-                    popup.style.display = "none";
-                }
-            });
-            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
-
-            card.classList.add("disponivel");
-        }
 
 
-        card.appendChild(infos);
-        container.appendChild(card);
-    });
+            card.appendChild(infos);
+            container.appendChild(card);
+        });
 
     const armarios = document.querySelectorAll('.card')
     const inputPesquisa = document.getElementById('pesquisa')
