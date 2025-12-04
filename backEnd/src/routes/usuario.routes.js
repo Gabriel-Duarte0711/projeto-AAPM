@@ -17,13 +17,13 @@ router.get("/me", autenticarToken, (req, res) => {
     });
 });
 
-router.put('/atualizar-data-encerramento', autenticarToken, atualizarDataEncerramento)
-router.get("/", autenticarToken, listarUsuario)
+router.put('/atualizar-data-encerramento', atualizarDataEncerramento)
+router.get("/", listarUsuario)
 router.post("/", criarUsuario)
-router.get("/:id", autenticarToken, obterUsuario)
-router.put("/:id", autenticarToken,atualizarUsuario)
-router.put("/data", autenticarToken, atualizarDataEncerramento)
-router.delete("/:id", autenticarToken,deletarUsuario)
+router.get("/:id", obterUsuario)
+router.put("/:id",atualizarUsuario)
+router.put("/data", atualizarDataEncerramento)
+router.delete("/:id",deletarUsuario)
 
 
 export default router;

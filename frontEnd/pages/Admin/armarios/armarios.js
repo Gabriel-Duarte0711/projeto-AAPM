@@ -186,9 +186,9 @@ async function carregarArmarios() {
             card.classList.add("ocupado");
 
         } else if (item.estado === "M") {
-            // MANUNTECAO
+            // MANUNTENCAO
             card.setAttribute('data-estado', item.estado)
-            estado = "EM MANUNTEÇÂO"
+            estado = "EM MANUTENÇÂO"
             const popup = document.querySelector(".exibirPop");
             const pop = document.querySelector(".pop");
             function abrirPopupManutencao() {
