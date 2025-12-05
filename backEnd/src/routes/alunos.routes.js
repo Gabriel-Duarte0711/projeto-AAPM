@@ -6,7 +6,7 @@ import {
     atualizarUsuario,
     deletarUsuario,
     atualizarDataEncerramento
-} from "../controllers/usuario.controller.js"
+} from "../controllers/alunos.controller.js"
 import { autenticarToken } from "../middlewares/auth.middleware.js"
 const router = express.Router();
 

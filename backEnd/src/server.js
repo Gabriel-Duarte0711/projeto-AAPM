@@ -7,7 +7,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import cursoRoute from "./routes/curso.routes.js"
-import alunoRoute from "./routes/usuario.routes.js"
+import alunosRoute from "./routes/alunos.routes.js"
 import turmaRoute from "./routes/turma.routes.js"
 import loginRoute from "./routes/login.routes.js"
 import armariosRoutes from "./routes/armarios.routes.js";
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/curso", cursoRoute)
-app.use("/usuario", alunoRoute)
+app.use("/usuario", alunosRoute)
 app.use("/turma", turmaRoute)
 app.use("/login", loginRoute)
 app.use("/armarios", armariosRoutes);

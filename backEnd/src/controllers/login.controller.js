@@ -9,7 +9,7 @@ import jwt from "jsonwebtoken";
 
 export async function listarLogin(req, res) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tabela_login");
+    const [rows] = await db.execute("SELECT * FROM tabela_usuario");
     res.json(rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });
@@ -18,7 +18,7 @@ export async function listarLogin(req, res) {
 
 export async function obterLogin(req, res) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tabela_login where aluno_id = ?",
+    const [rows] = await db.execute("SELECT * FROM tabela_usuario where aluno_id = ?",
       [req.params.aluno_id]
     );
     res.json(rows[0]);
@@ -32,7 +32,7 @@ export async function atualizarSenha(req, res) {
     const { senha } = req.body;
     const hashedPassword = await bcrypt.hash(senha, 10)
     await db.execute(
-      "UPDATE tabela_login SET senha = ? where aluno_id = ?",
+      "UPDATE tabela_usuario SET senha = ? where aluno_id = ?",
       [hashedPassword, req.params.aluno_id]
     );
     res.json({ mensagem: "senha atualizada com sucesso!" });
@@ -46,7 +46,7 @@ export async function login(req, res) {
     const { email, senha, lembrar } = req.body;
 
     const [alunoRows] = await db.execute(
-      "SELECT id, nome, email FROM tabela_usuario WHERE email = ?",
+      "SELECT id, nome, email FROM tabela_alunos WHERE email = ?",
       [email]
     );
 
@@ -54,10 +54,19 @@ export async function login(req, res) {
       return res.status(400).json({ erro: "Usuário não encontrado" });
     }
 
-    const aluno = alunoRows[0];
+    const [adminRows] = await db.execute(
+      "SELECT id, nome, email FROM tabela_alunos WHERE email = ?",
+      [email]
+    )
 
+     if (adminRows.length === 0) {
+      return res.status(400).json({ erro: "Usuário não encontrado" });
+    }
+
+    const aluno = alunoRows[0];
+    
     const [loginRows] = await db.execute(
-      "SELECT senha, perfil FROM tabela_login WHERE aluno_id = ?",
+      "SELECT senha, perfil FROM tabela_usuario WHERE aluno_id = ?",
       [aluno.id]
     )
 

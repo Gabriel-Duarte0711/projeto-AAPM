@@ -14,7 +14,7 @@ export async function criarUsuario(req, res) {
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
     const [resultado] = await db.execute(
-      "INSERT INTO tabela_usuario (nome, CPF, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO tabela_alunos (nome, CPF, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [nome, CPF,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento],
 
     );
@@ -22,7 +22,7 @@ export async function criarUsuario(req, res) {
     const hashedPassword = await bcrypt.hash(CPF, 10)
 
     await db.execute(
-      "INSERT INTO tabela_login (aluno_id, senha) VALUES (?, ?)",
+      "INSERT INTO tabela_usuario (aluno_id, senha) VALUES (?, ?)",
       [aluno_id, hashedPassword]
     )
 
@@ -35,7 +35,7 @@ export async function criarUsuario(req, res) {
 
 export async function listarUsuario(req, res) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tabela_usuario");
+    const [rows] = await db.execute("SELECT * FROM tabela_alunos");
     res.json(rows);
   } catch (err) {
     res.status(500).json({ erro: err.message });
@@ -44,7 +44,7 @@ export async function listarUsuario(req, res) {
 
 export async function obterUsuario(req, res) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tabela_usuario WHERE id = ?", [
+    const [rows] = await db.execute("SELECT * FROM tabela_alunos WHERE id = ?", [
       req.params.id,
     ]);
     if (rows.length === 0)
@@ -59,8 +59,8 @@ export async function deletarUsuario(req, res) {
   try {
     const userId = req.params.id;
 
-    await db.execute("DELETE FROM tabela_login WHERE aluno_id = ?", [userId]);
-    await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [userId]);
+    await db.execute("DELETE FROM tabela_usuario WHERE aluno_id = ?", [userId]);
+    await db.execute("DELETE FROM tabela_alunos WHERE id = ?", [userId]);
     res.json({ mensagem: "Usuário deletado com sucesso!" });
   } catch (err) {
     res.status(500).json({ erro: err.message });
@@ -69,7 +69,7 @@ export async function deletarUsuario(req, res) {
 
 export async function obterUsuarioPorArmario(req, res) {
   try {
-    const [rows] = await db.execute("SELECT * FROM tabela_usuario WHERE armario_id = ?", [
+    const [rows] = await db.execute("SELECT * FROM tabela_alunos WHERE armario_id = ?", [
       req.params.id,
     ]);
     if (rows.length === 0)
@@ -86,14 +86,14 @@ export async function atualizarUsuario(req, res) {
     const { nome, CPF, matricula, telefone, email, curso_id, turma_id, pagamento } = req.body;
 
     // Validar se o usuário existe
-    const [user] = await db.execute("SELECT * FROM tabela_usuario WHERE id = ?", [userId]);
+    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id = ?", [userId]);
     if (user.length === 0) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
     }
 
     // Atualizar o usuário
     await db.execute(
-      `UPDATE tabela_usuario 
+      `UPDATE tabela_alunos 
        SET nome = ?, CPF = ?, matricula = ?, telefone = ?, email = ?, 
            curso_id = ?, turma_id = ?, pagamento = ?
        WHERE id = ?`,
@@ -104,7 +104,7 @@ export async function atualizarUsuario(req, res) {
     if (CPF !== user[0].CPF) {
       const hashedPassword = await bcrypt.hash(CPF, 10);
       await db.execute(
-        "UPDATE tabela_login SET senha = ? WHERE aluno_id = ?",
+        "UPDATE tabela_usuario SET senha = ? WHERE aluno_id = ?",
         [hashedPassword, userId]
       );
     }
@@ -126,7 +126,7 @@ export const atualizarDataEncerramento = async (req, res) => {
     try {
         // ✅ Trocar 'pool' por 'db'
         const [resultado] = await db.execute(
-            'UPDATE tabela_usuario SET data_encerramento = ?', 
+            'UPDATE tabela_alunos SET data_encerramento = ?', 
             [data_encerramento]
         );
         
