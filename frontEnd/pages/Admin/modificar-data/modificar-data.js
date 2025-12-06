@@ -1,4 +1,4 @@
-const APIUsuarioDate = `http://localhost:3000/usuario/atualizar-data-encerramento`
+const APIUsuarioDate = `http://localhost:3000/alunos/atualizar-data-encerramento`
 
 const Toast = Swal.mixin({
     toast: true,

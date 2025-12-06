@@ -84,7 +84,7 @@ dropDownCurso.addEventListener('change', () => {
 
 
 // cadastro de um aluno
-const APIUsuario = "http://localhost:3000/usuario"
+const APIUsuario = "http://localhost:3000/alunos"
 
 const inputNome = document.getElementById("nome")
 const inputCPF = document.getElementById("CPF");

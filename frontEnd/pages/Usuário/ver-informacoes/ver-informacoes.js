@@ -29,7 +29,7 @@ async function buscarCursosDoBanco() {
 }
 
 // cadastro de um aluno
-const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`
+const APIUsuario = `http://localhost:3000/alunos/${aluno_id}`
 
 const inputNome = document.getElementById("nome")
 const inputMatricula = document.getElementById("matricula")

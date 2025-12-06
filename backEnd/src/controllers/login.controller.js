@@ -45,29 +45,25 @@ export async function login(req, res) {
   try {
     const { email, senha, lembrar } = req.body;
 
+
     const [alunoRows] = await db.execute(
-      "SELECT id, nome, email FROM tabela_alunos WHERE email = ?",
+      "SELECT id, nome, email, id_usuario FROM tabela_alunos WHERE email = ?",
       [email]
     );
 
-    if (alunoRows.length === 0) {
-      return res.status(400).json({ erro: "Usuário não encontrado" });
-    }
-
     const [adminRows] = await db.execute(
-      "SELECT id, nome, email FROM tabela_alunos WHERE email = ?",
+      "SELECT id, nome, email, id_usuario FROM tabela_admin WHERE email = ?",
       [email]
-    )
+    );
 
-     if (adminRows.length === 0) {
+    const usuario = alunoRows[0] || adminRows[0];
+    if (!usuario) {
       return res.status(400).json({ erro: "Usuário não encontrado" });
     }
 
-    const aluno = alunoRows[0];
-    
     const [loginRows] = await db.execute(
-      "SELECT senha, perfil FROM tabela_usuario WHERE aluno_id = ?",
-      [aluno.id]
+      "SELECT senha, perfil FROM tabela_usuario WHERE id = ?",
+      [usuario.id_usuario],
     )
 
     if (loginRows.length === 0) {
@@ -83,18 +79,18 @@ export async function login(req, res) {
     }
 
     const token = jwt.sign(
-      { id: aluno.id, email: aluno.email, perfil: dadosLogin.perfil },
+      { id: usuario.id, email: usuario.email, perfil: dadosLogin.perfil },
       process.env.JWT_SECRET,
-       { expiresIn: lembrar ? "168h" : "2h" }
+      { expiresIn: lembrar ? "168h" : "2h" }
     );
 
     return res.json({
       mensagem: "Login bem-sucedido",
       token,
-      aluno: {
-        id: aluno.id,
-        nome: aluno.nome,
-        email: aluno.email,
+      usuario: {
+        id: usuario.id,
+        nome: usuario.nome,
+        email: usuario.email,
         perfil: dadosLogin.perfil
       }
     });

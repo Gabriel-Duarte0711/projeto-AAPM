@@ -1,7 +1,7 @@
 // js/auth.js (frontend)
 export async function verificarLogin() {
   try {
-    const response = await fetch("http://localhost:3000/usuario/me", {
+    const response = await fetch("http://localhost:3000/alunos/me", {
       credentials: "include" // envia o cookie que foi salvo pelo backend
     });
 

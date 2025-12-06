@@ -1,12 +1,12 @@
 const sessionId = sessionStorage.getItem("id");
 const localId = localStorage.getItem("id");
 const id = sessionId || localId;
-const APIUsuario = `http://localhost:3000/usuario/${id}`
-const APIUsuarioDate = `http://localhost:3000/usuario`
+const APIUsuario = `http://localhost:3000/alunos/${id}`
+const APIUsuarioDate = `http://localhost:3000/alunos`
 const saudacoes = document.getElementById('saudacoes')
 const numArmario = document.getElementById('numArmario')
 const dataFim = document.getElementById('dataFim')
-
+console.log(id)
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -23,6 +23,7 @@ async function buscarUsuarioDoBanco() {
         }
 
         const dados = await response.json();
+        console.log("teste")
         console.log('Dados recebidos:', dados);
         return dados; // retorna os dados para serem usados depois
 

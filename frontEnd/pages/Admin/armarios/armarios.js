@@ -1,5 +1,5 @@
 const APIArmario = "http://localhost:3000/armarios"
-const APIUsuario = "http://localhost:3000/usuario"
+const APIUsuario = "http://localhost:3000/alunos"
 const APIUsuarioArmario = "http://localhost:3000/armarios/obterUsuario"
 
 const Toast = Swal.mixin({

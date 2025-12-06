@@ -9,23 +9,26 @@ import bcrypt from "bcrypt"
 
 export async function criarUsuario(req, res) {
   try {
-    const { nome, CPF,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento } = req.body;
-    if (!nome || !CPF || !matricula || !telefone || !email || !curso_id || !turma_id || !armario_id || !pagamento)
+    const { CPF, nome,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento } = req.body;
+    if (!CPF || !nome || !matricula || !telefone || !email || !curso_id || !turma_id || !armario_id || !pagamento)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
-    const [resultado] = await db.execute(
-      "INSERT INTO tabela_alunos (nome, CPF, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [nome, CPF,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento],
-
-    );
-    const aluno_id = resultado.insertId;
     const hashedPassword = await bcrypt.hash(CPF, 10)
 
-    await db.execute(
-      "INSERT INTO tabela_usuario (aluno_id, senha) VALUES (?, ?)",
-      [aluno_id, hashedPassword]
+    const [usuario] = await db.execute(
+      "INSERT INTO tabela_usuario (senha) VALUES ( ?)",
+      [hashedPassword]
     )
+    const id_usuario = usuario.insertId;
 
+    const [resultado] = await db.execute(
+      "INSERT INTO tabela_alunos (CPF, nome, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [CPF, nome, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento, id_usuario],
+    );
+    
+    
+
+    
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
   } catch (err) {
     console.error("❌ ERRO AO CRIAR ALUNO:", err);
@@ -59,8 +62,8 @@ export async function deletarUsuario(req, res) {
   try {
     const userId = req.params.id;
 
-    await db.execute("DELETE FROM tabela_usuario WHERE aluno_id = ?", [userId]);
-    await db.execute("DELETE FROM tabela_alunos WHERE id = ?", [userId]);
+    await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [userId]);
+    await db.execute("DELETE FROM tabela_alunos WHERE id_usuario = ?", [userId]);
     res.json({ mensagem: "Usuário deletado com sucesso!" });
   } catch (err) {
     res.status(500).json({ erro: err.message });
@@ -86,7 +89,7 @@ export async function atualizarUsuario(req, res) {
     const { nome, CPF, matricula, telefone, email, curso_id, turma_id, pagamento } = req.body;
 
     // Validar se o usuário existe
-    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id = ?", [userId]);
+    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id_usuario = ?", [userId]);
     if (user.length === 0) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
     }
@@ -96,7 +99,7 @@ export async function atualizarUsuario(req, res) {
       `UPDATE tabela_alunos 
        SET nome = ?, CPF = ?, matricula = ?, telefone = ?, email = ?, 
            curso_id = ?, turma_id = ?, pagamento = ?
-       WHERE id = ?`,
+       WHERE id_usuario = ?`,
       [nome, CPF, matricula, telefone, email, curso_id, turma_id, pagamento, userId]
     );
 
@@ -104,7 +107,7 @@ export async function atualizarUsuario(req, res) {
     if (CPF !== user[0].CPF) {
       const hashedPassword = await bcrypt.hash(CPF, 10);
       await db.execute(
-        "UPDATE tabela_usuario SET senha = ? WHERE aluno_id = ?",
+        "UPDATE tabela_usuario SET senha = ? WHERE id = ?",
         [hashedPassword, userId]
       );
     }

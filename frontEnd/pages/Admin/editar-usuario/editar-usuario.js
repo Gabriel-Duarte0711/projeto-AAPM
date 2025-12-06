@@ -18,7 +18,7 @@ const aluno_id = userId || sessionId || localId;
 
 console.log('ID do usuário sendo editado:', aluno_id);
 
-const APIUsuario = `http://localhost:3000/usuario/${aluno_id}`;
+const APIUsuario = `http://localhost:3000/alunos/${aluno_id}`;
 
 const inputNome = document.getElementById("nome");
 const inputCPF = document.getElementById("CPF");

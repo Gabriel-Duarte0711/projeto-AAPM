@@ -32,22 +32,21 @@ btnEntrar.addEventListener('click', async (event) => {
         })
 
         const dado = await response.json();
-
         if (!response.ok) {
             Toast.fire(dado.erro || "Erro ao fazer login");
             return;
         }
 
         if (checkboxLembrar.checked) {
-            localStorage.setItem("id", dado.aluno.id);
+            localStorage.setItem("id", dado.usuario.id);
             localStorage.setItem("token", dado.token); 
         } else {
-            sessionStorage.setItem("id", dado.aluno.id);
+            sessionStorage.setItem("id", dado.usuario.id);
             sessionStorage.setItem("token", dado.token);
         }
-
-        const perfil = dado.aluno.perfil;
-
+        console.log(dado)
+        const perfil = dado.usuario.perfil;
+        
         if (perfil === "aluno") {
             window.location.href = "/frontend/pages/Usuário/tela-principal/tela-principal.html";
         } else {

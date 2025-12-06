@@ -11,7 +11,7 @@ export async function listarArmariosL(req, res) {
         u.telefone,
         u.email,
         u.pagamento,
-        u.id,
+        u.id_usuario,
         c.nome AS curso,
         t.turma,
         u.data_encerramento

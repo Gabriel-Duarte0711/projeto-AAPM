@@ -11,6 +11,7 @@ import alunosRoute from "./routes/alunos.routes.js"
 import turmaRoute from "./routes/turma.routes.js"
 import loginRoute from "./routes/login.routes.js"
 import armariosRoutes from "./routes/armarios.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 import "dotenv/config";
 // ============================
@@ -28,7 +29,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/curso", cursoRoute)
-app.use("/usuario", alunosRoute)
+app.use("/alunos", alunosRoute)
+app.use("/admin", adminRoutes)
 app.use("/turma", turmaRoute)
 app.use("/login", loginRoute)
 app.use("/armarios", armariosRoutes);
