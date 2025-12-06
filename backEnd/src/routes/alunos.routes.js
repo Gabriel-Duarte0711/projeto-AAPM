@@ -23,7 +23,7 @@ router.post("/", criarUsuario)
 router.get("/:id", obterUsuario)
 router.put("/:id",atualizarUsuario)
 router.put("/data", atualizarDataEncerramento)
-router.delete("/:id",deletarUsuario)
+router.put("/desativar/:id", deletarUsuario)
 
 
 export default router;

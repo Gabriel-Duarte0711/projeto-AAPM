@@ -9,7 +9,7 @@ import bcrypt from "bcrypt"
 
 export async function criarUsuario(req, res) {
   try {
-    const { CPF, nome,matricula, telefone, email, curso_id, turma_id, armario_id, pagamento } = req.body;
+    const { CPF, nome, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento } = req.body;
     if (!CPF || !nome || !matricula || !telefone || !email || !curso_id || !turma_id || !armario_id || !pagamento)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
@@ -25,10 +25,10 @@ export async function criarUsuario(req, res) {
       "INSERT INTO tabela_alunos (CPF, nome, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [CPF, nome, matricula, telefone, email, curso_id, turma_id, armario_id, pagamento, id_usuario],
     );
-    
-    
 
-    
+
+
+
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
   } catch (err) {
     console.error("❌ ERRO AO CRIAR ALUNO:", err);
@@ -62,13 +62,22 @@ export async function deletarUsuario(req, res) {
   try {
     const userId = req.params.id;
 
-    await db.execute("DELETE FROM tabela_usuario WHERE id = ?", [userId]);
-    await db.execute("DELETE FROM tabela_alunos WHERE id_usuario = ?", [userId]);
+    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id_usuario = ?", [userId]);
+    if (user.length === 0) {
+      return res.status(404).json({ erro: "Usuário não encontrado" });
+    }
+
+    await db.execute(
+      "UPDATE tabela_alunos SET is_ativo = ? WHERE id_usuario = ?",
+      [0, userId]
+    );
+
+
     res.json({ mensagem: "Usuário deletado com sucesso!" });
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
-};  
+};
 
 export async function obterUsuarioPorArmario(req, res) {
   try {
@@ -120,25 +129,25 @@ export async function atualizarUsuario(req, res) {
 }
 
 export const atualizarDataEncerramento = async (req, res) => {
-    const { data_encerramento } = req.body;
-    
-    if (!data_encerramento) {
-        return res.status(400).json({ erro: 'Data não fornecida' });
-    }
-    
-    try {
-        // ✅ Trocar 'pool' por 'db'
-        const [resultado] = await db.execute(
-            'UPDATE tabela_alunos SET data_encerramento = ?', 
-            [data_encerramento]
-        );
-        
-        res.json({ 
-            sucesso: true, 
-            mensagem: `Aluno(s) atualizado(s)` 
-        });
-    } catch (error) {
-        console.error('Erro ao atualizar data:', error);
-        res.status(500).json({ erro: 'Erro ao atualizar dados' });
-    }
+  const { data_encerramento } = req.body;
+
+  if (!data_encerramento) {
+    return res.status(400).json({ erro: 'Data não fornecida' });
+  }
+
+  try {
+    // ✅ Trocar 'pool' por 'db'
+    const [resultado] = await db.execute(
+      'UPDATE tabela_alunos SET data_encerramento = ?',
+      [data_encerramento]
+    );
+
+    res.json({
+      sucesso: true,
+      mensagem: `Aluno(s) atualizado(s)`
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar data:', error);
+    res.status(500).json({ erro: 'Erro ao atualizar dados' });
+  }
 };

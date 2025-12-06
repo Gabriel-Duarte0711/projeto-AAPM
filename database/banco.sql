@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.10.0.7000
+-- HeidiSQL Versão:              12.12.0.7122
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -25,16 +25,23 @@ CREATE TABLE IF NOT EXISTS `tabela_admin` (
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `telefone` char(20) NOT NULL,
+  `CPF` varchar(20) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `CPF` (`CPF`),
+  KEY `FK_tabela_admin_tabela_usuario` (`id_usuario`),
+  CONSTRAINT `FK_tabela_admin_tabela_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tabela_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_admin: ~1 rows (aproximadamente)
-INSERT INTO `tabela_admin` (`id`, `nome`, `email`, `telefone`, `criado_em`) VALUES
-	(1, 'bia', 'bia@gmail.com', '11988665544', '2025-12-05 15:39:59');
+-- Copiando dados para a tabela aapm.tabela_admin: ~3 rows (aproximadamente)
+INSERT INTO `tabela_admin` (`id`, `nome`, `email`, `telefone`, `CPF`, `id_usuario`, `criado_em`) VALUES
+	(1, 'admin', 'admin@gmail.com', '11988776655', '12345678906', 2, '2025-12-06 00:17:31'),
+	(2, 'admin', 'admin2@gmail.com', '11988776655', '12345678907', 4, '2025-12-06 00:18:01'),
+	(3, 'admin3', 'admin3@gmail.com', '11988776655', '12345678908', 6, '2025-12-06 22:42:46');
 
--- Copiando estrutura para tabela aapm.tabela_aluno
-CREATE TABLE IF NOT EXISTS `tabela_aluno` (
+-- Copiando estrutura para tabela aapm.tabela_alunos
+CREATE TABLE IF NOT EXISTS `tabela_alunos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `CPF` varchar(20) NOT NULL,
   `nome` varchar(100) NOT NULL,
@@ -46,23 +53,30 @@ CREATE TABLE IF NOT EXISTS `tabela_aluno` (
   `armario_id` int(11) NOT NULL,
   `data_encerramento` date DEFAULT NULL,
   `pagamento` enum('C','D','P','A') NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_ativo` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `armario_id` (`armario_id`),
-  UNIQUE KEY `matricula` (`matricula`) USING BTREE,
   UNIQUE KEY `CPF` (`CPF`),
+  UNIQUE KEY `matricula` (`matricula`) USING BTREE,
   KEY `curso_id` (`curso_id`),
   KEY `tabela_armario_ibfk_2` (`armario_id`),
   KEY `tabela_usuario_ibfk_3` (`turma_id`),
-  CONSTRAINT `tabela_aluno_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`),
-  CONSTRAINT `tabela_aluno_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `FK_tabela_alunos_tabela_usuario` (`id_usuario`),
+  CONSTRAINT `FK_tabela_alunos_tabela_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tabela_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `tabela_alunos_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`),
+  CONSTRAINT `tabela_alunos_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tabela_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_aluno: ~2 rows (aproximadamente)
-INSERT INTO `tabela_aluno` (`id`, `CPF`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`, `pagamento`, `criado_em`) VALUES
-	(1, '55522233311', 'Gabs', '3321', '11988877766', 'gabs@gmail.com', 10, 22, 1, NULL, 'A', '2025-12-05 15:22:18'),
-	(2, '55522233322', 'admin', '1111', '11988877766', 'admin@gmail.com', 5, 6, 2, NULL, 'P', '2025-12-05 15:22:18');
+-- Copiando dados para a tabela aapm.tabela_alunos: ~6 rows (aproximadamente)
+INSERT INTO `tabela_alunos` (`id`, `CPF`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`, `pagamento`, `id_usuario`, `criado_em`, `is_ativo`) VALUES
+	(1, '12345678911', 'Gabs', '014', '11988776655', 'teste@gmail.com', 1, 1, 1, NULL, 'P', 3, '2025-12-06 00:17:58', b'1'),
+	(2, '12345678912', 'Lopreti', '015', '11988776655', 'teste2@gmail.com', 1, 1, 2, NULL, 'P', 5, '2025-12-06 00:18:30', b'1'),
+	(3, '12345678901', 'teste', '1221', '11988877766', 'teste@gmail.com', 14, 29, 3, NULL, 'P', 7, '2025-12-06 22:47:45', b'0'),
+	(5, '12345678902', 'teste2', '12212', '11988877744', 'teste2@gmail.com', 13, 33, 3, NULL, 'P', 9, '2025-12-06 23:23:36', b'0'),
+	(6, '12345678903', 'teste3', '12214', '11988877733', 'teste3@gmail.com', 13, 33, 3, NULL, 'A', 10, '2025-12-06 23:28:48', b'0'),
+	(7, '12345678904', 'teste4', '12215', '11988877722', 'teste4@gmail.com', 14, 29, 3, NULL, 'P', 11, '2025-12-06 23:34:30', b'1');
 
 -- Copiando estrutura para tabela aapm.tabela_armario
 CREATE TABLE IF NOT EXISTS `tabela_armario` (
@@ -76,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(1, 'O', NULL),
 	(2, 'O', NULL),
-	(3, 'D', NULL),
+	(3, 'O', NULL),
 	(4, 'D', NULL),
 	(5, 'D', NULL),
 	(6, 'D', NULL),
@@ -327,21 +341,24 @@ INSERT INTO `tabela_turma` (`id`, `turma`, `curso_id`, `periodo`, `semestre_inic
 -- Copiando estrutura para tabela aapm.tabela_usuario
 CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) NOT NULL,
-  `id_admin` int(11) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
   `perfil` enum('aluno','admin') DEFAULT 'aluno',
-  PRIMARY KEY (`id`),
-  KEY `aluno_id` (`id_aluno`) USING BTREE,
-  KEY `FK_tabela_usuario_tabela_admin` (`id_admin`),
-  CONSTRAINT `FK_tabela_usuario_tabela_admin` FOREIGN KEY (`id_admin`) REFERENCES `tabela_admin` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_tabela_usuario_tabela_aluno` FOREIGN KEY (`id_aluno`) REFERENCES `tabela_aluno` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_usuario: ~2 rows (aproximadamente)
-INSERT INTO `tabela_usuario` (`id`, `id_aluno`, `id_admin`, `senha`, `perfil`) VALUES
-	(1, 1, NULL, '$2b$10$v5EVCSuk/jwODOZSdlvK9uLxXUyWFmOjlowNKwboNKOYN2DhXgPpq', 'aluno'),
-	(2, 2, NULL, '$2b$10$lBsQpIQqr9AdMR2nMxrkReiXWARvevdsMvbNboMiFonT8fZSYxGFi', 'admin');
+-- Copiando dados para a tabela aapm.tabela_usuario: ~8 rows (aproximadamente)
+INSERT INTO `tabela_usuario` (`id`, `senha`, `perfil`) VALUES
+	(1, '$2b$10$2.WZufHPFHm96MutZHQiB.rZR/QTXxo.mD19VMrmozSC7eXV.osCK', 'aluno'),
+	(2, '$2b$10$mXBDeRex6rVbYTg61zeuKeScnaYzUya8e2PEsm4qDXwJwjfrxCtmm', 'admin'),
+	(3, '$2b$10$GaQgs8KETh9UOg.G5dImwuKy6OUwnJT0WpL.e9l15EgMAaU4OcQ6C', 'aluno'),
+	(4, '$2b$10$b7glCXi4t4HjIdG9vF7zU.d4ta4AQgEa449xf9gIaedyUAceXMNe2', 'admin'),
+	(5, '$2b$10$sxbPL9c1xTPCEm8pmmdynOgAUkMOO0nReFNk7YcL19YLYcMHxbgpu', 'aluno'),
+	(6, '$2b$10$SRGdTj5REIk2rZopTmm1L.QQ4/XotV0GNMBMXDWOHnY.Huu.GIKp2', 'admin'),
+	(7, '$2b$10$XhI1gn/3vEnpNv1IXxWVTOG03EINtZ8yAjZID7mkZhT6nsxvxJKgG', 'aluno'),
+	(8, '$2b$10$wpj8baxjk1hKNus6JJFPM.HNUtoCAgLiRGXmup6wKXrHLpJYSro8K', 'aluno'),
+	(9, '$2b$10$brrFNyTGZthYgijWyU4Ve.778Y1ZTA7jRcxJEfGSBCOwR62oW/MB6', 'aluno'),
+	(10, '$2b$10$tJhrdiL9sjIzHyuxEAICs.or0Gu2iGjB5be1b/d2NNOm0pAtq029S', 'aluno'),
+	(11, '$2b$10$432QYImbjrXOxGbYotyQmOOIZWd3NteGDKlqmVhfSxQXTdj/NPCmC', 'aluno');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

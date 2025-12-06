@@ -18,8 +18,8 @@ export async function criarAdmin (req, res) {
     const hashedPassword = await bcrypt.hash(CPF, 10)
 
     const [usuario] = await db.execute(
-      "INSERT INTO tabela_usuario (senha) VALUES ( ?)",
-      [hashedPassword]
+      "INSERT INTO tabela_usuario (senha, perfil) VALUES (?, ?)",
+      [hashedPassword, "admin"]
     )
     const id_usuario = usuario.insertId;
 

@@ -3,73 +3,73 @@ const APIUsuario = "http://localhost:3000/alunos"
 const APIUsuarioArmario = "http://localhost:3000/armarios/obterUsuario"
 
 const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
 });
 
 async function buscarArmariosDoBanco() {
-    try {
-        const response = await fetch(APIArmario);
-        if (!response.ok) {
-            throw new Error('Erro na requisição à API');
-        }
-
-        const dados = await response.json();
-        console.log('Dados recebidos:', dados);
-        return dados; // retorna os dados para serem usados depois
-
-    } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        return null;
+  try {
+    const response = await fetch(APIArmario);
+    if (!response.ok) {
+      throw new Error('Erro na requisição à API');
     }
+
+    const dados = await response.json();
+    console.log('Dados recebidos:', dados);
+    return dados; // retorna os dados para serem usados depois
+
+  } catch (error) {
+    console.error('Erro ao buscar dados:', error);
+    return null;
+  }
 }
 
 async function buscarUserDoBanco() {
-    try {
-        const response = await fetch(APIUsuarioArmario);
-        if (!response.ok) {
-            throw new Error('Erro na requisição à API');
-        }
-
-        const dados = await response.json();
-        console.log('Dados recebidos:', dados);
-        return dados; // retorna os dados para serem usados depois
-
-    } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-        return null;
+  try {
+    const response = await fetch(APIUsuarioArmario);
+    if (!response.ok) {
+      throw new Error('Erro na requisição à API');
     }
+
+    const dados = await response.json();
+    console.log('Dados recebidos:', dados);
+    return dados; // retorna os dados para serem usados depois
+
+  } catch (error) {
+    console.error('Erro ao buscar dados:', error);
+    return null;
+  }
 }
 
 
 async function carregarArmarios() {
-    const dadosArmarios = await buscarArmariosDoBanco();
-    const dadosUsuario = await buscarUserDoBanco();
-    const container = document.getElementById("card-container");
+  const dadosArmarios = await buscarArmariosDoBanco();
+  const dadosUsuario = await buscarUserDoBanco();
+  const container = document.getElementById("card-container");
 
-    container.innerHTML = "";
-    dadosArmarios.forEach(item => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.setAttribute('data-numero', item.numero_armario)
-        const infos = document.createElement("div");
-        infos.classList.add("infos")
-        let estado;
-        ;
-        infos.innerHTML += `<p class="info"><strong>Armário:</strong> <span class="armario">${item.numero_armario}</span></p>`;
+  container.innerHTML = "";
+  dadosArmarios.forEach(item => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.setAttribute('data-numero', item.numero_armario)
+    const infos = document.createElement("div");
+    infos.classList.add("infos")
+    let estado;
+    ;
+    infos.innerHTML += `<p class="info"><strong>Armário:</strong> <span class="armario">${item.numero_armario}</span></p>`;
 
-        if (item.estado === "O") {
-            card.setAttribute('data-estado', item.estado)
-            estado = "Ocupado"
+    if (item.estado === "O") {
+      card.setAttribute('data-estado', item.estado)
+      estado = "Ocupado"
 
-            const popup = document.querySelector(".exibirPop");
-            const pop = document.querySelector(".pop");
-            function abrirPopupManutencao() {
-                pop.innerHTML = "";
-                pop.innerHTML = `
+      const popup = document.querySelector(".exibirPop");
+      const pop = document.querySelector(".pop");
+      function abrirPopupManutencao() {
+        pop.innerHTML = "";
+        pop.innerHTML = `
                         <span class="material-symbols-outlined" id="historicoIcon">
                             history
                         </span>
@@ -82,100 +82,100 @@ async function carregarArmarios() {
 
                         <div class="container-select">
                             <select class="select" id="select-numero" name="turma_id">
-                            <option selected disabled>selecione número do novo armário</option>
+                            <option selected disabled id="option-numero">selecione número do novo armário</option>
                             </select>
                          </div>
                          <button id="atualizarEstado">Atualizar</button>`
-                    ;
+          ;
 
-                const historico = document.getElementById('historicoIcon');
-                historico.addEventListener('click', function () {
-                    window.location.href = '../historico-alunos/historico-alunos.html';
-                });
-
-
-                const att = document.getElementById("atualizarEstado")
-                att.addEventListener('click', async () => {
-                    const dropDownEstado = document.getElementById('select-estado')
-                    const valor = dropDownEstado.value
-
-                    try {
-                        const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                        const requisicao = await fetch(APIArmarioComNumero, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ estado: valor })
-                        });
-
-                        if (requisicao.ok) {
-                            const dados = await requisicao.json();
-                            console.log("armario atualizada com sucesso:", dados);
-                            Swal.fire({
-                                title: "Atualizado!",
-                                text: "O estado do armário foi atualizado!",
-                                icon: "success",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        } else {
-                            console.error("Erro na requisição:", requisicao.status);
-                            Toast.fire("Erro ao mudar estado do armario. Código: " + requisicao.status);
-                        }
+        const historico = document.getElementById('historicoIcon');
+        historico.addEventListener('click', function () {
+          window.location.href = '../historico-alunos/historico-alunos.html';
+        });
 
 
-                    } catch (error) {
-                        console.error("Erro no fetch:", error);
-                        Toast.fire("Erro de conexão com o servidor.");
-                    }
-                })
+        const att = document.getElementById("atualizarEstado")
+        att.addEventListener('click', async () => {
+          const dropDownEstado = document.getElementById('select-estado')
+          const valor = dropDownEstado.value
 
-                popup.style.display = "flex";
-            }
-            card.addEventListener('contextmenu', function (event) {
-                if (event.button === 2) {
-                    event.preventDefault();
-                    console.log("clique direito")
-                    abrirPopupManutencao();
-                }
-            })
-            popup.addEventListener("click", (e) => {
-                if (e.target === popup) {
-                    popup.style.display = "none";
-                }
+          try {
+            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+            const requisicao = await fetch(APIArmarioComNumero, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ estado: valor })
             });
-            card.classList.add("Ocupado");
-            // OCUPADO 
-            const user = dadosUsuario.find(u => u.numero_armario === item.numero_armario);
-            card.setAttribute('data-estado', item.estado)
 
-            if (user) {
+            if (requisicao.ok) {
+              const dados = await requisicao.json();
+              console.log("armario atualizada com sucesso:", dados);
+              Swal.fire({
+                title: "Atualizado!",
+                text: "O estado do armário foi atualizado!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
+            } else {
+              console.error("Erro na requisição:", requisicao.status);
+              Toast.fire("Erro ao mudar estado do armario. Código: " + requisicao.status);
+            }
 
-                let pagamentoTexto = "";
-                if (user.pagamento === "A") {
-                    pagamentoTexto = "Dinheiro";
-                } else if (user.pagamento === "C") {
-                    pagamentoTexto = "Cartão de crédito";
-                } else if (user.pagamento === "D") {
-                    pagamentoTexto = "Cartão de débito";
-                } else if (user.pagamento === "P") {
-                    pagamentoTexto = "Pix";
-                } else {
-                    pagamentoTexto = "Não informado";
-                }
 
-                const data = new Date(user.data_encerramento);
-                const dataFormatada = data.toLocaleDateString("pt-BR");
+          } catch (error) {
+            console.error("Erro no fetch:", error);
+            Toast.fire("Erro de conexão com o servidor.");
+          }
+        })
 
-                infos.innerHTML += `
+        popup.style.display = "flex";
+      }
+      card.addEventListener('contextmenu', function (event) {
+        if (event.button === 2) {
+          event.preventDefault();
+          console.log("clique direito")
+          abrirPopupManutencao();
+        }
+      })
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+        }
+      });
+      card.classList.add("Ocupado");
+      // OCUPADO 
+      const user = dadosUsuario.find(u => u.numero_armario === item.numero_armario);
+      card.setAttribute('data-estado', item.estado)
+
+      if (user) {
+
+        let pagamentoTexto = "";
+        if (user.pagamento === "A") {
+          pagamentoTexto = "Dinheiro";
+        } else if (user.pagamento === "C") {
+          pagamentoTexto = "Cartão de crédito";
+        } else if (user.pagamento === "D") {
+          pagamentoTexto = "Cartão de débito";
+        } else if (user.pagamento === "P") {
+          pagamentoTexto = "Pix";
+        } else {
+          pagamentoTexto = "Não informado";
+        }
+
+        const data = new Date(user.data_encerramento);
+        const dataFormatada = data.toLocaleDateString("pt-BR");
+
+        infos.innerHTML += `
             <p class="info" data-nome="${user.nome}"><strong>Aluno:</strong> <span class="aluno" >${user.nome}</span></p>`;
-                const popup = document.querySelector(".exibirPop");
-                const pop = document.querySelector(".pop");
-                function abrirPopup(user) {
-                    pop.innerHTML = "";
-                    pop.innerHTML = `
+        const popup = document.querySelector(".exibirPop");
+        const pop = document.querySelector(".pop");
+        function abrirPopup(user) {
+          pop.innerHTML = "";
+          pop.innerHTML = `
                     <h2 class="pop-title" data-nome="${user.nome}">${user.nome}</h2>
 
                     <div class="pop-info-group">
@@ -196,304 +196,305 @@ async function carregarArmarios() {
                     </div>
                     `;
 
-                    popup.style.display = "flex";
-                    // BOTAO DE EXCLUIR
-                    const btnExcluir = document.getElementById("btnExcluir")
+          popup.style.display = "flex";
+          // BOTAO DE EXCLUIR
+          const btnExcluir = document.getElementById("btnExcluir")
 
-                    btnExcluir.addEventListener("click", async () => {
-                        Swal.fire({
-                            title: "Tem certeza?",
-                            text: "Essa ação irá remover o aluno e liberar o armário!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: "Sim, excluir",
-                            cancelButtonText: "Cancelar"
-                        }).then(async (result) => {
-                            if (!result.isConfirmed) return;
+          btnExcluir.addEventListener("click", async () => {
+            Swal.fire({
+              title: "Tem certeza?",
+              text: "Essa ação irá remover o aluno e liberar o armário!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonText: "Sim, excluir",
+              cancelButtonText: "Cancelar"
+            }).then(async (result) => {
+              if (!result.isConfirmed) return;
 
-                            try {
-                                const APIDeleteUser = `${APIUsuario}/${user.id}`;
-                                const requisicao = await fetch(APIDeleteUser, {
-                                    method: "DELETE",
-                                    headers: { "Content-Type": "application/json" },
-                                });
-
-                                const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                                const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
-                                    method: "PUT",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({ estado: "D" })
-                                });
-
-                                if (requisicao.ok && atualizarEstadoArmario.ok) {
-                                    Swal.fire({
-                                        title: "Excluído!",
-                                        text: "O aluno foi removido e o armário liberado.",
-                                        icon: "success",
-                                        timer: 1500,
-                                        showConfirmButton: false
-                                    });
-
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 1500);
-
-                                } else {
-                                    Swal.fire({
-                                        title: "Erro!",
-                                        text: "Erro ao excluir o aluno.",
-                                        icon: "error"
-                                    });
-                                }
-
-                            } catch (error) {
-                                console.error("Erro no fetch:", error);
-
-                                Swal.fire({
-                                    title: "Erro!",
-                                    text: "Erro de conexão com o servidor.",
-                                    icon: "error"
-                                });
-                            }
-                        });
-                    });
-
-                }
-                card.addEventListener('click', () => {
-                    abrirPopup(user);
-                })
-                popup.addEventListener("click", (e) => {
-                    if (e.target === popup) {
-                        popup.style.display = "none";
-                    }
+              try {
+                const APIDeleteUser = `${APIUsuario}/desativar/${user.id_usuario}`;
+                const requisicao = await fetch(APIDeleteUser, {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
                 });
-            }
 
-            card.classList.add("ocupado");
+                const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+                const atualizarEstadoArmario = await fetch(APIArmarioComNumero, {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ estado: "D" })
+                });
+                console.log(user)
+                console.log(user.id_usuario)
+                if (requisicao.ok && atualizarEstadoArmario.ok) {
+                  Swal.fire({
+                    title: "Excluído!",
+                    text: "O aluno foi removido e o armário liberado.",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                  });
+
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1500);
+
+                } else {
+                  Swal.fire({
+                    title: "Erro!",
+                    text: "Erro ao excluir o aluno.",
+                    icon: "error"
+                  });
+                }
+
+              } catch (error) {
+                console.error("Erro no fetch:", error);
+
+                Swal.fire({
+                  title: "Erro!",
+                  text: "Erro de conexão com o servidor.",
+                  icon: "error"
+                });
+              }
+            });
+          });
+
+        }
+        card.addEventListener('click', () => {
+          abrirPopup(user);
+        })
+        popup.addEventListener("click", (e) => {
+          if (e.target === popup) {
+            popup.style.display = "none";
+          }
+        });
+      }
+
+      card.classList.add("ocupado");
 
 
-        } else if (item.estado === "M") {
-            // MANUTENÇÂO
-            card.setAttribute('data-estado', item.estado)
-            estado = "Em manutenção"
-            const popup = document.querySelector(".exibirPop");
-            const pop = document.querySelector(".pop");
-            function abrirPopupManutencao() {
-                pop.innerHTML = "";
-                pop.innerHTML = `
+    } else if (item.estado === "M") {
+      // MANUTENÇÂO
+      card.setAttribute('data-estado', item.estado)
+      estado = "Em manutenção"
+      const popup = document.querySelector(".exibirPop");
+      const pop = document.querySelector(".pop");
+      function abrirPopupManutencao() {
+        pop.innerHTML = "";
+        pop.innerHTML = `
                          <select class="select" id="select-estado" name="turma_id">
                          <option selected disabled>selecione o estado do armário</option>
                          <option value="D">DISPONÍVEL</option>
                          </select>
                          <button id="atualizarEstado">Atualizar</button>`
-                    ;
-                const att = document.getElementById("atualizarEstado")
-                att.addEventListener('click', async () => {
-                    const dropDownEstado = document.getElementById('select-estado')
-                    const valor = dropDownEstado.value
+          ;
+        const att = document.getElementById("atualizarEstado")
+        att.addEventListener('click', async () => {
+          const dropDownEstado = document.getElementById('select-estado')
+          const valor = dropDownEstado.value
 
-                    try {
-                        const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                        const requisicao = await fetch(APIArmarioComNumero, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ estado: valor })
-                        });
-
-                        if (requisicao.ok) {
-                            const dados = await requisicao.json();
-                            console.log("armario atualizada com sucesso:", dados);
-                            Swal.fire({
-                                title: "Atualizado!",
-                                text: "O estado do armário foi atualizado!",
-                                icon: "success",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        } else {
-                            console.error("Erro na requisição:", requisicao.status);
-                            Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
-                        }
-
-
-                    } catch (error) {
-                        console.error("Erro no fetch:", error);
-                        Toast.fire("Erro de conexão com o servidor.");
-                    }
-                })
-
-                popup.style.display = "flex";
-            }
-            card.addEventListener('contextmenu', function (event) {
-                if (event.button === 2) {
-                    event.preventDefault();
-                    console.log("clique direito")
-                    abrirPopupManutencao();
-                }
-            })
-            popup.addEventListener("click", (e) => {
-                if (e.target === popup) {
-                    popup.style.display = "none";
-                }
+          try {
+            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+            const requisicao = await fetch(APIArmarioComNumero, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ estado: valor })
             });
-            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
-            card.classList.add("manutencao");
 
-        } else if (item.estado === "D") {
-            // DISPONIVEL
-            card.setAttribute('data-estado', item.estado)
-            estado = "Disponível"
+            if (requisicao.ok) {
+              const dados = await requisicao.json();
+              console.log("armario atualizada com sucesso:", dados);
+              Swal.fire({
+                title: "Atualizado!",
+                text: "O estado do armário foi atualizado!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
+            } else {
+              console.error("Erro na requisição:", requisicao.status);
+              Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
+            }
 
-            const popup = document.querySelector(".exibirPop");
-            const pop = document.querySelector(".pop");
-            function abrirPopupManutencao() {
-                pop.innerHTML = "";
-                pop.innerHTML = `
+
+          } catch (error) {
+            console.error("Erro no fetch:", error);
+            Toast.fire("Erro de conexão com o servidor.");
+          }
+        })
+
+        popup.style.display = "flex";
+      }
+      card.addEventListener('contextmenu', function (event) {
+        if (event.button === 2) {
+          event.preventDefault();
+          console.log("clique direito")
+          abrirPopupManutencao();
+        }
+      })
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+        }
+      });
+      infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+      card.classList.add("manutencao");
+
+    } else if (item.estado === "D") {
+      // DISPONIVEL
+      card.setAttribute('data-estado', item.estado)
+      estado = "Disponível"
+
+      const popup = document.querySelector(".exibirPop");
+      const pop = document.querySelector(".pop");
+      function abrirPopupManutencao() {
+        pop.innerHTML = "";
+        pop.innerHTML = `
                          <select class="select" id="select-estado" name="turma_id">
                          <option selected disabled>selecione o estado do armário</option>
                          <option value="M">MANUTENCAO</option>
                          </select>
                          <button id="atualizarEstado">Atualizar</button>`
-                    ;
-                const att = document.getElementById("atualizarEstado")
-                att.addEventListener('click', async () => {
-                    const dropDownEstado = document.getElementById('select-estado')
-                    const valor = dropDownEstado.value
+          ;
+        const att = document.getElementById("atualizarEstado")
+        att.addEventListener('click', async () => {
+          const dropDownEstado = document.getElementById('select-estado')
+          const valor = dropDownEstado.value
 
-                    try {
-                        const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
-                        const requisicao = await fetch(APIArmarioComNumero, {
-                            method: "PUT",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ estado: valor })
-                        });
-
-                        if (requisicao.ok) {
-                            const dados = await requisicao.json();
-                            console.log("armario atualizada com sucesso:", dados);
-                            Swal.fire({
-                                title: "Atualizado!",
-                                text: "O estado do armário foi atualizado!",
-                                icon: "success",
-                                timer: 1500,
-                                showConfirmButton: false
-                            });
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        } else {
-                            console.error("Erro na requisição:", requisicao.status);
-                            Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
-                        }
-
-
-                    } catch (error) {
-                        console.error("Erro no fetch:", error);
-                        Toast.fire("Erro de conexão com o servidor.");
-                    }
-                })
-
-                popup.style.display = "flex";
-            }
-            card.addEventListener('click', () => {
-                window.localStorage.setItem('armarioSelecionado', item.numero_armario);
-                window.localStorage.setItem('armarioEstado', item.estado);
-                window.location.href = "../cadastrar-usuario/cadastrar-usuario.html"
-            })
-            card.addEventListener('contextmenu', function (event) {
-                if (event.button === 2) {
-                    event.preventDefault();
-                    console.log("clique direito")
-                    abrirPopupManutencao();
-                }
-            })
-            popup.addEventListener("click", (e) => {
-                if (e.target === popup) {
-                    popup.style.display = "none";
-                }
+          try {
+            const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
+            const requisicao = await fetch(APIArmarioComNumero, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ estado: valor })
             });
-            infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
 
-            card.classList.add("disponivel");
-        }
-
-
-        card.appendChild(infos);
-        container.appendChild(card);
-    });
-
-    const armarios = document.querySelectorAll('.card')
-    const inputPesquisa = document.getElementById('pesquisa')
-    inputPesquisa.addEventListener('input', () => {
-        const termo = inputPesquisa.value.toLowerCase().trim();
-
-        armarios.forEach(armario => {
-
-
-            const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
-            const cpf = armario.querySelector('.info[data-cpf]')?.dataset.cpf?.toLowerCase() ?? ""
-            const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
-            const numero = armario.dataset.numero?.toLowerCase() ?? "";
-
-
-            if (numero.includes(termo) || nome.includes(termo) || cpf.includes(termo) || email.includes(termo)) {
-                armario.style.display = 'flex'; // mostra
+            if (requisicao.ok) {
+              const dados = await requisicao.json();
+              console.log("armario atualizada com sucesso:", dados);
+              Swal.fire({
+                title: "Atualizado!",
+                text: "O estado do armário foi atualizado!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
             } else {
-                armario.style.display = 'none'; // esconde
+              console.error("Erro na requisição:", requisicao.status);
+              Toast.fire("Erro ao fazer mudar armario. Código: " + requisicao.status);
             }
 
 
+          } catch (error) {
+            console.error("Erro no fetch:", error);
+            Toast.fire("Erro de conexão com o servidor.");
+          }
         })
+
+        popup.style.display = "flex";
+      }
+      card.addEventListener('click', () => {
+        window.localStorage.setItem('armarioSelecionado', item.numero_armario);
+        window.localStorage.setItem('armarioEstado', item.estado);
+        window.location.href = "../cadastrar-usuario/cadastrar-usuario.html"
+      })
+      card.addEventListener('contextmenu', function (event) {
+        if (event.button === 2) {
+          event.preventDefault();
+          console.log("clique direito")
+          abrirPopupManutencao();
+        }
+      })
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+        }
+      });
+      infos.innerHTML += `<p class="info"><strong>Estado:</strong> <span class="estado" id="aluno">${estado}</span></p>`
+
+      card.classList.add("disponivel");
+    }
+
+
+    card.appendChild(infos);
+    container.appendChild(card);
+  });
+
+  const armarios = document.querySelectorAll('.card')
+  const inputPesquisa = document.getElementById('pesquisa')
+  inputPesquisa.addEventListener('input', () => {
+    const termo = inputPesquisa.value.toLowerCase().trim();
+
+    armarios.forEach(armario => {
+
+
+      const nome = armario.querySelector('.info[data-nome]')?.dataset.nome?.toLowerCase() ?? ""
+      const cpf = armario.querySelector('.info[data-cpf]')?.dataset.cpf?.toLowerCase() ?? ""
+      const email = armario.querySelector('.info[data-email]')?.dataset.email?.toLowerCase() ?? ""
+      const numero = armario.dataset.numero?.toLowerCase() ?? "";
+
+
+      if (numero.includes(termo) || nome.includes(termo) || cpf.includes(termo) || email.includes(termo)) {
+        armario.style.display = 'flex'; // mostra
+      } else {
+        armario.style.display = 'none'; // esconde
+      }
+
+
     })
+  })
 
-    const checkOcupado = document.getElementById('checkOcupado');
-    const checkManutencao = document.getElementById('checkManutencao');
-    const checkDisponivel = document.getElementById('checkDisponivel');
+  const checkOcupado = document.getElementById('checkOcupado');
+  const checkManutencao = document.getElementById('checkManutencao');
+  const checkDisponivel = document.getElementById('checkDisponivel');
 
-    checkOcupado.addEventListener('click', () => {
-        checkOcupado.classList.toggle('ativo');
+  checkOcupado.addEventListener('click', () => {
+    checkOcupado.classList.toggle('ativo');
 
-        armarios.forEach(armario => {
-            if (checkOcupado.classList.contains('ativo')) {
-                armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none';
-                checkDisponivel.classList.remove('ativo');
-                checkManutencao.classList.remove('ativo');
-            } else {
-                armario.style.display = 'flex';
-            }
-        });
+    armarios.forEach(armario => {
+      if (checkOcupado.classList.contains('ativo')) {
+        armario.style.display = armario.classList.contains('ocupado') ? 'flex' : 'none';
+        checkDisponivel.classList.remove('ativo');
+        checkManutencao.classList.remove('ativo');
+      } else {
+        armario.style.display = 'flex';
+      }
     });
+  });
 
-    checkManutencao.addEventListener('click', () => {
-        checkManutencao.classList.toggle('ativo');
+  checkManutencao.addEventListener('click', () => {
+    checkManutencao.classList.toggle('ativo');
 
-        armarios.forEach(armario => {
-            if (checkManutencao.classList.contains('ativo')) {
-                armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none';
-                checkDisponivel.classList.remove('ativo');
-                checkOcupado.classList.remove('ativo');
-            } else {
-                armario.style.display = 'flex';
-            }
-        });
+    armarios.forEach(armario => {
+      if (checkManutencao.classList.contains('ativo')) {
+        armario.style.display = armario.classList.contains('manutencao') ? 'flex' : 'none';
+        checkDisponivel.classList.remove('ativo');
+        checkOcupado.classList.remove('ativo');
+      } else {
+        armario.style.display = 'flex';
+      }
     });
+  });
 
-    checkDisponivel.addEventListener('click', () => {
-        checkDisponivel.classList.toggle('ativo');
+  checkDisponivel.addEventListener('click', () => {
+    checkDisponivel.classList.toggle('ativo');
 
-        armarios.forEach(armario => {
-            if (checkDisponivel.classList.contains('ativo')) {
-                armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none';
-                checkOcupado.classList.remove('ativo');
-                checkManutencao.classList.remove('ativo');
-            } else {
-                armario.style.display = 'flex';
-            }
-        });
+    armarios.forEach(armario => {
+      if (checkDisponivel.classList.contains('ativo')) {
+        armario.style.display = armario.classList.contains('disponivel') ? 'flex' : 'none';
+        checkOcupado.classList.remove('ativo');
+        checkManutencao.classList.remove('ativo');
+      } else {
+        armario.style.display = 'flex';
+      }
     });
+  });
 
 }
 carregarArmarios();

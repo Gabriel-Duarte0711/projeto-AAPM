@@ -19,8 +19,9 @@ export async function listarArmariosL(req, res) {
       JOIN tabela_armario a ON u.armario_id = a.numero_armario
       JOIN tabela_curso c ON u.curso_id = c.id
       JOIN tabela_turma t ON u.turma_id = t.id
+      WHERE u.is_ativo = 1
     `;
-
+    
     const [rows] = await db.query(sql);
     res.json(rows);
 
@@ -39,7 +40,7 @@ export async function listarArmariosG(req, res) {
 
     const [rows] = await db.query(sql);
     res.json(rows);
-
+    
   } catch (error) {
     console.error("Erro ao buscar armarios:", error);
     res.status(500).json({ error: "Erro ao buscar os armários" });
