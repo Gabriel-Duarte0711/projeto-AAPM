@@ -36,13 +36,13 @@
 
         <form id="formsCadastro" action="/alunos" method="post">
             <div class="input-box">
-                <input type="text" class="form-control" id="nome" required>
-                <label>Nome</label>
+                <input type="text" class="form-control" id="CPF" name="CPF" required>
+                <label>CPF*</label>
             </div>
 
             <div class="input-box">
-                <input type="text" class="form-control" id="CPF" name="CPF" required>
-                <label>CPF</label>
+                <input type="text" class="form-control" id="nome" required>
+                <label>Nome*</label>
             </div>
 
             <div class="input-box">
@@ -52,30 +52,30 @@
 
             <div class="input-box">
                 <input type="tel" class="form-control" id="telefone" name="telefone" required>
-                <label>Telefone</label>
+                <label>Telefone*</label>
             </div>
 
             <div class="input-box">
                 <input type="email" class="form-control" id="email" name="email" required>
-                <label>Email</label>
+                <label>Email*</label>
             </div>
-            
+
             <div class="select-box">
                 <select class="form-select" id="select-curso" name="curso_id" required>
-                    <option selected disabled>Selecione o curso</option>
+                    <option selected disabled>Selecione o curso*</option>
                 </select>
             </div>
 
             <div class="select-box">
                 <select class="form-select" id="select-turma" name="turma_id" required>
-                     <option selected disabled>Selecione a turma</option>
-    
+                    <option selected disabled>Selecione a turma*</option>
+
                 </select>
             </div>
 
             <div class="select-box">
                 <select class="form-select" id="select-pagamento" name="pagamento" required>
-                    <option selected disabled>Pagamento</option>
+                    <option selected disabled>Pagamento*</option>
                     <option value="C">Cartão de crédito</option>
                     <option value="D">Cartão de débito</option>
                     <option value="A">Dinheiro</option>
@@ -86,11 +86,11 @@
             <button type="submit" class="btn btn-primary" id="btnCadastrar">Registrar</button>
         </form>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/validator@13.9.0/validator.min.js"></script>
-    <script src="cadastrar-usuario.js"></script>
-    <script src="../../../utils/app.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/validator@13.9.0/validator.min.js"></script>
+        <script src="cadastrar-usuario.js"></script>
+        <script src="../../../utils/app.js"></script>
 
 </body>
 

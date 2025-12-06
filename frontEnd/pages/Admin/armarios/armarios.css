@@ -6,6 +6,7 @@ body {
 .material-symbols-outlined{
     color: white;
 }
+
 .mb-3 {
     position: absolute;
     top: 80px;
@@ -184,7 +185,7 @@ body {
     border: 5px solid var(--light-blue);
 }
 
-#atualizrEstado {
+#atualizarEstado {
     margin-top: 20px;
     width: 100%;
     padding: 10px 12px;
@@ -198,7 +199,21 @@ body {
     border: none;
 }
 
-#atualizrEstado:hover {
+.card:hover::after {
+    content: "Clique com o botão direito para alterar o estado";
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    background: #0000001c;
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 11px;
+    border-radius: 6px;
+    white-space: nowrap; /*nao quebrar linha */
+}
+
+
+#atualizarEstado:hover {
     transform: scale(1.05);
 }
 
@@ -241,11 +256,11 @@ body {
     background-color: var(--dark-blue) !important;
 }
 
-.dark-mode #atualizrEstado {
+.dark-mode #atualizarEstado {
     background-color: var(--light-blue) !important;
 }
 
-.dark-mode #atualizrEstado:hover {
+.dark-mode #atualizarEstado:hover {
     background-color: var(--blue) !important;
 }
 
@@ -271,4 +286,15 @@ body {
 
 .dark-mode .filtro-manutencao {
     background-color: #e0a800;
+}
+
+#historicoIcon{
+    display: flex;
+    justify-content: end;
+    padding-bottom: 0.8rem;
+    cursor: pointer;
+}
+
+.container-select{
+    padding-top: 3vh;
 }
