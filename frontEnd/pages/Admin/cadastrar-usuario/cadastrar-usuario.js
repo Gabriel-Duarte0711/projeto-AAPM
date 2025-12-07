@@ -1,4 +1,5 @@
 const APICurso = "http://localhost:3000/curso"
+
 const dropDownCurso = document.getElementById('select-curso')
 
 
@@ -67,8 +68,8 @@ dropDownCurso.addEventListener('change', () => {
         const dadosTurmas = await buscarTurmasDoBanco();
         dropDownTurma.innerHTML = ""
         const optionDefault = document.createElement('option');
-        optionDefault.textContent = "Selecione uma turma";
-        optionDefault.value = "";
+        optionDefault.textContent = "Selecione a turma*";
+        optionDefault.value = "default";
         optionDefault.disabled = true;
         optionDefault.selected = true;
         dropDownTurma.appendChild(optionDefault);
@@ -85,6 +86,7 @@ dropDownCurso.addEventListener('change', () => {
 
 // cadastro de um aluno
 const APIUsuario = "http://localhost:3000/alunos"
+const APIalunoCPF = "http://localhost:3000/alunos/cpf"
 
 const inputNome = document.getElementById("nome")
 const inputCPF = document.getElementById("CPF");
@@ -94,6 +96,48 @@ const inputEmail = document.getElementById("email")
 const formCadastrar = document.getElementById("formsCadastro")
 const inputPagamento = document.getElementById("select-pagamento");
 
+inputCPF.addEventListener('input', async () => {
+    if (inputCPF.value.length === 11) {
+        try {
+            const cpf = inputCPF.value.trim();
+
+            const requisicao = await fetch(APIalunoCPF, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ CPF: cpf })
+
+            });
+            if (requisicao.ok) {
+                console.log(cpf)
+                const dados = await requisicao.json();
+
+                inputNome.value = dados.nome;
+                inputMatricula.value = dados.matricula
+                inputTelefone.value = dados.telefone
+                inputEmail.value = dados.email
+                inputPagamento.value = dados.pagamento
+                dropDownCurso.value = dados.curso_id
+                dropDownCurso.dispatchEvent(new Event('change'));
+                setTimeout(() => {
+                    dropDownTurma.value = dados.turma_id;
+                }, 100);
+            }
+        } catch (error) {
+
+        }
+    } else {
+        inputNome.value = ""
+        inputMatricula.value = ""
+        inputTelefone.value = ""
+        inputEmail.value = ""
+        inputPagamento.value = "default"
+        dropDownCurso.value = "default"
+        dropDownCurso.dispatchEvent(new Event('change'));
+        setTimeout(() => {
+            dropDownTurma.value = "default"
+        }, 100);
+    }
+})
 async function cadastrar(e) {
     e.preventDefault();
 
@@ -121,6 +165,7 @@ async function cadastrar(e) {
     const curso_id = dropDownCurso.value;
     const turma_id = dropDownTurma.value;
     const pagamento = inputPagamento.value.trim();
+
 
     const usuarios = await buscarUsuarioDoBanco();
 

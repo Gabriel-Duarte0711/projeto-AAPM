@@ -58,6 +58,31 @@ export async function obterUsuario(req, res) {
   }
 };
 
+export async function obterUsuarioPorCPF(req, res) {
+  try {
+    const { CPF } = req.body;
+    
+    if (!CPF) {
+      return res.status(400).json({ erro: "CPF é obrigatório." });
+    }
+
+    const [rows] = await db.execute(
+      "SELECT * FROM tabela_alunos WHERE CPF = ?",
+      [CPF]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ erro: "Usuário não encontrado." });
+    }
+
+    return res.json(rows[0]);
+
+  } catch (err) {
+    console.error("Erro ao buscar usuário por CPF:", err);
+    return res.status(500).json({ erro: "Erro interno no servidor." });
+  }
+}
+
 export async function deletarUsuario(req, res) {
   try {
     const userId = req.params.id;

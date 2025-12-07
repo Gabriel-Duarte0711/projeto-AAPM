@@ -3,6 +3,7 @@ import {
     criarUsuario,
     listarUsuario,
     obterUsuario,
+    obterUsuarioPorCPF,
     atualizarUsuario,
     deletarUsuario,
     atualizarDataEncerramento
@@ -21,6 +22,7 @@ router.put('/atualizar-data-encerramento', atualizarDataEncerramento)
 router.get("/", listarUsuario)
 router.post("/", criarUsuario)
 router.get("/:id", obterUsuario)
+router.post("/cpf", obterUsuarioPorCPF)
 router.put("/:id",atualizarUsuario)
 router.put("/data", atualizarDataEncerramento)
 router.put("/desativar/:id", deletarUsuario)
