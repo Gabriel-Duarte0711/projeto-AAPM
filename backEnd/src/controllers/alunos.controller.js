@@ -175,6 +175,31 @@ export async function atualizarUsuario(req, res) {
   }
 }
 
+export async function atualizarArmarioUsuario(req, res) {
+  try {
+    const userId = req.params.id;
+    const { armario_id } = req.body;
+
+    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id_usuario = ?", [userId]);
+    if (user.length === 0) {
+      return res.status(404).json({ erro: "Usuário não encontrado" });
+    }
+
+    await db.execute(
+      "UPDATE tabela_alunos SET armario_id = ? WHERE id_usuario = ?",
+      [ armario_id, userId]
+    );
+    await db.execute(
+      "UPDATE tabela_armario SET estado = ? WHERE numero_armario = ?",
+      ["O", armario_id]
+    )
+
+    res.json({ mensagem: "Usuário realocado com sucesso!" });
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+};
+
 export const atualizarDataEncerramento = async (req, res) => {
   const { data_encerramento } = req.body;
 

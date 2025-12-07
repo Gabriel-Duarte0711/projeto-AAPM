@@ -6,6 +6,7 @@ import {
     obterUsuario,
     obterUsuarioPorCPF,
     atualizarUsuario,
+    atualizarArmarioUsuario,
     deletarUsuario,
     atualizarDataEncerramento
 } from "../controllers/alunos.controller.js"
@@ -25,6 +26,7 @@ router.post("/", criarUsuario)
 router.get("/:id", obterUsuario)
 router.post("/cpf", obterUsuarioPorCPF)
 router.put("/recadastrar/:id", recadastrarUsuario)
+router.put("/armario/:id", atualizarArmarioUsuario)
 router.put("/:id",atualizarUsuario)
 router.put("/data", atualizarDataEncerramento)
 router.put("/desativar/:id", deletarUsuario)

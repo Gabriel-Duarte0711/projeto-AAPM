@@ -1,3 +1,5 @@
+
+
 const APIArmario = "http://localhost:3000/armarios"
 const APIUsuario = "http://localhost:3000/alunos"
 const APIUsuarioArmario = "http://localhost:3000/armarios/obterUsuario"
@@ -67,7 +69,41 @@ async function carregarArmarios() {
 
       const popup = document.querySelector(".exibirPop");
       const pop = document.querySelector(".pop");
-      function abrirPopupManutencao() {
+
+      card.addEventListener('contextmenu', function (event) {
+        if (event.button === 2) {
+          event.preventDefault();
+          console.log("clique direito")
+          abrirPopupManutencao();
+        }
+      })
+      popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+          popup.style.display = "none";
+        }
+      });
+      card.classList.add("Ocupado");
+      // OCUPADO 
+      const user = dadosUsuario.find(u => u.numero_armario === item.numero_armario);
+      card.setAttribute('data-estado', item.estado)
+
+      
+      if (user) {
+
+        let pagamentoTexto = "";
+        if (user.pagamento === "A") {
+          pagamentoTexto = "Dinheiro";
+        } else if (user.pagamento === "C") {
+          pagamentoTexto = "Cartão de crédito";
+        } else if (user.pagamento === "D") {
+          pagamentoTexto = "Cartão de débito";
+        } else if (user.pagamento === "P") {
+          pagamentoTexto = "Pix";
+        } else {
+          pagamentoTexto = "Não informado";
+        }
+
+        function abrirPopupManutencao() {
         pop.innerHTML = "";
         pop.innerHTML = `
                         <span class="material-symbols-outlined" id="historicoIcon">
@@ -87,7 +123,18 @@ async function carregarArmarios() {
                          </div>
                          <button id="atualizarEstado">Atualizar</button>`
           ;
+        const selectNumero = document.getElementById("select-numero")
 
+        for (const armario of dadosArmarios) {
+          if (armario.estado === "D") {
+            const opt = document.createElement("option");
+            opt.value = armario.numero_armario;
+            opt.textContent = armario.numero_armario;
+            selectNumero.appendChild(opt);
+          }
+        }
+        const userId = user.id_usuario
+        const APIAtualizarArmarioUsuario = `http://localhost:3000/alunos/armario/${userId}`
         const historico = document.getElementById('historicoIcon');
         historico.addEventListener('click', function () {
           window.location.href = '../historico-alunos/historico-alunos.html';
@@ -98,7 +145,7 @@ async function carregarArmarios() {
         att.addEventListener('click', async () => {
           const dropDownEstado = document.getElementById('select-estado')
           const valor = dropDownEstado.value
-
+          const numero_armario = selectNumero.value
           try {
             const APIArmarioComNumero = `${APIArmario}/${item.numero_armario}`;
             const requisicao = await fetch(APIArmarioComNumero, {
@@ -106,6 +153,7 @@ async function carregarArmarios() {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ estado: valor })
             });
+
 
             if (requisicao.ok) {
               const dados = await requisicao.json();
@@ -130,41 +178,39 @@ async function carregarArmarios() {
             console.error("Erro no fetch:", error);
             Toast.fire("Erro de conexão com o servidor.");
           }
+
+          try {
+            const requisicao = await fetch(APIAtualizarArmarioUsuario, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ armario_id: numero_armario })
+            });
+
+             if (requisicao.ok) {
+              const dados = await requisicao.json();
+              console.log("usuario realocado com sucesso:", dados);
+              Swal.fire({
+                title: "Atualizado!",
+                text: "O usuario foi transferido de armário foi atualizado!",
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false
+              });
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
+            } else {
+              console.error("Erro na requisição:", requisicao.status);
+              Toast.fire("Erro ao mudar usuario de armario. Código: " + requisicao.status);
+            }
+          } catch (error) {
+            console.error("Erro no fetch:", error);
+            Toast.fire("Erro de conexão com o servidor.");
+          }
         })
 
         popup.style.display = "flex";
       }
-      card.addEventListener('contextmenu', function (event) {
-        if (event.button === 2) {
-          event.preventDefault();
-          console.log("clique direito")
-          abrirPopupManutencao();
-        }
-      })
-      popup.addEventListener("click", (e) => {
-        if (e.target === popup) {
-          popup.style.display = "none";
-        }
-      });
-      card.classList.add("Ocupado");
-      // OCUPADO 
-      const user = dadosUsuario.find(u => u.numero_armario === item.numero_armario);
-      card.setAttribute('data-estado', item.estado)
-
-      if (user) {
-
-        let pagamentoTexto = "";
-        if (user.pagamento === "A") {
-          pagamentoTexto = "Dinheiro";
-        } else if (user.pagamento === "C") {
-          pagamentoTexto = "Cartão de crédito";
-        } else if (user.pagamento === "D") {
-          pagamentoTexto = "Cartão de débito";
-        } else if (user.pagamento === "P") {
-          pagamentoTexto = "Pix";
-        } else {
-          pagamentoTexto = "Não informado";
-        }
 
         const data = new Date(user.data_encerramento);
         const dataFormatada = data.toLocaleDateString("pt-BR");
