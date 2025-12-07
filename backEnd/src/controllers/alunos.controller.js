@@ -36,6 +36,28 @@ export async function criarUsuario(req, res) {
   }
 }
 
+export async function recadastrarUsuario(req, res) {
+  try {
+    const userId = req.params.id;
+    const { armario_id } = req.body;
+
+    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id_usuario = ?", [userId]);
+    if (user.length === 0) {
+      return res.status(404).json({ erro: "Usuário não encontrado" });
+    }
+
+    await db.execute(
+      "UPDATE tabela_alunos SET is_ativo = ?, armario_id = ? WHERE id_usuario = ?",
+      [1, armario_id, userId]
+    );
+
+
+    res.json({ mensagem: "Usuário cadastrado com sucesso!" });
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+};
+
 export async function listarUsuario(req, res) {
   try {
     const [rows] = await db.execute("SELECT * FROM tabela_alunos");

@@ -1,6 +1,7 @@
 import express from "express";
 import {
     criarUsuario,
+    recadastrarUsuario,
     listarUsuario,
     obterUsuario,
     obterUsuarioPorCPF,
@@ -23,6 +24,7 @@ router.get("/", listarUsuario)
 router.post("/", criarUsuario)
 router.get("/:id", obterUsuario)
 router.post("/cpf", obterUsuarioPorCPF)
+router.put("/recadastrar/:id", recadastrarUsuario)
 router.put("/:id",atualizarUsuario)
 router.put("/data", atualizarDataEncerramento)
 router.put("/desativar/:id", deletarUsuario)

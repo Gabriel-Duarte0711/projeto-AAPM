@@ -88,6 +88,7 @@ dropDownCurso.addEventListener('change', () => {
 const APIUsuario = "http://localhost:3000/alunos"
 const APIalunoCPF = "http://localhost:3000/alunos/cpf"
 
+
 const inputNome = document.getElementById("nome")
 const inputCPF = document.getElementById("CPF");
 const inputMatricula = document.getElementById("matricula")
@@ -96,36 +97,40 @@ const inputEmail = document.getElementById("email")
 const formCadastrar = document.getElementById("formsCadastro")
 const inputPagamento = document.getElementById("select-pagamento");
 
+
+async function buscarAlunoPorCPF(cpf) {
+    if (cpf.length !== 11) return null;
+    try {
+        const resposta = await fetch(APIalunoCPF, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ CPF: cpf })
+        });
+        if (!resposta.ok) return null;
+        const dadosCPF = await resposta.json();
+        return dadosCPF;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
 inputCPF.addEventListener('input', async () => {
-    if (inputCPF.value.length === 11) {
-        try {
-            const cpf = inputCPF.value.trim();
+    const cpf = inputCPF.value.trim();
+    const dadosCPF = await buscarAlunoPorCPF(cpf);
+    if (dadosCPF) {
 
-            const requisicao = await fetch(APIalunoCPF, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ CPF: cpf })
-
-            });
-            if (requisicao.ok) {
-                console.log(cpf)
-                const dados = await requisicao.json();
-
-                inputNome.value = dados.nome;
-                inputMatricula.value = dados.matricula
-                inputTelefone.value = dados.telefone
-                inputEmail.value = dados.email
-                inputPagamento.value = dados.pagamento
-                dropDownCurso.value = dados.curso_id
-                dropDownCurso.dispatchEvent(new Event('change'));
-                setTimeout(() => {
-                    dropDownTurma.value = dados.turma_id;
-                }, 100);
-            }
-        } catch (error) {
-
-        }
-    } else {
+        inputNome.value = dadosCPF.nome;
+        inputMatricula.value = dadosCPF.matricula
+        inputTelefone.value = dadosCPF.telefone
+        inputEmail.value = dadosCPF.email
+        inputPagamento.value = dadosCPF.pagamento
+        dropDownCurso.value = dadosCPF.curso_id
+        dropDownCurso.dispatchEvent(new Event('change'));
+        setTimeout(() => {
+            dropDownTurma.value = dadosCPF.turma_id;
+        }, 100);
+    }
+    else {
         inputNome.value = ""
         inputMatricula.value = ""
         inputTelefone.value = ""
@@ -179,11 +184,7 @@ async function cadastrar(e) {
         return;
     }
 
-    const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
-    if (matriculaJaExiste) {
-        Toast.fire("Matrícula já cadastrada");
-        return;
-    }
+
     if (!validator.isMobilePhone('+55' + telefone, 'pt-BR')) {
         Toast.fire("Telefone invalido")
         return;
@@ -209,43 +210,97 @@ async function cadastrar(e) {
         armario_id: Number(armario_id),
         data_encerramento: null
     };
+    const recadastroReserva = {
+        armario_id: Number(armario_id),
+    }
+    const dadosCPF = await buscarAlunoPorCPF(cpf);
 
-    try {
-        const requisicao = await fetch(APIUsuario, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(novaReserva)
-        });
-        const armarioAtualizado = { estado: "O" }
-        const requisicaoArmario = await fetch(`http://localhost:3000/armarios/${armario_id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(armarioAtualizado)
-        });
 
-        if (requisicao.ok) {
-            const dados = await requisicao.json();
-            const dadosArmario = await requisicaoArmario.json();
-            console.log("reserva salva com sucesso:", dados);
-            Swal.fire({
-                title: "Reserva Concluída!",
-                text: "A reserva foi concluída com sucesso.",
-                icon: "success",
-                timer: 1500,
-                showConfirmButton: false
-            }).then(() => {
-                window.location.href = "../armarios/armarios.html";
-                formCadastrar.reset();
+    if (dadosCPF) {
+        //put recadastro
+        const userId = dadosCPF.id_usuario
+        const APIrecadastro = `http://localhost:3000/alunos/recadastrar/${userId}`
+        try {
+            const requisicao = await fetch(APIrecadastro, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(recadastroReserva)
             });
-        } else {
-            console.error("Erro na requisição:", requisicao.status);
-            Toast.fire("Erro ao fazer reserva. Código: " + requisicao.status);
+            const armarioAtualizado = { estado: "O" }
+            const requisicaoArmario = await fetch(`http://localhost:3000/armarios/${armario_id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(armarioAtualizado)
+            });
+
+            if (requisicao.ok) {
+                const dados = await requisicao.json();
+                const dadosArmario = await requisicaoArmario.json();
+                console.log("reserva salva com sucesso:", dados);
+                Swal.fire({
+                    title: "Reserva Concluída!",
+                    text: "A reserva foi concluída com sucesso.",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = "../armarios/armarios.html";
+                    formCadastrar.reset();
+                });
+            } else {
+                console.error("Erro na requisição:", requisicao.status);
+                Toast.fire("Erro ao fazer reserva. Código: " + requisicao.status);
+            }
+
+
+        } catch (error) {
+            console.error("Erro no fetch:", error);
+            Toast.fire("Erro de conexão com o servidor.");
         }
+    }
+    else {
+        const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
+        if (matriculaJaExiste) {
+            Toast.fire("Matrícula já cadastrada");
+            return;
+        }
+        try {
+            const requisicao = await fetch(APIUsuario, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(novaReserva)
+            });
+            const armarioAtualizado = { estado: "O" }
+            const requisicaoArmario = await fetch(`http://localhost:3000/armarios/${armario_id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(armarioAtualizado)
+            });
+
+            if (requisicao.ok) {
+                const dados = await requisicao.json();
+                const dadosArmario = await requisicaoArmario.json();
+                console.log("reserva salva com sucesso:", dados);
+                Swal.fire({
+                    title: "Reserva Concluída!",
+                    text: "A reserva foi concluída com sucesso.",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = "../armarios/armarios.html";
+                    formCadastrar.reset();
+                });
+            } else {
+                console.error("Erro na requisição:", requisicao.status);
+                Toast.fire("Erro ao fazer reserva. Código: " + requisicao.status);
+            }
 
 
-    } catch (error) {
-        console.error("Erro no fetch:", error);
-        Toast.fire("Erro de conexão com o servidor.");
+        } catch (error) {
+            console.error("Erro no fetch:", error);
+            Toast.fire("Erro de conexão com o servidor.");
+        }
     }
 }
 formCadastrar.addEventListener("submit", cadastrar);
