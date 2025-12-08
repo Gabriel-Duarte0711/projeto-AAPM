@@ -12,6 +12,7 @@ import turmaRoute from "./routes/turma.routes.js"
 import loginRoute from "./routes/login.routes.js"
 import armariosRoutes from "./routes/armarios.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
+import verificacaoRoute from "./routes/verificacao.routes.js";
 
 import "dotenv/config";
 // ============================
@@ -28,13 +29,16 @@ app.get("/", (req, res) => {
     res.send("API rodando com sucesso")
 })
 
+
 app.use("/curso", cursoRoute)
 app.use("/alunos", alunosRoute)
 app.use("/admin", adminRoutes)
 app.use("/turma", turmaRoute)
 app.use("/login", loginRoute)
 app.use("/armarios", armariosRoutes);
-console.log("JWT:", process.env.JWT_SECRET);
+app.use("/verificacao", verificacaoRoute);
+
+
 // ============================
 //  Inicia o servidor
 // ============================

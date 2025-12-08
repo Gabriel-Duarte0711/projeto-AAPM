@@ -17,7 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="esqueci-senha.css">
+    <link rel="stylesheet" href="codigo-senha.css">
     <link rel="stylesheet" href="/frontend/assets/global.css">
     <link rel="stylesheet" href="/frontend/assets/layout/layout.css">
 
@@ -32,17 +32,17 @@
     <div class="desktop">
         <div class="entre-aqui">
             <span class="material-symbols-outlined">person</span>
-            <h2>Digite o seu email: </h2>
+            <h2>Digite o código enviado ao seu email: </h2>
         </div>
 
         <form>
             <div class="input-box">
-                <input type="email" class="form-control" id="email" required>
-                <label>Email</label>
+                <input type="text" class="form-control" id="codigo" required>
+                <label>Código</label>
             </div>
 
 
-            <button type="button" class="btn btn-primary" id="btnEnviar">Enviar</button>
+            <button type="button" class="btn btn-primary" id="btnVerificar">Enviar</button>
             
         </form>
     </div>
@@ -50,7 +50,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../../utils/app.js"></script>
-    <script src="esqueci-senha.js"></script>
+    <script src="codigo-senha.js"></script>
 
 </body>
 

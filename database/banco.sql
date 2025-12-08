@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `tabela_admin` (
   CONSTRAINT `FK_tabela_admin_tabela_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tabela_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_admin: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_admin: ~2 rows (aproximadamente)
 INSERT INTO `tabela_admin` (`id`, `nome`, `email`, `telefone`, `CPF`, `id_usuario`, `criado_em`) VALUES
 	(1, 'admin', 'admin@gmail.com', '11988776655', '12345678906', 2, '2025-12-06 00:17:31'),
 	(2, 'admin', 'admin2@gmail.com', '11988776655', '12345678907', 4, '2025-12-06 00:18:01'),
@@ -67,16 +67,18 @@ CREATE TABLE IF NOT EXISTS `tabela_alunos` (
   CONSTRAINT `tabela_alunos_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`),
   CONSTRAINT `tabela_alunos_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tabela_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_alunos: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_alunos: ~8 rows (aproximadamente)
 INSERT INTO `tabela_alunos` (`id`, `CPF`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`, `pagamento`, `id_usuario`, `criado_em`, `is_ativo`) VALUES
-	(1, '12345678911', 'Gabs', '014', '11988776655', 'teste@gmail.com', 1, 1, 1, NULL, 'P', 3, '2025-12-06 00:17:58', b'1'),
-	(2, '12345678912', 'Lopreti', '015', '11988776655', 'teste2@gmail.com', 1, 1, 2, NULL, 'P', 5, '2025-12-06 00:18:30', b'1'),
-	(3, '12345678901', 'teste', '1221', '11988877766', 'teste@gmail.com', 14, 29, 3, NULL, 'P', 7, '2025-12-06 22:47:45', b'0'),
-	(5, '12345678902', 'teste2', '12212', '11988877744', 'teste2@gmail.com', 13, 33, 3, NULL, 'P', 9, '2025-12-06 23:23:36', b'0'),
-	(6, '12345678903', 'teste3', '12214', '11988877733', 'teste3@gmail.com', 13, 33, 3, NULL, 'A', 10, '2025-12-06 23:28:48', b'0'),
-	(7, '12345678904', 'teste4', '12215', '11988877722', 'teste4@gmail.com', 14, 29, 3, NULL, 'P', 11, '2025-12-06 23:34:30', b'1');
+	(1, '01377472841', 'Gabs', '014', '11988776655', 'gabs@gmail.com', 1, 1, 1, NULL, 'P', 3, '2025-12-06 00:17:58', b'1'),
+	(2, '28231355880', 'Lopreti', '015', '11988776655', 'lopreti@gmail.com', 1, 1, 2, NULL, 'P', 5, '2025-12-06 00:18:30', b'1'),
+	(3, '84498436857', 'teste', '1221', '11988877766', 'teste@gmail.com', 14, 29, 3, NULL, 'P', 7, '2025-12-06 22:47:45', b'1'),
+	(5, '93329180820', 'teste2', '12212', '11988877744', 'teste2@gmail.com', 13, 33, 4, NULL, 'P', 9, '2025-12-06 23:23:36', b'1'),
+	(6, '70349068828', 'teste3', '12214', '11988877733', 'teste3@gmail.com', 13, 33, 5, NULL, 'A', 10, '2025-12-06 23:28:48', b'1'),
+	(7, '96950713843', 'teste4', '12215', '11988877722', 'teste4@gmail.com', 14, 29, 6, NULL, 'P', 11, '2025-12-06 23:34:30', b'1'),
+	(8, '97803386830', 'teste5', '05', '11988877733', 'teste5@gmail.com', 14, 29, 7, NULL, 'D', 12, '2025-12-07 15:39:30', b'1'),
+	(9, '63553257865', 'teste6', '1221522', '11955664433', 'teste6@gmail.com', 13, 25, 8, NULL, 'A', 13, '2025-12-07 16:06:27', b'1');
 
 -- Copiando estrutura para tabela aapm.tabela_armario
 CREATE TABLE IF NOT EXISTS `tabela_armario` (
@@ -86,18 +88,18 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
   PRIMARY KEY (`numero_armario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_armario: ~176 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_armario: ~152 rows (aproximadamente)
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(1, 'O', NULL),
 	(2, 'O', NULL),
 	(3, 'O', NULL),
-	(4, 'D', NULL),
-	(5, 'D', NULL),
-	(6, 'D', NULL),
-	(7, 'D', NULL),
-	(8, 'D', NULL),
+	(4, 'O', NULL),
+	(5, 'O', NULL),
+	(6, 'O', NULL),
+	(7, 'O', NULL),
+	(8, 'O', NULL),
 	(9, 'D', NULL),
-	(10, 'D', NULL),
+	(10, 'M', NULL),
 	(11, 'D', NULL),
 	(12, 'D', NULL),
 	(13, 'M', NULL),
@@ -344,21 +346,47 @@ CREATE TABLE IF NOT EXISTS `tabela_usuario` (
   `senha` varchar(255) DEFAULT NULL,
   `perfil` enum('aluno','admin') DEFAULT 'aluno',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_usuario: ~8 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_usuario: ~13 rows (aproximadamente)
 INSERT INTO `tabela_usuario` (`id`, `senha`, `perfil`) VALUES
-	(1, '$2b$10$2.WZufHPFHm96MutZHQiB.rZR/QTXxo.mD19VMrmozSC7eXV.osCK', 'aluno'),
-	(2, '$2b$10$mXBDeRex6rVbYTg61zeuKeScnaYzUya8e2PEsm4qDXwJwjfrxCtmm', 'admin'),
-	(3, '$2b$10$GaQgs8KETh9UOg.G5dImwuKy6OUwnJT0WpL.e9l15EgMAaU4OcQ6C', 'aluno'),
+	(1, '$2b$10$pOm8EfdSwbwBYTxB5jBJPeBrLJ0LyhyexBeyo5sGWReOQbMY7mYTG', 'aluno'),
+	(2, '$2b$10$QAWIuBlAd9fa.aixNmog6OMUng6B5koOIHUQbtKFym2rsVfskZ6fa', 'admin'),
+	(3, '$2b$10$wVTNQ4iP5z8vB3MD70ESUuJ8trJAh3S8thOBVdwzSVZepe/4BOcua', 'aluno'),
 	(4, '$2b$10$b7glCXi4t4HjIdG9vF7zU.d4ta4AQgEa449xf9gIaedyUAceXMNe2', 'admin'),
-	(5, '$2b$10$sxbPL9c1xTPCEm8pmmdynOgAUkMOO0nReFNk7YcL19YLYcMHxbgpu', 'aluno'),
-	(6, '$2b$10$SRGdTj5REIk2rZopTmm1L.QQ4/XotV0GNMBMXDWOHnY.Huu.GIKp2', 'admin'),
-	(7, '$2b$10$XhI1gn/3vEnpNv1IXxWVTOG03EINtZ8yAjZID7mkZhT6nsxvxJKgG', 'aluno'),
-	(8, '$2b$10$wpj8baxjk1hKNus6JJFPM.HNUtoCAgLiRGXmup6wKXrHLpJYSro8K', 'aluno'),
-	(9, '$2b$10$brrFNyTGZthYgijWyU4Ve.778Y1ZTA7jRcxJEfGSBCOwR62oW/MB6', 'aluno'),
-	(10, '$2b$10$tJhrdiL9sjIzHyuxEAICs.or0Gu2iGjB5be1b/d2NNOm0pAtq029S', 'aluno'),
-	(11, '$2b$10$432QYImbjrXOxGbYotyQmOOIZWd3NteGDKlqmVhfSxQXTdj/NPCmC', 'aluno');
+	(5, '$2b$10$PwdNK.dxXtL5RkfU6OjO/ucNQH/gBrx2OxJkhv2toSWy1snCGloZi', 'aluno'),
+	(6, '$2b$10$n89LZLy8XsCMeedEE9.Yq.rbPlkKKDTcBzTBRIPZbTyWk3uYc2Nf.', 'admin'),
+	(7, '$2b$10$KrQYXvcG1tJWvQscrNeAs.cEPEPorkROSRrA8vWka5DZFQCupl8cO', 'aluno'),
+	(8, '$2b$10$WPJLuyjehdZjoRgAvD1KaeQsDs1NHoZylkH8dSs/u8A6zeXj8KI36', 'aluno'),
+	(9, '$2b$10$F3ze.TR0oLNn0uXBUW5UIuy1DTsAVAzzBfDZkRvfkVxtgyRKpdL8y', 'aluno'),
+	(10, '$2b$10$3J8q5QI6zVzyAaOAHbp3aeCl8yYAH61o12sGeA7gFcqyzNJx38VnC', 'aluno'),
+	(11, '$2b$10$uSndVU6V53.ymh7R8koAUO2RbPct9iaElsOjms5TlT456wPB48omW', 'aluno'),
+	(12, '$2b$10$Iyq5mw4ecHbHYMs7NMMGuOEj4ZkfDOP.N.V9PUyRlCsywjFiVw0PS', 'aluno'),
+	(13, '$2b$10$hhsXWZ26MVoufGcLlLHIZu6OZlVjvntFux8HZuwlTkCFweya4cqVS', 'aluno');
+
+-- Copiando estrutura para tabela aapm.tabela_verificacao
+CREATE TABLE IF NOT EXISTS `tabela_verificacao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `codigo` varchar(6) NOT NULL,
+  `expiracao` datetime NOT NULL,
+  `usado` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela aapm.tabela_verificacao: ~10 rows (aproximadamente)
+INSERT INTO `tabela_verificacao` (`id`, `email`, `codigo`, `expiracao`, `usado`) VALUES
+	(1, 'teste5@gmail.com', '958552', '2025-12-08 19:47:11', 0),
+	(2, 'teste5@gmail.com', '860414', '2025-12-08 19:47:15', 0),
+	(3, 'teste5@gmail.com', '575392', '2025-12-08 19:47:24', 0),
+	(4, 'teste5@gmail.com', '257519', '2025-12-08 19:47:35', 0),
+	(5, 'teste5@gmail.com', '828167', '2025-12-08 19:49:31', 0),
+	(6, 'teste5@gmail.com', '450566', '2025-12-08 19:49:50', 0),
+	(7, 'teste@gmail.com', '419663', '2025-12-08 19:50:30', 0),
+	(8, 'gabs@gmail.com', '132280', '2025-12-08 19:58:47', 0),
+	(9, 'gabs@gmail.com', '333157', '2025-12-08 20:01:35', 0),
+	(10, 'teste6@gmail.com', '301901', '2025-12-08 20:14:06', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
