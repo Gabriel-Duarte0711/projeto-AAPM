@@ -241,7 +241,7 @@ async function carregarArmarios() {
                         </a>
                     </div>
                     `;
-
+          console.log(user)
           popup.style.display = "flex";
           // BOTAO DE EXCLUIR
           const btnExcluir = document.getElementById("btnExcluir")
