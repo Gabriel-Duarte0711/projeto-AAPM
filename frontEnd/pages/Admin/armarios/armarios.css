@@ -1,14 +1,14 @@
-body {
+/* body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 .material-symbols-outlined{
     color: white;
 }
 
 .mb-3 {
-    position: absolute;
+    /* position: absolute; */
     top: 80px;
     display: flex;
     justify-content: center;

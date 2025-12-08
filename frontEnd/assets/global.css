@@ -56,8 +56,8 @@ body {
 
 .perfil {
     position: absolute;
-    top: 20px;
-    right: 80px;
+    top: 2.2vh;
+    right: 8.8vw;
 }
 .perfil span{
     font-size: 40px;
