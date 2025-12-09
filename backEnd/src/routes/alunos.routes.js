@@ -9,10 +9,13 @@ import {
     atualizarArmarioUsuario,
     deletarUsuario,
     atualizarDataEncerramento
-} from "../controllers/alunos.controller.js"
-import { autenticarToken } from "../middlewares/auth.middleware.js"
+} from "../controllers/alunos.controller.js";
+
+import { autenticarToken } from "../middlewares/auth.middleware.js";
+
 const router = express.Router();
 
+// Rotas específicas
 router.get("/me", autenticarToken, (req, res) => {
     res.json({
         mensagem: "Acesso permitido",
@@ -20,16 +23,18 @@ router.get("/me", autenticarToken, (req, res) => {
     });
 });
 
-router.put('/atualizar-data-encerramento', atualizarDataEncerramento)
-router.get("/", listarUsuario)
-router.post("/", criarUsuario)
-router.get("/:id", obterUsuario)
-router.post("/cpf", obterUsuarioPorCPF)
-router.put("/recadastrar/:id", recadastrarUsuario)
-router.put("/armario/:id", atualizarArmarioUsuario)
-router.put("/:id",atualizarUsuario)
-router.put("/data", atualizarDataEncerramento)
-router.put("/desativar/:id", deletarUsuario)
+router.put("/atualizar-data-encerramento", atualizarDataEncerramento);
+router.post("/cpf", obterUsuarioPorCPF);
+router.put("/recadastrar/:id", recadastrarUsuario);
+router.put("/armario/:id", atualizarArmarioUsuario);
+router.put("/desativar/:id", deletarUsuario);
 
+// Rotas principais
+router.get("/", listarUsuario);
+router.post("/", criarUsuario);
+
+// Rota genérica por último
+router.get("/:id", obterUsuario);
+router.put("/:id", atualizarUsuario);
 
 export default router;
