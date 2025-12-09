@@ -144,31 +144,35 @@ export async function atualizarUsuario(req, res) {
     const userId = req.params.id;
     const { nome, CPF, matricula, telefone, email, curso_id, turma_id, pagamento } = req.body;
 
-    // Validar se o usuário existe
-    const [user] = await db.execute("SELECT * FROM tabela_alunos WHERE id_usuario = ?", [userId]);
-    if (user.length === 0) {
+    // Buscar aluno pelo ID
+    const [userRows] = await db.execute("SELECT * FROM tabela_alunos WHERE id = ?", [userId]);
+    if (userRows.length === 0) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
     }
 
-    // Atualizar o usuário
+    const usuario = userRows[0];
+
+    // Atualizar dados do aluno
     await db.execute(
       `UPDATE tabela_alunos 
        SET nome = ?, CPF = ?, matricula = ?, telefone = ?, email = ?, 
            curso_id = ?, turma_id = ?, pagamento = ?
-       WHERE id_usuario = ?`,
+       WHERE id = ?`,
       [nome, CPF, matricula, telefone, email, curso_id, turma_id, pagamento, userId]
     );
 
-    // Se o CPF mudou, atualizar a senha também
-    if (CPF !== user[0].CPF) {
+    // Se o CPF mudou, atualizar a senha na tabela_usuario
+    if (CPF !== usuario.CPF && usuario.id_usuario) {
       const hashedPassword = await bcrypt.hash(CPF, 10);
+
       await db.execute(
         "UPDATE tabela_usuario SET senha = ? WHERE id = ?",
-        [hashedPassword, userId]
+        [hashedPassword, usuario.id_usuario] // AGORA ESTÁ CORRETO
       );
     }
 
     res.json({ mensagem: "Usuário atualizado com sucesso!" });
+
   } catch (err) {
     console.error("ERRO AO ATUALIZAR USUÁRIO:", err);
     res.status(500).json({ erro: err.message });

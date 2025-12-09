@@ -23,18 +23,21 @@ router.get("/me", autenticarToken, (req, res) => {
     });
 });
 
-router.put("/atualizar-data-encerramento", atualizarDataEncerramento);
+// ROTAS ESPECÍFICAS – DEVEM VIR PRIMEIRO
 router.post("/cpf", obterUsuarioPorCPF);
 router.put("/recadastrar/:id", recadastrarUsuario);
 router.put("/armario/:id", atualizarArmarioUsuario);
 router.put("/desativar/:id", deletarUsuario);
+router.put("/atualizar-data-encerramento", atualizarDataEncerramento);
+router.put("/data", atualizarDataEncerramento);
 
-// Rotas principais
+// ROTAS PADRÃO
 router.get("/", listarUsuario);
 router.post("/", criarUsuario);
 
-// Rota genérica por último
+// ROTAS GENÉRICAS – POR ÚLTIMO
 router.get("/:id", obterUsuario);
 router.put("/:id", atualizarUsuario);
+
 
 export default router;
