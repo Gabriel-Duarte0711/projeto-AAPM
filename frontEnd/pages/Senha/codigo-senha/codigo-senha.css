@@ -35,7 +35,7 @@ body {
     background-repeat: no-repeat;
 }
 
-#icon.hide{
+#icon.hide {
     background-image: url("../assets/images/olho-fechado.png");
     background-size: contain;
 }
@@ -54,7 +54,8 @@ body {
     font-size: 20px;
 }
 
-.form-check label, p{
+.form-check label,
+p {
     color: white;
 }
 
@@ -68,4 +69,9 @@ body {
     flex-direction: column;
     align-items: end;
     gap: 60px;
+}
+
+.input-box {
+    display: flex;
+    gap: 20px;
 }

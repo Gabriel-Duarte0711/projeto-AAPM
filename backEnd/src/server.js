@@ -20,7 +20,7 @@ import "dotenv/config";
 // ============================
 const app = express()
 app.use(cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:5500"],
+    origin: ["http://localhost:3000", "http://127.0.0.1:5501"],
 }));
 app.use(bodyParser.json());
 app.use(cookieParser())
@@ -28,7 +28,6 @@ app.use(cookieParser())
 app.get("/", (req, res) => {
     res.send("API rodando com sucesso")
 })
-
 
 app.use("/curso", cursoRoute)
 app.use("/alunos", alunosRoute)

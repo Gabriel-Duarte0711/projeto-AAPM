@@ -6,14 +6,7 @@ export async function criarCodigo(req, res) {
     const { email } = req.body;
     if (!email) return res.status(400).json({ erro: "Campos obrigatórios" });
 
-    // let codigo = "";
-    // for (let i = 0; i < 6; i++) {
-    //     // Gera um inteiro entre min (inclusive) e max (inclusive)
-    //     const num = Math.floor(100000 + Math.random() * 900000).toString();
-
-    //     console.log(`Número ${i + 1}: ${num}`);
-    //     codigo += num
-    //   }
+    
 
     const [users] = await db.execute(
       "SELECT email FROM tabela_admin WHERE email = ? UNION SELECT email FROM tabela_alunos WHERE email = ?",
