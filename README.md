@@ -53,11 +53,11 @@ Pronto! O servidor estará rodando em `http://localhost:3000` 🎉
 
 ## 📊 Estrutura do Banco de Dados
 
-- **tabela_usuario** - Dados dos alunos
+- **tabela_alunos** - Dados dos alunos
 - **tabela_curso** - Cursos disponíveis no Senai Osasco
 - **tabela_armario** - 172 armários (estados: disponível, ocupado, manutenção)
 - **tabela_reserva_armario** - Vínculo aluno-armário
-- **tabela_login** - Credenciais de acesso
+- **tabela_usuario** - Credenciais de acesso
 
 
 ## 🔄 Status do Projeto
