@@ -39,9 +39,9 @@ async function carregarUsuario() {
     const data = new Date(usuario.data_encerramento);
     const dataFormatada = data.toLocaleDateString("pt-BR");
 
-    saudacoes.textContent = `Olá, ${usuario.nome}`;
-    numArmario.textContent = `Número do armário: ${usuario.armario_id}`
-    dataFim.textContent = `Data de encerramento: ${dataFormatada}`
+    saudacoes.textContent = `Olá, ${usuario.nome}!`;
+    numArmario.textContent = ` ${usuario.armario_id}`
+    dataFim.textContent = ` ${dataFormatada}`
 
 
     const btnTeste = document.getElementById('btnTeste')

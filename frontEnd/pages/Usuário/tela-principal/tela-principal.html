@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <div class="desktop">
+    <div class="nav-bar">
         <div class="perfil">
             <a href="../ver-informacoes/ver-informacoes.html">
                 <span class="material-symbols-outlined">
@@ -35,14 +35,26 @@
                 </span>
             </a>
         </div>
+
         <div class="saudacoes">
             <h2 id="saudacoes">Olá, Usuário!</h2>
         </div>
+
         <div class="container-lg">
-            <span class="material-symbols-outlined">inventory_2</span>
+            <div class="card-icon">
+                <span class="material-symbols-outlined">inventory_2</span>
+            </div>
+
             <div class="informacoes">
-                <h3 id="numArmario"></h3>
-                <h3 id="dataFim"></h3>
+                <div class="info-item">
+                    <div class="info-label">Número do armário</div>
+                    <p id="numArmario">-</p>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-label">Data de encerramento</div>
+                    <p id="dataFim">-</p>
+                </div>
             </div>
         </div>
     </div>

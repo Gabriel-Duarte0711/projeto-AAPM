@@ -2,41 +2,88 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.saudacoes h2 {
+    text-align: center;
+    font-size: 35px;
+    color: var(--white);
 }
 
 .container-lg {
     background-color: var(--light-blue);
     color: var(--white);
-    width: 700px;
-    max-width: 800px;
-    min-height: 200px;
-    border-radius: 20px;
+    width: 20rem;
+    border-radius: 24px;
     padding: 40px;
-    transition: all 0.4s ease;
+    transition: all 0.4s;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 20px;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
 }
 
-.container-lg h3 {
-    font-size: 22px;
-    text-align: start;
-    padding-left: 3rem;
-}
-
-.saudacoes h2 {
-    text-align: center;
-    font-size: 40px;
+.card-icon .material-symbols-outlined {
+    font-size: 65px;
     color: var(--white);
 }
 
-.container-lg:hover {
-    background-color: var(--dark-blue);
-    transform: translateY(-10px);
+.informacoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
-.material-symbols-outlined {
-    font-size: 80px;
-    margin-bottom: 10px;
-    color: white;
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.info-label {
+    font-size: 20px;
+    color: var(--white);
+}
+
+p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.623);
+    font-weight: 600;
+    margin: 0;
+}
+
+@media (min-width: 720px) {
+    .container-lg {
+        width: 35rem;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card-icon .material-symbols-outlined {
+        font-size: 80px;
+    }
+
+    .informacoes {
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+        padding-left: 2rem;
+    }
+
+    .info-item {
+        align-items: flex-start;
+    }
+
+    .container-lg:hover {
+        background-color: var(--dark-blue);
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
 }
