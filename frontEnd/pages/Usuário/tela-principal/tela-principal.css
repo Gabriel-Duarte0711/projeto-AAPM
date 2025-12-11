@@ -30,6 +30,8 @@ body {
 .card-icon .material-symbols-outlined {
     font-size: 65px;
     color: var(--white);
+    position: relative;
+    top: -10px;
 }
 
 .informacoes {

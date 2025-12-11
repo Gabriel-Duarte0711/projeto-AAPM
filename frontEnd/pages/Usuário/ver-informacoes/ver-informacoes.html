@@ -27,13 +27,16 @@
 
 <body>
     <div class="desktop">
+        <button id="btnMenu" class="btn-menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
 
         <div class="entre-aqui">
             <span class="material-symbols-outlined">person</span>
             <h3>Veja seus dados:</h3>
         </div>
 
-        <div class="menu-flutuante">
+        <div class="menu-flutuante" id="menuFlutuante">
             <div class="container-lg menu">
                 <a href="#">
                     <h1>Veja seus dados</h1>
@@ -48,25 +51,23 @@
                 <a href="#">
                     <h1 id="btnSair">Sair</h1>
                 </a>
-
             </div>
         </div>
 
         <form id="formsCadastro">
             <div class="input-box">
-                <input type="text" class="form-control" id="nome" name="nome" readonly >
+                <input type="text" class="form-control" id="nome" name="nome" readonly>
                 <label>Nome</label>
             </div>
 
-             <div class="input-box">
+            <div class="input-box">
                 <input type="text" class="form-control" id="CPF" name="CPF" readonly>
                 <label>CPF</label>
             </div>
 
             <div class="input-box">
-                <input type="text" class="form-control" id="matricula" name="matricula"
-                    readonly>
-                    <label>Matrícula</label>
+                <input type="text" class="form-control" id="matricula" name="matricula" readonly>
+                <label>Matrícula</label>
             </div>
 
             <div class="input-box">
@@ -88,8 +89,8 @@
                 <input type="text" class="form-control" id="turma" name="turma" readonly>
                 <label>Turma</label>
             </div>
-            
-             <div class="input-box">
+
+            <div class="input-box">
                 <input type="text" class="form-control" id="pagamento" name="pagamento" readonly>
                 <label>Pagamento</label>
             </div>
