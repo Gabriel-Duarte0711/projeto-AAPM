@@ -7,17 +7,21 @@ body {
 .entre-aqui {
     color: white;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem ;
 }
 
 .entre-aqui .material-symbols-outlined {
     font-size: 60px;
 }
 
-/* BOTÃO HAMBÚRGUER */
 .btn-menu {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    position: relative;
+    top: 14px;
+    left: 12rem;
     z-index: 20;
     background: transparent;
     border: none;
@@ -29,16 +33,17 @@ body {
     color: white;
 }
 
-/* MENU RETRÁTIL */
 .menu-flutuante {
     position: fixed;
     top: -100vh;
-    width: 100%;
-    height: 40vh;
+    right: 0;
+    left: 0;
+    height: auto;
     background-color: var(--light-blue);
-    padding-top: 80px;
+    padding-top: 70px;
     transition: top 0.3s ease;
     z-index: 15;
+    box-shadow: 0 4px 8px rgba(151, 175, 255, 0.2);
 }
 
 .menu-flutuante.abrir {
@@ -63,12 +68,24 @@ span {
     color: var(--white);
     transition: 0.3s;
 }
-
-.menu-flutuante h1:hover,
-span:hover {
-    background-color: #3B82F6;
+#formsCadastro {
+    padding: 0 20px;
+    border-radius: 12px;
+    width: 400px;
 }
 
-.input-box label {
-    top: -20px !important;
+.info-section {
+    color: white;
+    padding: 16px;
+}
+
+.info-label {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 15px;
+    margin-bottom: 3px;
+    color: rgb(197, 197, 197);
 }

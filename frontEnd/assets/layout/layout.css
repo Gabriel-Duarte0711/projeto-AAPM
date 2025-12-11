@@ -16,7 +16,6 @@ body {
     flex-direction: column;
 }
 
-
 body.dark-mode {
     background-image: var(--background-dark);
 }

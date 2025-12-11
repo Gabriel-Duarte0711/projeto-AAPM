@@ -31,17 +31,16 @@ async function buscarCursosDoBanco() {
 // cadastro de um aluno
 const APIUsuario = `http://localhost:3000/alunos/${aluno_id}`
 
-const inputNome = document.getElementById("nome")
-const inputMatricula = document.getElementById("matricula")
-const inputCpf = document.getElementById("CPF")
-const inputTelefone = document.getElementById("telefone")
-const inputEmail = document.getElementById("email")
-const inputCurso = document.getElementById("curso")
-const inputTurma = document.getElementById("turma")
-const inputPagamento = document.getElementById("pagamento")
 const formCadastrar = document.getElementById("formsCadastro")
 
 async function carregarUsuario() {
+    // Mostrar loading
+    const infoValues = document.querySelectorAll('.info-value');
+    infoValues.forEach(value => {
+        value.textContent = '';
+        value.classList.add('loading');
+    });
+
     async function buscarUsuarioDoBanco() {
         try {
             const response = await fetch(APIUsuario);
@@ -101,13 +100,20 @@ async function carregarUsuario() {
     const turmas = await buscarTurmasDoBanco();
     console.log(usuarios.turma_id)
     console.log(turmas)
-    inputNome.value = usuarios.nome;
-    inputMatricula.value = usuarios.matricula;
-    inputCpf.value = usuarios.CPF;
-    inputTelefone.value = usuarios.telefone;
-    inputEmail.value = usuarios.email;
-    inputCurso.value = cursos.nome;
-    inputTurma.value = turmas.turma;
+    
+    // Remover loading
+    infoValues.forEach(value => value.classList.remove('loading'));
+
+    // Preencher os campos usando .info-value
+    const campos = document.querySelectorAll('.info-section');
+    campos[0].querySelector('.info-value').textContent = usuarios.nome;
+    campos[1].querySelector('.info-value').textContent = usuarios.CPF;
+    campos[2].querySelector('.info-value').textContent = usuarios.matricula;
+    campos[3].querySelector('.info-value').textContent = usuarios.telefone;
+    campos[4].querySelector('.info-value').textContent = usuarios.email;
+    campos[5].querySelector('.info-value').textContent = cursos.nome;
+    campos[6].querySelector('.info-value').textContent = turmas.turma;
+    
     if (usuarios) {
         let pagamentoTexto = ""
         if (usuarios.pagamento === "A") {
@@ -122,7 +128,7 @@ async function carregarUsuario() {
             pagamentoTexto = "Não informado";
         }
 
-        inputPagamento.value = pagamentoTexto
+        campos[7].querySelector('.info-value').textContent = pagamentoTexto;
     }
 }
 carregarUsuario()
@@ -153,84 +159,26 @@ btnMenu.addEventListener("click", () => {
     menu.classList.toggle("abrir");
 });
 
+// Criar overlay para fechar o menu clicando fora
+const overlay = document.createElement('div');
+overlay.className = 'menu-overlay';
+document.body.appendChild(overlay);
 
+// Fechar menu ao clicar no overlay
+overlay.addEventListener('click', () => {
+    menu.classList.remove('abrir');
+    overlay.classList.remove('active');
+});
 
-// async function cadastrar(e) {
-//     e.preventDefault();
+// Sincronizar overlay com menu
+const observer = new MutationObserver(() => {
+    if (menu.classList.contains('abrir')) {
+        overlay.classList.add('active');
+    } else {
+        overlay.classList.remove('active');
+    }
+});
 
-//     async function buscarUsuarioDoBanco() {
-//         try {
-//             const response = await fetch(APIUsuario);
-//             if (!response.ok) {
-//                 throw new Error('Erro na requisição à API');
-//             }
+observer.observe(menu, { attributes: true, attributeFilter: ['class'] });
 
-//             const dados = await response.json();
-//             console.log('Dados recebidos:', dados);
-//             return dados; // retorna os dados para serem usados depois
-
-//         } catch (error) {
-//             console.error('Erro ao buscar dados:', error);
-//             return null;
-//         }
-//     }
-//     const nome = inputNome.value.trim();
-//     const matricula = inputMatricula.value.trim();
-//     const telefone = inputTelefone.value.trim().replace(/\D/g, '');
-//     const email = inputEmail.value.trim();
-//     const curso_id = dropDownCurso.value;
-//     const turma_id = dropDownTurma.value;
-//     if (!usuarios) {
-//         alert("Erro ao conectar ao servidor. Tente novamente mais tarde.");
-//         return;
-//     }
-
-//     if (!nome || !matricula || !telefone || !email || !curso_id || !turma_id) {
-//         alert("Por gentileza, preencha os campos obrigatórios (nome, matricula, telefone, email, curso e turma).");
-//         return;
-//     }
-
-//     const matriculaJaExiste = usuarios.some(u => validator.equals(u.matricula, matricula));
-//     if (matriculaJaExiste) {
-//         alert("Matrícula já cadastrada");
-//         return;
-//     }
-//     if (!validator.isMobilePhone('+55' + telefone, 'pt-BR')) {
-//         alert("telefone invalido")
-//         return;
-//     }
-//     if (!validator.isEmail(email)) {
-//         alert("email invalido")
-//         return;
-//     }
-
-
-//     const armario_id = 1;
-//     const novaReserva = { nome, matricula, telefone, email, curso_id, turma_id, armario_id }
-
-//     try {
-//         const requisicao = await fetch(APIUsuario, {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify(novaReserva)
-//         });
-
-//         if (requisicao.ok) {
-//             const dados = await requisicao.json();
-//             console.log("reserva salva com sucesso:", dados);
-//             alert("reserva feita com sucesso!");
-//             formCadastrar.reset();
-//         } else {
-//             console.error("Erro na requisição:", requisicao.status);
-//             alert("Erro ao fazer reserva. Código: " + requisicao.status);
-//         }
-
-
-//     } catch (error) {
-//         console.error("Erro no fetch:", error);
-//         alert("Erro de conexão com o servidor.");
-//     }
-// }
-// formCadastrar.addEventListener("submit", cadastrar);
-
-
+// PEDE PRA IA FAZER ESSA PARTE SÓ PRA PODER VER COMO O FRONT IA FICAR
