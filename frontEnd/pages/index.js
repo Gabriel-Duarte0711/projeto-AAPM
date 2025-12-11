@@ -39,14 +39,17 @@ btnEntrar.addEventListener('click', async (event) => {
 
         if (checkboxLembrar.checked) {
             localStorage.setItem("id", dado.usuario.id);
-            localStorage.setItem("token", dado.token); 
+            localStorage.setItem("token", dado.token);
+            localStorage.setItem("perfil", dado.usuario.perfil);
         } else {
             sessionStorage.setItem("id", dado.usuario.id);
             sessionStorage.setItem("token", dado.token);
+            sessionStorage.setItem("perfil", dado.usuario.perfil);
         }
+
         console.log(dado)
         const perfil = dado.usuario.perfil;
-        
+
         if (perfil === "aluno") {
             window.location.href = "/frontend/pages/Usuário/tela-principal/tela-principal.html";
         } else {

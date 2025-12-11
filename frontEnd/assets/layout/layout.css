@@ -26,20 +26,17 @@ body.dark-mode {
     position: absolute;
     top: 10px;
     left: 10px;
-    z-index: 50;
 }
 
 .logo-aapm img {
-    height: 50px;
-    width: 50px;
+    height: 4rem;
+    width: 4rem;
 }
 
 /* Botão de dark/light mode */
 #toggleDark {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 100;
+    position: absolute;
+    top: 10px;
     background: var(--white);
     border-radius: 30%;
     padding: 8px 12px;
