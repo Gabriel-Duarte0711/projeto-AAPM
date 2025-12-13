@@ -2,10 +2,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
 .entre-aqui {
-    position: relative;
     color: white;
     display: flex;
     flex-direction: column;
@@ -15,11 +15,6 @@ body {
 
 .entre-aqui .material-symbols-outlined {
     font-size: 60px;
-}
-
-.input-icon {
-    position: relative;
-    width: 600px;
 }
 
 #icon {
@@ -35,9 +30,15 @@ body {
     background-repeat: no-repeat;
 }
 
-#icon.hide{
+#icon.hide {
     background-image: url("../assets/images/olho-fechado.png");
     background-size: contain;
+}
+
+.input-box {
+    position: relative;
+    width: 20rem;
+    margin-top: 1rem;
 }
 
 .form-control {
@@ -46,7 +47,7 @@ body {
 
 .btn-primary {
     background-color: var(--dark-blue);
-    width: 600px;
+    width: 20rem;
     height: 60px;
     border: none;
     border-radius: 18px;
@@ -54,7 +55,8 @@ body {
     font-size: 20px;
 }
 
-.form-check label, p{
+.form-check label,
+p {
     color: white;
 }
 
@@ -63,9 +65,43 @@ body {
     border: none;
 }
 
-.esqueceu-a-senha {
+.container-opcoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    font-size: 14px;
+}
+
+.formEntrada {
     display: flex;
     flex-direction: column;
-    align-items: end;
-    gap: 60px;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .btn-primary {
+        background-color: var(--dark-blue);
+        width: 600px;
+        height: 60px;
+        border: none;
+        border-radius: 18px;
+        color: white;
+        font-size: 20px;
+    }
+
+    .container-opcoes {
+        padding-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 18rem;
+        font-size: 16px;
+    }
+
+    .input-box {
+        position: relative;
+        width: 600px;
+        margin-top: 1rem;
+    }
+
 }
