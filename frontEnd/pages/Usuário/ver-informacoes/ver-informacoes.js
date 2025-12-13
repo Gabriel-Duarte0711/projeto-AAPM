@@ -181,4 +181,4 @@ const observer = new MutationObserver(() => {
 
 observer.observe(menu, { attributes: true, attributeFilter: ['class'] });
 
-// PEDE PRA IA FAZER ESSA PARTE SÓ PRA PODER VER COMO O FRONT IA FICAR
+// PEDI PRA IA FAZER ESSA PARTE SÓ PRA PODER VER COMO O FRONT IA FICAR

@@ -2,6 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
 .entre-aqui {
@@ -11,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     padding-top: 2rem;
-    padding-bottom: 2rem ;
+    padding-bottom: 2rem;
 }
 
 .entre-aqui .material-symbols-outlined {
@@ -68,24 +69,62 @@ span {
     color: var(--white);
     transition: 0.3s;
 }
+
 #formsCadastro {
     padding: 0 20px;
     border-radius: 12px;
-    width: 400px;
+    width: 350px;
+    box-shadow: 0 2px 12px rgba(151, 175, 255, 0.35);
 }
 
 .info-section {
     color: white;
     padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .info-label {
     font-size: 16px;
     font-weight: 500;
+    color: rgba(255, 255, 255, 0.747);
 }
 
 .info-value {
     font-size: 15px;
     margin-bottom: 3px;
-    color: rgb(197, 197, 197);
+}
+
+@media (min-width: 720px) {
+    .menu-flutuante {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100vh;
+        background-color: var(--light-blue);
+        padding-top: 100px;
+        transition: left 0.3s ease;
+        /* z-index: -10; */
+    }
+
+    .menu-flutuante.abrir {
+        left: 0;
+    }
+
+    .menu-flutuante h1:hover,
+    span:hover {
+        cursor: pointer;
+        background-color: #3B82F6;
+    }
+
+    #formsCadastro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem 8rem;
+        border-radius: 12px;
+        width: 100vh;
+        box-shadow: 0 2px 12px rgba(151, 175, 255, 0.35);
+
+    }
+
 }
