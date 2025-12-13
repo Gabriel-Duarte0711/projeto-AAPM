@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const email = params.get('email');
 const APIVerificarCodigo = "http://localhost:3000/verificacao/verificar";
-const inputs = document.querySelectorAll(".form-control");
+const inputs = document.querySelectorAll(".input-codigo");
 const btnVerificar = document.getElementById('btnVerificar');
 const Toast = Swal.mixin({
   toast: true,

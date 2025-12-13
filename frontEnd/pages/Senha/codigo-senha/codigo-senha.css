@@ -2,6 +2,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100vh;
 }
 
 .entre-aqui {
@@ -17,36 +18,9 @@ body {
     font-size: 60px;
 }
 
-.input-icon {
-    position: relative;
-    width: 600px;
-}
-
-#icon {
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    background-image: url("../assets/images/olho.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-#icon.hide {
-    background-image: url("../assets/images/olho-fechado.png");
-    background-size: contain;
-}
-
-.form-control {
-    color: white;
-}
-
 .btn-primary {
     background-color: var(--dark-blue);
-    width: 600px;
+    width: 22rem;
     height: 60px;
     border: none;
     border-radius: 18px;
@@ -54,24 +28,43 @@ body {
     font-size: 20px;
 }
 
-.form-check label,
-p {
-    color: white;
-}
-
-#remember {
-    background-color: rgb(255, 255, 255) !important;
-    border: none;
-}
-
-.esqueceu-a-senha {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    gap: 60px;
-}
-
 .input-box {
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.input-box .input-codigo {
+    color: white;
+    width: 50px;
+    height: 70px;
+    text-align: center;
+    border-radius: 10px;
+    opacity: 0.9;
+    
+    box-shadow: 0 10px 20px rgba(184, 195, 253, 0.582);
+}
+
+.codigoInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .input-box {
+        gap: 20px;
+    }
+
+    .input-box .input-codigo {
+        width: 60px;
+        height: 80px;
+        font-size: 24px;
+    }
+
+    .btn-primary {
+        width: 30rem;
+    }
 }
