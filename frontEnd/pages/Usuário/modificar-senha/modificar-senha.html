@@ -18,7 +18,7 @@
     <!-- Ícones -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-    <link rel="stylesheet" href="modificar-senha.css">    
+    <link rel="stylesheet" href="modificar-senha.css">
     <link rel="stylesheet" href="../../../assets/global.css">
     <link rel="stylesheet" href="../../../assets/layout/layout.css">
 
@@ -27,27 +27,31 @@
 </head>
 
 <body>
-    <div class="desktop">
+    <div class="principal">
+        <button id="btnMenu" class="btn-menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+
         <div class="entre-aqui">
             <h1 class="material-symbols-outlined">person</h1>
             <h3>Modifique sua senha:</h3>
         </div>
 
-        <div class="menu-flutuante">
+        <div class="menu-flutuante" id="menuFlutuante">
             <div class="container-lg menu">
-                <a href="../ver-informacoes/ver-informacoes.html">
+                <a href="#">
                     <h1>Veja seus dados</h1>
                 </a>
-                <a href="#">
+                <a href="../modificar-senha/modificar-senha.html">
                     <h1>Modificar sua senha</h1>
                 </a>
+
                 <a href="../tela-principal/tela-principal.html">
                     <h1>Voltar</h1>
                 </a>
-                <a href="#"> 
+                <a href="#">
                     <h1 id="btnSair">Sair</h1>
                 </a>
-
             </div>
         </div>
 
@@ -70,10 +74,8 @@
                 <span class="icon" onclick="mostrarSenha3()"></span>
             </div>
 
-
             <button type="button" class="btn btn-primary" id="btnModificar">Modificar</button>
         </form>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
