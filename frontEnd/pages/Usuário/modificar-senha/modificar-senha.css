@@ -1,21 +1,68 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
 }
 
-.entre-aqui {
-    color: white;
+.principal-box {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 2rem;
+    padding: 2rem 1rem;
 }
 
-.entre-aqui .material-symbols-outlined {
+.entre-aqui {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.material-symbols-outlined {
     font-size: 60px;
+}
+
+#formsModificarSenha {
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    background-image: url("/frontend/assets/images/olho.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.icon.hide {
+    background-image: url("/frontend/assets/images/olho-fechado.png");
+}
+
+.btn-primary {
+    width: 100%;
+    height: 60px;
+    border-radius: 18px;
+    font-size: 20px;
+    background-color: var(--dark-blue);
 }
 
 .btn-menu {
@@ -26,11 +73,6 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
-}
-
-.btn-menu .material-symbols-outlined {
-    font-size: 40px;
-    color: white;
 }
 
 .menu-flutuante {
@@ -69,55 +111,6 @@ span {
     transition: 0.3s;
 }
 
-.input-icon {
-    position: relative;
-    width: 600px;
-}
-
-.icon {
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    background-image: url("../../../assets/images/olho.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.icon:hover {
-    background-color: #1E3A8A;
-}
-
-.icon.hide {
-    background-image: url("../../../assets/images/olho-fechado.png");
-    background-size: contain;
-}
-
-.btn-primary {
-    background-color: var(--dark-blue);
-    width: 23rem;
-    height: 60px;
-    border: none;
-    border-radius: 18px;
-    color: white;
-    font-size: 20px;
-}
-
-#formsModificarSenha {
-    padding: 0 20px;
-    border-radius: 12px;
-    width: 100%;
-}
-
-.input-box {
-    width: 23rem;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
 @media (min-width: 768px) {
     .menu-flutuante {
         position: fixed;
@@ -139,27 +132,5 @@ span {
     span:hover {
         cursor: pointer;
         background-color: #3B82F6;
-    }
-
-    .btn-primary {
-        background-color: var(--dark-blue);
-        width: 45rem;
-        height: 60px;
-        border: none;
-        border-radius: 18px;
-        color: white;
-        font-size: 20px;
-    }
-
-    #formsModificarSenha {
-        padding: 0 20px;
-        border-radius: 12px;
-        width: 100%;
-    }
-
-    .input-box {
-        width: 45rem;
-        margin-top: 30px;
-        margin-bottom: 20px;
     }
 }

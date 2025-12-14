@@ -1,55 +1,49 @@
 body {
+    min-height: 100vh;
+}
+
+.principal-box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
 }
 
 .entre-aqui {
-    position: relative;
+    padding-top: 30px;
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
-.entre-aqui .material-symbols-outlined {
+.material-symbols-outlined {
     font-size: 60px;
 }
 
-.form-control {
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+    max-width: 600px;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+}
+
+.input-box .form-control {
+    width: 100%;
     color: white;
 }
 
 .btn-primary {
     background-color: var(--dark-blue);
-    width: 20rem;
     height: 60px;
-    border: none;
     border-radius: 18px;
-    color: white;
     font-size: 20px;
-}
-
-.emailInput{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.input-box {
-    position: relative;
-    width: 20rem;
-    margin-top: 1rem;
-}
-
-@media (min-width: 768px) {
-    .input-box {
-        width: 600px;
-    }
-
-    .btn-primary {
-        width: 600px;
-    }
 }

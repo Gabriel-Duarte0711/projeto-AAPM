@@ -1,7 +1,13 @@
 body {
+    min-height: 100vh;
+}
+
+.principal-box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 .container-lg {
@@ -19,6 +25,7 @@ body {
     cursor: pointer;
     color: #ffffff;
 }
+
 .container-lg h3 {
     margin-top: 160px;
 }
@@ -51,6 +58,6 @@ a {
     opacity: 50%;
 }
 
-.dark-mode .container-lg:hover{
+.dark-mode .container-lg:hover {
     background-color: #3B82F6 !important;
 }

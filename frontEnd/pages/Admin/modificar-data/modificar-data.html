@@ -26,20 +26,23 @@
 </head>
 
 <body>
-    <div class="div-principal">
+    <div class="principal-box">
+        <button id="btnMenu" class="btn-menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
         <div class="div-header">
             <span class="material-symbols-outlined">person</span>
-            <h3>Modificar Data Final do Semestre:</h3>
+            <h3>Modificar Data Final do Semestre</h3>
         </div>
 
         <div class="mb-3 containerDateInput ">
-            <label class="form-label">Selecione uma data:</label>
+            <label class="form-label" style="color:white">Selecione uma data:</label>
             <input type="date" class="form-control" id="dateInput">
-            <button class="btn-primary" id="btnDate">Enviar</button>
+            <button type="submit" class="btn btn-primary" id="btnDate">Editar</button>
         </div>
     </div>
 
-    <div class="menu-flutuante">
+    <div class="menu-flutuante" id="menuFlutuante">
         <div class="container-lg menu">
             <a href="../historico-alunos/historico-alunos.html">
                 <h1>Histórico de alunos</h1>

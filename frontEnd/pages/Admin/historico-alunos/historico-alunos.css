@@ -4,6 +4,7 @@ body {
     align-items: center;
 
 }
+
 .div-principal {
     position: absolute;
     top: 200px;
@@ -22,15 +23,35 @@ body {
 }
 
 
-.menu-flutuante {
+.btn-menu {
     position: absolute;
-    top: 200px;
-    left: 0px;
-    width: 300px;
-    color: var(--white);
-    padding: 10px 0;
-    border-radius: 10px;
+    top: 14px;
+    left: 12rem;
+    z-index: 20;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-flutuante {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
     background-color: var(--light-blue);
+    padding-top: 100px;
+    transition: left 0.3s ease;
+}
+
+.menu-flutuante.abrir {
+    left: 0;
+}
+
+.menu-flutuante h1:hover,
+span:hover {
+    cursor: pointer;
+    background-color: #3B82F6;
 }
 
 .menu-flutuante .menu {
@@ -50,8 +71,4 @@ span {
     padding: 10px;
     color: var(--white);
     transition: 0.3s;
-}
-
-.menu-flutuante h1:hover {
-    background-color: #3B82F6;
 }

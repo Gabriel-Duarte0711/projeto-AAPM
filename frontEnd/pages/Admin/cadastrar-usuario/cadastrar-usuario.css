@@ -1,31 +1,50 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    min-height: 100vh;
+}
 
+.principal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 .entre-aqui {
     padding-top: 30px;
-    position: relative;
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
-.entre-aqui .material-symbols-outlined {
+.material-symbols-outlined {
     font-size: 60px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+    max-width: 600px;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+}
+
+.input-box .form-control {
+    width: 100%;
+    color: white;
+    background: transparent;
 }
 
 .btn-primary {
     background-color: var(--dark-blue);
-    width: 600px;
     height: 60px;
-    border: none;
     border-radius: 18px;
-    color: white;
     font-size: 20px;
 }
-

@@ -1,21 +1,27 @@
 body {
+    min-height: 100vh;
+}
+
+.principal-box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
 }
 
 .entre-aqui {
-    position: relative;
+    padding-top: 30px;
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
-.entre-aqui .material-symbols-outlined {
-    font-size: 60px;
+.input-icon {
+    position: relative;
+    width: 600px;
 }
 
 #icon {
@@ -32,48 +38,35 @@ body {
 }
 
 #icon.hide {
-    background-image: url("../assets/images/olho-fechado.png");
+    background-image: url("../../../assets/images/olho-fechado.png");
     background-size: contain;
+}
+
+.material-symbols-outlined {
+    font-size: 60px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 90%;
+    max-width: 600px;
 }
 
 .input-box {
     position: relative;
-    width: 20rem;
+    width: 100%;
 }
 
-.form-control {
+.input-box .form-control {
+    width: 100%;
     color: white;
 }
 
 .btn-primary {
     background-color: var(--dark-blue);
-    width: 20rem;
     height: 60px;
-    border: none;
     border-radius: 18px;
-    color: white;
     font-size: 20px;
-}
-
-.form-check label, p{
-    color: white;
-}
-
-
-.formNovaSenha {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    padding-top: 1rem;
-}
-
-@media (min-width: 768px) {
-    .input-box {
-        width: 600px;
-    }
-
-    .btn-primary {
-        width: 600px;
-    }
 }

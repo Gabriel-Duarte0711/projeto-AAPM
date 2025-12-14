@@ -82,7 +82,7 @@ body {
     box-shadow: var(--shadow-md);
 }
 
-/* Inputs */
+
 .form-control {
     background-color: var(--light-blue) !important;
     color: var(--white) !important;
