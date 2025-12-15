@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.12.0.7122
+-- HeidiSQL Versão:              12.10.0.7000
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `tabela_admin` (
   CONSTRAINT `FK_tabela_admin_tabela_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tabela_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_admin: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_admin: ~3 rows (aproximadamente)
 INSERT INTO `tabela_admin` (`id`, `nome`, `email`, `telefone`, `CPF`, `id_usuario`, `criado_em`) VALUES
 	(1, 'admin', 'admin@gmail.com', '11988776655', '12345678906', 2, '2025-12-06 00:17:31'),
 	(2, 'admin', 'admin2@gmail.com', '11988776655', '12345678907', 4, '2025-12-06 00:18:01'),
@@ -50,35 +50,29 @@ CREATE TABLE IF NOT EXISTS `tabela_alunos` (
   `email` varchar(100) NOT NULL,
   `curso_id` int(11) NOT NULL,
   `turma_id` int(11) NOT NULL,
-  `armario_id` int(11) NOT NULL,
-  `data_encerramento` date DEFAULT NULL,
-  `pagamento` enum('C','D','P','A') NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
-  `is_ativo` bit(1) NOT NULL DEFAULT b'1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `CPF` (`CPF`),
   UNIQUE KEY `matricula` (`matricula`) USING BTREE,
   KEY `curso_id` (`curso_id`),
-  KEY `tabela_armario_ibfk_2` (`armario_id`),
   KEY `tabela_usuario_ibfk_3` (`turma_id`),
   KEY `FK_tabela_alunos_tabela_usuario` (`id_usuario`),
   CONSTRAINT `FK_tabela_alunos_tabela_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tabela_usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `tabela_alunos_ibfk_1` FOREIGN KEY (`curso_id`) REFERENCES `tabela_curso` (`id`),
-  CONSTRAINT `tabela_alunos_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `tabela_armario_ibfk_2` FOREIGN KEY (`armario_id`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `tabela_alunos_ibfk_3` FOREIGN KEY (`turma_id`) REFERENCES `tabela_turma` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela aapm.tabela_alunos: ~8 rows (aproximadamente)
-INSERT INTO `tabela_alunos` (`id`, `CPF`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `armario_id`, `data_encerramento`, `pagamento`, `id_usuario`, `criado_em`, `is_ativo`) VALUES
-	(1, '01377472841', 'Gabs', '014', '11988776655', 'gabs@gmail.com', 1, 1, 1, NULL, 'P', 3, '2025-12-06 00:17:58', b'1'),
-	(2, '28231355880', 'Lopreti', '015', '11988776655', 'lopreti@gmail.com', 1, 1, 2, NULL, 'P', 5, '2025-12-06 00:18:30', b'1'),
-	(3, '84498436857', 'teste', '1221', '11988877766', 'teste@gmail.com', 14, 29, 3, NULL, 'P', 7, '2025-12-06 22:47:45', b'1'),
-	(5, '93329180820', 'teste2', '12212', '11988877744', 'teste2@gmail.com', 13, 33, 4, NULL, 'P', 9, '2025-12-06 23:23:36', b'1'),
-	(6, '70349068828', 'teste3', '12214', '11988877733', 'teste3@gmail.com', 13, 33, 5, NULL, 'A', 10, '2025-12-06 23:28:48', b'1'),
-	(7, '96950713843', 'teste4', '12215', '11988877722', 'teste4@gmail.com', 14, 29, 6, NULL, 'P', 11, '2025-12-06 23:34:30', b'1'),
-	(8, '97803386830', 'teste5', '05', '11988877733', 'teste5@gmail.com', 14, 29, 7, NULL, 'D', 12, '2025-12-07 15:39:30', b'1'),
-	(9, '63553257865', 'teste6', '1221522', '11955664433', 'teste6@gmail.com', 13, 25, 8, NULL, 'A', 13, '2025-12-07 16:06:27', b'1');
+INSERT INTO `tabela_alunos` (`id`, `CPF`, `nome`, `matricula`, `telefone`, `email`, `curso_id`, `turma_id`, `id_usuario`, `criado_em`) VALUES
+	(1, '01377472841', 'Gabs', '014', '11988776655', 'gabs@gmail.com', 1, 1, 3, '2025-12-06 00:17:58'),
+	(2, '28231355880', 'Lopreti', '015', '11988776655', 'lopreti@gmail.com', 1, 1, 5, '2025-12-06 00:18:30'),
+	(3, '84498436857', 'teste', '1221', '11988877766', 'teste@gmail.com', 14, 29, 7, '2025-12-06 22:47:45'),
+	(5, '93329180820', 'teste2', '12212', '11988877744', 'teste2@gmail.com', 13, 33, 9, '2025-12-06 23:23:36'),
+	(6, '70349068828', 'teste3', '12214', '11988877733', 'teste3@gmail.com', 13, 33, 10, '2025-12-06 23:28:48'),
+	(7, '96950713843', 'teste4', '12215', '11988877722', 'teste4@gmail.com', 14, 29, 11, '2025-12-06 23:34:30'),
+	(8, '97803386830', 'teste5', '05', '11988877733', 'teste5@gmail.com', 14, 29, 12, '2025-12-07 15:39:30'),
+	(9, '63553257865', 'teste6', '1221522', '11955664433', 'teste6@gmail.com', 13, 25, 13, '2025-12-07 16:06:27');
 
 -- Copiando estrutura para tabela aapm.tabela_armario
 CREATE TABLE IF NOT EXISTS `tabela_armario` (
@@ -88,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `tabela_armario` (
   PRIMARY KEY (`numero_armario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_armario: ~152 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_armario: ~176 rows (aproximadamente)
 INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(1, 'O', NULL),
 	(2, 'O', NULL),
@@ -291,6 +285,51 @@ INSERT INTO `tabela_curso` (`id`, `nome`) VALUES
 	(13, 'Mecânico de Manutenção'),
 	(14, 'Soldador');
 
+-- Copiando estrutura para tabela aapm.tabela_pagamento
+CREATE TABLE IF NOT EXISTS `tabela_pagamento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `metodo` enum('C','D','P','A') NOT NULL DEFAULT 'A',
+  `valor` float NOT NULL DEFAULT 0,
+  `id_aluno` int(11) NOT NULL DEFAULT 0,
+  `motivo` enum('A','E','O') NOT NULL DEFAULT 'A',
+  `data_pagamento` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `FK_tabela_pagamento_tabela_alunos` (`id_aluno`),
+  CONSTRAINT `FK_tabela_pagamento_tabela_alunos` FOREIGN KEY (`id_aluno`) REFERENCES `tabela_alunos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela aapm.tabela_pagamento: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela aapm.tabela_reserva_armario
+CREATE TABLE IF NOT EXISTS `tabela_reserva_armario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aluno` int(11) NOT NULL DEFAULT 0,
+  `id_armario` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `FK__tabela_alunos` (`id_aluno`),
+  KEY `FK_tabela_reserva_armario_tabela_armario` (`id_armario`),
+  CONSTRAINT `FK__tabela_alunos` FOREIGN KEY (`id_aluno`) REFERENCES `tabela_alunos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_tabela_reserva_armario_tabela_armario` FOREIGN KEY (`id_armario`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela aapm.tabela_reserva_armario: ~1 rows (aproximadamente)
+INSERT INTO `tabela_reserva_armario` (`id`, `id_aluno`, `id_armario`) VALUES
+	(2, 1, 1);
+
+-- Copiando estrutura para tabela aapm.tabela_reserva_estacionamento
+CREATE TABLE IF NOT EXISTS `tabela_reserva_estacionamento` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aluno` int(11) DEFAULT NULL,
+  `id_vaga` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_tabela_estacionamento_tabela_alunos` (`id_aluno`),
+  KEY `FK_tabela_reserva_estacionamento_tabela_vagas_estacionamento` (`id_vaga`),
+  CONSTRAINT `FK_tabela_estacionamento_tabela_alunos` FOREIGN KEY (`id_aluno`) REFERENCES `tabela_alunos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_tabela_reserva_estacionamento_tabela_vagas_estacionamento` FOREIGN KEY (`id_vaga`) REFERENCES `tabela_vagas_estacionamento` (`numero_vaga`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela aapm.tabela_reserva_estacionamento: ~0 rows (aproximadamente)
+
 -- Copiando estrutura para tabela aapm.tabela_turma
 CREATE TABLE IF NOT EXISTS `tabela_turma` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -363,6 +402,15 @@ INSERT INTO `tabela_usuario` (`id`, `senha`, `perfil`) VALUES
 	(11, '$2b$10$uSndVU6V53.ymh7R8koAUO2RbPct9iaElsOjms5TlT456wPB48omW', 'aluno'),
 	(12, '$2b$10$Iyq5mw4ecHbHYMs7NMMGuOEj4ZkfDOP.N.V9PUyRlCsywjFiVw0PS', 'aluno'),
 	(13, '$2b$10$hhsXWZ26MVoufGcLlLHIZu6OZlVjvntFux8HZuwlTkCFweya4cqVS', 'aluno');
+
+-- Copiando estrutura para tabela aapm.tabela_vagas_estacionamento
+CREATE TABLE IF NOT EXISTS `tabela_vagas_estacionamento` (
+  `numero_vaga` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` enum('D','O','M') NOT NULL DEFAULT 'D',
+  PRIMARY KEY (`numero_vaga`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela aapm.tabela_vagas_estacionamento: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela aapm.tabela_verificacao
 CREATE TABLE IF NOT EXISTS `tabela_verificacao` (
