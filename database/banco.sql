@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.10.0.7000
+-- HeidiSQL Versão:              12.12.0.7122
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -92,18 +92,18 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(6, 'O', NULL),
 	(7, 'O', NULL),
 	(8, 'O', NULL),
-	(9, 'D', NULL),
-	(10, 'M', NULL),
+	(9, 'M', NULL),
+	(10, 'D', NULL),
 	(11, 'D', NULL),
 	(12, 'D', NULL),
 	(13, 'M', NULL),
 	(14, 'M', NULL),
 	(15, 'D', NULL),
-	(16, 'M', NULL),
+	(16, 'D', NULL),
 	(17, 'M', NULL),
 	(18, 'D', NULL),
 	(19, 'M', NULL),
-	(20, 'O', NULL),
+	(20, 'M', NULL),
 	(21, 'D', NULL),
 	(22, 'D', NULL),
 	(23, 'M', NULL),
@@ -133,14 +133,14 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(47, 'M', NULL),
 	(48, 'M', NULL),
 	(49, 'D', NULL),
-	(50, 'O', NULL),
+	(50, 'M', NULL),
 	(51, 'D', NULL),
 	(52, 'D', NULL),
 	(53, 'D', NULL),
-	(54, 'O', NULL),
+	(54, 'M', NULL),
 	(55, 'M', NULL),
 	(56, 'M', NULL),
-	(57, 'O', NULL),
+	(57, 'M', NULL),
 	(58, 'M', NULL),
 	(59, 'D', NULL),
 	(60, 'M', NULL),
@@ -152,7 +152,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(66, 'M', NULL),
 	(67, 'M', NULL),
 	(68, 'M', NULL),
-	(69, 'O', NULL),
+	(69, 'M', NULL),
 	(70, 'M', NULL),
 	(71, 'D', NULL),
 	(72, 'D', NULL),
@@ -173,7 +173,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(87, 'M', NULL),
 	(88, 'M', NULL),
 	(89, 'M', NULL),
-	(90, 'O', NULL),
+	(90, 'M', NULL),
 	(91, 'D', NULL),
 	(92, 'D', NULL),
 	(93, 'D', NULL),
@@ -193,7 +193,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(107, 'M', NULL),
 	(108, 'D', NULL),
 	(109, 'D', NULL),
-	(110, 'O', NULL),
+	(110, 'M', NULL),
 	(111, 'D', NULL),
 	(112, 'M', NULL),
 	(113, 'M', NULL),
@@ -203,13 +203,13 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(117, 'M', NULL),
 	(118, 'D', NULL),
 	(119, 'D', NULL),
-	(120, 'O', NULL),
+	(120, 'M', NULL),
 	(121, 'M', NULL),
 	(122, 'M', NULL),
 	(123, 'D', NULL),
-	(124, 'O', NULL),
+	(124, 'M', NULL),
 	(125, 'D', NULL),
-	(126, 'O', NULL),
+	(126, 'M', NULL),
 	(127, 'M', NULL),
 	(128, 'M', NULL),
 	(129, 'M', NULL),
@@ -221,7 +221,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(135, 'D', NULL),
 	(136, 'M', NULL),
 	(137, 'M', NULL),
-	(138, 'O', NULL),
+	(138, 'M', NULL),
 	(139, 'D', NULL),
 	(140, 'D', NULL),
 	(141, 'M', NULL),
@@ -236,13 +236,13 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(150, 'D', NULL),
 	(151, 'D', NULL),
 	(152, 'M', NULL),
-	(153, 'O', NULL),
+	(153, 'M', NULL),
 	(154, 'M', NULL),
 	(155, 'M', NULL),
 	(156, 'D', NULL),
 	(157, 'M', NULL),
-	(158, 'O', NULL),
-	(159, 'O', NULL),
+	(158, 'M', NULL),
+	(159, 'M', NULL),
 	(160, 'D', NULL),
 	(161, 'D', NULL),
 	(162, 'D', NULL),
@@ -251,7 +251,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(165, 'D', NULL),
 	(166, 'D', NULL),
 	(167, 'M', NULL),
-	(168, 'O', NULL),
+	(168, 'M', NULL),
 	(169, 'M', NULL),
 	(170, 'M', NULL),
 	(171, 'D', NULL),
@@ -259,7 +259,7 @@ INSERT INTO `tabela_armario` (`numero_armario`, `estado`, `observacao`) VALUES
 	(173, 'M', NULL),
 	(174, 'M', NULL),
 	(175, 'M', NULL),
-	(176, 'O', NULL);
+	(176, 'M', NULL);
 
 -- Copiando estrutura para tabela aapm.tabela_curso
 CREATE TABLE IF NOT EXISTS `tabela_curso` (
@@ -285,6 +285,22 @@ INSERT INTO `tabela_curso` (`id`, `nome`) VALUES
 	(13, 'Mecânico de Manutenção'),
 	(14, 'Soldador');
 
+-- Copiando estrutura para tabela aapm.tabela_moto
+CREATE TABLE IF NOT EXISTS `tabela_moto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aluno` int(11) NOT NULL DEFAULT 0,
+  `placa` char(7) NOT NULL DEFAULT '0',
+  `modelo` varchar(50) NOT NULL DEFAULT '0',
+  `marca` varchar(50) NOT NULL DEFAULT '0',
+  `ano` year(4) NOT NULL DEFAULT 2000,
+  `cor` varchar(50) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_tabela_moto_tabela_alunos` (`id_aluno`),
+  CONSTRAINT `FK_tabela_moto_tabela_alunos` FOREIGN KEY (`id_aluno`) REFERENCES `tabela_alunos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela aapm.tabela_moto: ~0 rows (aproximadamente)
+
 -- Copiando estrutura para tabela aapm.tabela_pagamento
 CREATE TABLE IF NOT EXISTS `tabela_pagamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -305,16 +321,24 @@ CREATE TABLE IF NOT EXISTS `tabela_reserva_armario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_aluno` int(11) NOT NULL DEFAULT 0,
   `id_armario` int(11) NOT NULL DEFAULT 0,
+  `is_ativo` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id`),
   KEY `FK__tabela_alunos` (`id_aluno`),
   KEY `FK_tabela_reserva_armario_tabela_armario` (`id_armario`),
   CONSTRAINT `FK__tabela_alunos` FOREIGN KEY (`id_aluno`) REFERENCES `tabela_alunos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_tabela_reserva_armario_tabela_armario` FOREIGN KEY (`id_armario`) REFERENCES `tabela_armario` (`numero_armario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_reserva_armario: ~1 rows (aproximadamente)
-INSERT INTO `tabela_reserva_armario` (`id`, `id_aluno`, `id_armario`) VALUES
-	(2, 1, 1);
+-- Copiando dados para a tabela aapm.tabela_reserva_armario: ~8 rows (aproximadamente)
+INSERT INTO `tabela_reserva_armario` (`id`, `id_aluno`, `id_armario`, `is_ativo`) VALUES
+	(2, 1, 1, b'1'),
+	(3, 2, 2, b'1'),
+	(4, 9, 3, b'1'),
+	(5, 6, 4, b'1'),
+	(6, 3, 5, b'1'),
+	(7, 5, 6, b'1'),
+	(8, 7, 7, b'1'),
+	(9, 8, 8, b'1');
 
 -- Copiando estrutura para tabela aapm.tabela_reserva_estacionamento
 CREATE TABLE IF NOT EXISTS `tabela_reserva_estacionamento` (
@@ -421,9 +445,9 @@ CREATE TABLE IF NOT EXISTS `tabela_verificacao` (
   `usado` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela aapm.tabela_verificacao: ~10 rows (aproximadamente)
+-- Copiando dados para a tabela aapm.tabela_verificacao: ~11 rows (aproximadamente)
 INSERT INTO `tabela_verificacao` (`id`, `email`, `codigo`, `expiracao`, `usado`) VALUES
 	(1, 'teste5@gmail.com', '958552', '2025-12-08 19:47:11', 0),
 	(2, 'teste5@gmail.com', '860414', '2025-12-08 19:47:15', 0),
@@ -434,7 +458,8 @@ INSERT INTO `tabela_verificacao` (`id`, `email`, `codigo`, `expiracao`, `usado`)
 	(7, 'teste@gmail.com', '419663', '2025-12-08 19:50:30', 0),
 	(8, 'gabs@gmail.com', '132280', '2025-12-08 19:58:47', 0),
 	(9, 'gabs@gmail.com', '333157', '2025-12-08 20:01:35', 0),
-	(10, 'teste6@gmail.com', '301901', '2025-12-08 20:14:06', 0);
+	(10, 'teste6@gmail.com', '301901', '2025-12-08 20:14:06', 0),
+	(11, 'admin@gmail.com', '143878', '2025-12-19 23:43:50', 0);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

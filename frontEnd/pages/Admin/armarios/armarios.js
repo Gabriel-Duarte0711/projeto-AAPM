@@ -84,7 +84,7 @@ async function carregarArmarios() {
       });
       card.classList.add("Ocupado");
       // OCUPADO 
-      const user = dadosUsuario.find(u => u.numero_armario === item.numero_armario);
+      const user = dadosUsuario.find(u => u.id_armario === item.numero_armario);
       card.setAttribute('data-estado', item.estado)
 
       
@@ -133,7 +133,7 @@ async function carregarArmarios() {
             selectNumero.appendChild(opt);
           }
         }
-        const userId = user.id_usuario
+        const userId = user.id
         const APIAtualizarArmarioUsuario = `http://localhost:3000/alunos/armario/${userId}`
         const historico = document.getElementById('historicoIcon');
         historico.addEventListener('click', function () {
@@ -180,10 +180,11 @@ async function carregarArmarios() {
           }
 
           try {
+            
             const requisicao = await fetch(APIAtualizarArmarioUsuario, {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ armario_id: numero_armario })
+              body: JSON.stringify({ id_armario: numero_armario })
             });
 
              if (requisicao.ok) {

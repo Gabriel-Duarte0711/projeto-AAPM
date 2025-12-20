@@ -9,7 +9,7 @@ export const db = await mysql.createConnection({
   host: "localhost",
   user: "root",
   // password: "senai2025", //senai
-  password: "senai2025", //casa
+  password: "senai", //casa
   database: "aapm",
   port: 3306,
 });
