@@ -322,3 +322,25 @@ a:hover {
 .dark-mode .swal2-icon.swal2-success .swal2-success-ring {
     border-color: rgba(59, 130, 246, 0.3) !important;
 }
+
+
+.footer {
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer p {
+    color: white;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.footer strong {
+    color: white;
+    font-weight: 400;
+}
