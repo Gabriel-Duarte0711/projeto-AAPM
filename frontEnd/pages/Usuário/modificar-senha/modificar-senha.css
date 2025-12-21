@@ -3,23 +3,21 @@ body {
 }
 
 .principal-box {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1rem;
+    padding-top: 200px;
 }
 
 .entre-aqui {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1.5rem;
     color: white;
 }
 
-.material-symbols-outlined {
+.entre-aqui .material-symbols-outlined {
     font-size: 60px;
 }
 
@@ -67,12 +65,17 @@ body {
 
 .btn-menu {
     position: absolute;
-    top: 14px;
-    left: 12rem;
-    z-index: 20;
+    top: 1rem;
+    right: 5rem;
     background: transparent;
     border: none;
     cursor: pointer;
+    z-index: 20;
+}
+
+.btn-menu .material-symbols-outlined {
+    font-size: 40px;
+    color: white;
 }
 
 .menu-flutuante {
@@ -103,7 +106,7 @@ body {
 }
 
 .menu-flutuante h1,
-span {
+.menu-flutuante span {
     font-size: 18px;
     text-align: left;
     padding: 10px;
@@ -128,8 +131,7 @@ span {
         left: 0;
     }
 
-    .menu-flutuante h1:hover,
-    span:hover {
+    .menu-flutuante h1:hover {
         cursor: pointer;
         background-color: #3B82F6;
     }

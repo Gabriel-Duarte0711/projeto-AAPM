@@ -63,9 +63,6 @@ body {
     font-size: 40px;
 }
 
-#formulario{
-    height: 100vh;
-}
 
 /* Botões */
 .btn-primary {
@@ -170,7 +167,7 @@ body {
 
 /* Checkbox customizado */
 .form-check-input {
-    background-color: #CBD5E1 !important;
+    background-color: white;
     border: none !important;
     cursor: pointer;
 }
@@ -222,8 +219,8 @@ a:hover {
 
 /* Checkbox no dark mode */
 .dark-mode .form-check-input {
-    background-color: var(--light-blue) !important;
-    border: 2px solid var(--border-color) !important;
+    background-color: white;
+    border: none;
 }
 
 .dark-mode .form-check-input:checked {
@@ -332,6 +329,7 @@ a:hover {
     background: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(6px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 100;
 }
 
 .footer p {

@@ -23,17 +23,29 @@
 
     <link rel="icon" type="image/png" href="../../../assets/images/AAPM-Logo-Preto.png">
 
-    <title>Controle de Armários</title>
+    <title>Principal Tela</title>
 </head>
 
 <body>
     <div class="principal-box">
-        <div class="perfil">
-            <a href="../ver-informacoes/ver-informacoes.html">
-                <span class="material-symbols-outlined">
-                    person
-                </span>
-            </a>
+        <button id="btnMenu" class="btn-menu">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+
+         <div class="menu-flutuante" id="menuFlutuante">
+            <div class="menu">
+                <a href="../ver-informacoes/ver-informacoes.html">
+                    <h1>Veja seus dados</h1>
+                </a>
+                
+                <a href="../modificar-senha/modificar-senha.html">
+                    <h1>Modificar sua senha</h1>
+                </a>
+
+                <a href="#">
+                    <h1 id="btnSair">Sair</h1>
+                </a>
+            </div>
         </div>
         
         <div class="saudacoes">
@@ -58,6 +70,12 @@
             </div>
         </div>
     </div>
+
+     <footer class="footer">
+        <p>Desenvolvido por <strong>Isabella Lopreti</strong> & <strong>Gabriel Duarte</strong> • © 2026
+        </p>
+    </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../../utils/app.js"></script>
     <script src="./tela-principal.js"></script>

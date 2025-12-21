@@ -1,8 +1,13 @@
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+}
+
+.principal-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+    padding-top: 200px;
 }
 
 .saudacoes h2 {
@@ -53,6 +58,56 @@ body {
     color: var(--white);
 }
 
+.btn-menu {
+    position: absolute;
+    top: 0.5rem;
+    right: 5rem;
+    z-index: 20;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.material-symbols-outlined{
+    font-size: 3rem;
+}
+
+.menu-flutuante {
+    position: fixed;
+    top: -100vh;
+    right: 0;
+    left: 0;
+    height: auto;
+    background-color: var(--light-blue);
+    padding-top: 70px;
+    transition: top 0.3s ease;
+    z-index: 15;
+    box-shadow: 0 4px 8px rgba(151, 175, 255, 0.2);
+}
+
+.menu-flutuante.abrir {
+    top: 0;
+}
+
+.menu-flutuante .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-flutuante a {
+    text-decoration: none;
+}
+
+.menu-flutuante h1,
+span {
+    font-size: 18px;
+    text-align: left;
+    padding: 10px;
+    color: var(--white);
+    transition: 0.3s;
+}
+
 p {
     font-size: 18px;
     color: rgba(255, 255, 255, 0.623);
@@ -61,6 +116,27 @@ p {
 }
 
 @media (min-width: 720px) {
+     .menu-flutuante {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        width: 250px;
+        height: 100vh;
+        background-color: var(--light-blue);
+        padding-top: 100px;
+        transition: left 0.3s ease;
+        /* z-index: -10; */
+    }
+
+    .menu-flutuante.abrir {
+        left: 0;
+    }
+
+    .menu-flutuante h1:hover{
+        cursor: pointer;
+        background-color: #3B82F6;
+    }
+
     .container-lg {
         width: 35rem;
         display: flex;

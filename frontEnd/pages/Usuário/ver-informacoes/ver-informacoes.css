@@ -3,12 +3,11 @@ body {
 }
 
 .principal-box {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1rem;
+    padding-top: 200px;
 }
 
 .entre-aqui {
@@ -17,7 +16,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom: 2rem;
 }
 
 .entre-aqui .material-symbols-outlined {
@@ -25,14 +23,14 @@ body {
 }
 
 .btn-menu {
-    position: relative;
-    top: 14px;
-    left: 12rem;
-    z-index: 20;
+    position: absolute;
+    top: 0.5rem;
+    right: 5rem;
     background: transparent;
     border: none;
     cursor: pointer;
-}  
+    z-index: 20;
+}
 
 .btn-menu .material-symbols-outlined {
     font-size: 40px;
@@ -99,7 +97,7 @@ span {
     margin-bottom: 3px;
 }
 
-@media (min-width: 720px) {
+@media (min-width: 910px) {
     .menu-flutuante {
         position: fixed;
         top: 0;
@@ -116,8 +114,7 @@ span {
         left: 0;
     }
 
-    .menu-flutuante h1:hover,
-    span:hover {
+    .menu-flutuante h1:hover {
         cursor: pointer;
         background-color: #3B82F6;
     }
