@@ -3,11 +3,11 @@ body {
 }
 
 .principal-box {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 200px;
 }
 
 .entre-aqui {
@@ -72,29 +72,36 @@ span {
     color: var(--white);
     transition: 0.3s;
 }
-
 #formsCadastro {
+    background: rgba(10, 30, 82, 0.384); 
+    backdrop-filter: blur(10px); 
     padding: 0 20px;
     border-radius: 12px;
     width: 350px;
-    box-shadow: 0 2px 12px rgba(151, 175, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-section {
     color: white;
     padding: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.info-section:last-child {
+    border-bottom: none; /* remove borda da última  */
 }
 
 .info-label {
     font-size: 16px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.747);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 5px;
 }
 
 .info-value {
     font-size: 15px;
     margin-bottom: 3px;
+    color: white;
 }
 
 @media (min-width: 910px) {
@@ -125,7 +132,6 @@ span {
         gap: 1rem 8rem;
         border-radius: 12px;
         width: 100vh;
-        box-shadow: 0 2px 12px rgba(151, 175, 255, 0.35);
     }
 
 }

@@ -14,6 +14,7 @@
     --background-light: url("../images/fundo-tela.svg");
     --background-dark: url("../images/fundo-tela-dark.svg");
 }
+
 /* ========== VARIÁVEIS DARK MODE ========== */
 .dark-mode {
     --bg-primary: var(--light-blue);
@@ -59,7 +60,8 @@ body {
     top: 20px;
     right: 80px;
 }
-.perfil span{
+
+.perfil span {
     font-size: 40px;
 }
 
@@ -88,6 +90,7 @@ body {
     padding: 15px 20px;
     transition: all var(--transition);
 }
+
 /* 
 .input-box, .select-box  {
     position: relative;
@@ -97,7 +100,7 @@ body {
 } */
 
 .input-box input,
-.select-box select{
+.select-box select {
     width: 100%;
     height: 60px;
     background-color: var(--light-blue);
@@ -110,7 +113,8 @@ body {
     appearance: none;
 }
 
-.input-box label, .select-box label {
+.input-box label,
+.select-box label {
     position: absolute;
     left: 20px;
     top: 18px;
@@ -147,6 +151,7 @@ body {
     pointer-events: none;
     content: "▼";
 }
+
 .form-control::placeholder {
     color: var(--white) !important;
 }
@@ -211,7 +216,7 @@ a:hover {
     background-color: var(--dark-blue) !important;
 }
 
-.dark-mode .menu-flutuante{
+.dark-mode .menu-flutuante {
     background-color: var(--dark-blue) !important;
     color: var(--white) !important;
 }
@@ -262,15 +267,9 @@ a:hover {
     color: var(--text-secondary) !important;
 }
 
-/* Links no dark mode */
-.dark-mode a {
-    color: var(--blue) !important;
-}
-
 .dark-mode a:hover {
     color: var(--white) !important;
 }
-
 
 /* Transições suaves */
 .transition-all {
@@ -341,4 +340,27 @@ a:hover {
 .footer strong {
     color: white;
     font-weight: 400;
+}
+
+/* botao de voltar (desaparece no mobile) */
+.voltar {
+    position: fixed;
+    bottom: 10%;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.voltar:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+    .voltar {
+        display: none;
+    }
 }

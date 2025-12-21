@@ -3,11 +3,11 @@ body {
 }
 
 .principal-box {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 200px;
 }
 
 .entre-aqui {

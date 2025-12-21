@@ -3,11 +3,11 @@ body {
 }
 
 .principal-box {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  
-    padding-top: 200px;
+    align-items: center;
 }
 
 .saudacoes h2 {
@@ -28,7 +28,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.24);
 }
 
 .card-icon .material-symbols-outlined {
@@ -68,7 +68,7 @@ body {
     cursor: pointer;
 }
 
-.material-symbols-outlined{
+.material-symbols-outlined {
     font-size: 3rem;
 }
 
@@ -116,7 +116,7 @@ p {
 }
 
 @media (min-width: 720px) {
-     .menu-flutuante {
+    .menu-flutuante {
         position: fixed;
         top: 0;
         left: -250px;
@@ -132,7 +132,7 @@ p {
         left: 0;
     }
 
-    .menu-flutuante h1:hover{
+    .menu-flutuante h1:hover {
         cursor: pointer;
         background-color: #3B82F6;
     }
