@@ -142,11 +142,9 @@ btnModificar.addEventListener('click', async () => {
         });
     }
 });
-
-
 function mostrarSenha1() {
     const input = document.getElementById("password1");
-    const icon = input.nextElementSibling;
+    const icon = input.parentElement.querySelector(".icon");
 
     if (input.type === "password") {
         input.type = "text";
@@ -159,7 +157,7 @@ function mostrarSenha1() {
 
 function mostrarSenha2() {
     const input = document.getElementById("password2");
-    const icon = input.nextElementSibling;
+    const icon = input.parentElement.querySelector(".icon");
 
     if (input.type === "password") {
         input.type = "text";
@@ -172,8 +170,8 @@ function mostrarSenha2() {
 
 function mostrarSenha3() {
     const input = document.getElementById("password3");
-    const icon = input.nextElementSibling;
-
+    const icon = input.parentElement.querySelector(".icon");
+    
     if (input.type === "password") {
         input.type = "text";
         icon.classList.add("hide");
@@ -196,7 +194,7 @@ document.getElementById("btnSair").addEventListener("click", () => {
         if (result.isConfirmed) {
             sessionStorage.clear();
             localStorage.clear();
-            window.location.href = "../../index.html"; 
+            window.location.href = "../../index.html";
         }
 
     });
