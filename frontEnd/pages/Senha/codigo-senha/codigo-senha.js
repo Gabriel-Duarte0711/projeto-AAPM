@@ -6,48 +6,48 @@ const btnVerificar = document.getElementById('btnVerificar');
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
 });
 
 // Eventos de navegação entre inputs
 inputs.forEach((input, index) => {
 
-    // Avançar automaticamente ao digitar
-    input.addEventListener("input", () => {
-        if (input.value.length === 1 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-        }
-    });
+  // Avançar automaticamente ao digitar
+  input.addEventListener("input", () => {
+    if (input.value.length === 1 && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    }
+  });
 
-    // Voltar ao apagar
-    input.addEventListener("keydown", (e) => {
-        if (e.key === "Backspace" && input.value === "" && index > 0) {
-            inputs[index - 1].focus();
-        }
-    });
+  // Voltar ao apagar
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && input.value === "" && index > 0) {
+      inputs[index - 1].focus();
+    }
+  });
 
 });
 
-// Evento do botão (fora do forEach!)
-btnVerificar.addEventListener('click', async () => {
-    let codigoDigitado = "";
+document.getElementById('formEnter').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  let codigoDigitado = "";
 
-    inputs.forEach(input => {
-        codigoDigitado += input.value;
+  inputs.forEach(input => {
+    codigoDigitado += input.value;
+  });
+
+  const sucesso = await verificarCodigo(email, codigoDigitado);
+  if (sucesso) {
+    // Redireciona para a página de redefinição de senha após verificar o código
+    window.location.href = `../redefinir-senha/redefinir-senha.html?email=${encodeURIComponent(email)}`;
+  } else {
+    Toast.fire({
+      icon: "warning",
+      title: "Por favor, insira o código de verificação correto.",
     });
-
-    const sucesso = await verificarCodigo(email, codigoDigitado);
-    if (sucesso) {
-      // Redireciona para a página de redefinição de senha após verificar o código
-        window.location.href = `../redefinir-senha/redefinir-senha.html?email=${encodeURIComponent(email)}`;
-    } else {
-        Toast.fire({
-        icon: "warning",
-        title: "Por favor, insira o código de verificação correto.",
-      });
-    }
+  }
 });
 
 

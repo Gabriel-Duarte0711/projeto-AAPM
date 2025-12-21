@@ -3,14 +3,14 @@ const password = document.getElementById('password')
 const icon = document.getElementById('icon')
 
 function mostrarSenha() {
-    if (password.type === 'password') {
-        password.setAttribute('type', 'text')
-        icon.classList.add('hide')
-    }
-    else {
-        password.setAttribute('type', 'password')
-        icon.classList.remove('hide')
-    }
+  if (password.type === 'password') {
+    password.setAttribute('type', 'text')
+    icon.classList.add('hide')
+  }
+  else {
+    password.setAttribute('type', 'password')
+    icon.classList.remove('hide')
+  }
 }
 
 const params = new URLSearchParams(window.location.search);
@@ -23,19 +23,19 @@ const APIRedefinirSenha = `http://localhost:3000/verificacao/senha/${encodeURICo
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
-    showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true,
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
 });
 
 async function redefinirSenha(email, senha) {
   try {
     const resposta = await fetch(APIRedefinirSenha, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, senha }),
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, senha }),
     });
     const dados = await resposta.json();
     if (!resposta.ok) {
@@ -54,27 +54,27 @@ async function redefinirSenha(email, senha) {
     return false;
   }
 }
-btnRedefinirSenha.addEventListener("click", async (e) => {
-    e.preventDefault();
-    const senha = inputSenha.value.trim();
-    const confirmarSenha = inputConfirmarSenha.value.trim();
-    if (senha === "" || confirmarSenha === "") {
-      Toast.fire({
-        icon: "warning",
-        title: "Por favor, preencha todos os campos.",
-        });
-        return;
-    }
-    if (senha !== confirmarSenha) {
-      Toast.fire({
-        icon: "warning",
-        title: "As senhas não coincidem.",
-      });
-      return;
-    }
-    const sucesso = await redefinirSenha(email, senha);
-    if (sucesso) {
-      // Redireciona para a página de login após redefinir a senha
-        window.location.href = `../../index.html`;
-    }
+document.getElementById('formEnter').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  const senha = inputSenha.value.trim();
+  const confirmarSenha = inputConfirmarSenha.value.trim();
+  if (senha === "" || confirmarSenha === "") {
+    Toast.fire({
+      icon: "warning",
+      title: "Por favor, preencha todos os campos.",
+    });
+    return;
+  }
+  if (senha !== confirmarSenha) {
+    Toast.fire({
+      icon: "warning",
+      title: "As senhas não coincidem.",
+    });
+    return;
+  }
+  const sucesso = await redefinirSenha(email, senha);
+  if (sucesso) {
+    // Redireciona para a página de login após redefinir a senha
+    window.location.href = `../../index.html`;
+  }
 });

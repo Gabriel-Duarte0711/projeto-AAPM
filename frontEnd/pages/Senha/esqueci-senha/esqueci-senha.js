@@ -38,21 +38,22 @@ async function enviarCodigo(email) {
   }
 }
 
-btnEnviarCodigo.addEventListener("click", async (e) => {
+
+document.getElementById('formEnter').addEventListener('submit', async function (e) {
   e.preventDefault();
-  const email = inputEmail.value.trim();
-  if (email === "") {
-    Toast.fire({
-      icon: "warning",
-      title: "Por favor, insira seu email.",
-    });
-    return;
-  }
-  const sucesso = await enviarCodigo(email);
-  if (sucesso) {
-    // Redireciona para a página de redefinição de senha após enviar o código
-    window.location.href = `../../Senha/codigo-senha/codigo-senha.html?email=${encodeURIComponent(
-      email
-    )}`;
-  }
-});
+    const email = inputEmail.value.trim();
+    if (email === "") {
+      Toast.fire({
+        icon: "warning",
+        title: "Por favor, insira seu email.",
+      });
+      return;
+    }
+    const sucesso = await enviarCodigo(email);
+    if (sucesso) {
+      // Redireciona para a página de redefinição de senha após enviar o código
+      window.location.href = `../../Senha/codigo-senha/codigo-senha.html?email=${encodeURIComponent(
+        email
+      )}`;
+    }
+  });
