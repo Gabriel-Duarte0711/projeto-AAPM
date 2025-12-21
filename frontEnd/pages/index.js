@@ -12,9 +12,8 @@ const Toast = Swal.mixin({
     timerProgressBar: true,
 });
 
-btnEntrar.addEventListener('click', async (event) => {
-    event.preventDefault();
-
+document.getElementById('formEnter').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
     const email = inputEmail.value.trim();
     const senha = inputSenha.value.trim();

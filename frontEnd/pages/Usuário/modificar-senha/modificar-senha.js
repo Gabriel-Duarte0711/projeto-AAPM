@@ -66,8 +66,8 @@ function verificarSenha(senha) {
 
     return erros;
 }
-
-btnModificar.addEventListener('click', async () => {
+document.getElementById('formEnter').addEventListener('submit', async function (e) {
+    e.preventDefault();
     console.log(aluno_id)
     console.log("click")
     const buscarSenha = await buscarSenhaDoBanco();
@@ -142,6 +142,7 @@ btnModificar.addEventListener('click', async () => {
         });
     }
 });
+
 function mostrarSenha1() {
     const input = document.getElementById("password1");
     const icon = input.parentElement.querySelector(".icon");
@@ -171,7 +172,7 @@ function mostrarSenha2() {
 function mostrarSenha3() {
     const input = document.getElementById("password3");
     const icon = input.parentElement.querySelector(".icon");
-    
+
     if (input.type === "password") {
         input.type = "text";
         icon.classList.add("hide");
