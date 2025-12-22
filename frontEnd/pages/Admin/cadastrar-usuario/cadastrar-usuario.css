@@ -48,3 +48,7 @@ form {
     border-radius: 18px;
     font-size: 20px;
 }
+
+.voltar{
+    bottom: 6% !important;
+}

@@ -70,15 +70,15 @@ body {
 }
 
 .filtro-ocupado {
-    background: linear-gradient(135deg, #e63946 0%, #a4161bc0 100%) !important;
+    background: linear-gradient(135deg, #e63946 0%, #a4161b 100%) ;
 }
 
 .filtro-disponivel {
-    background: linear-gradient(135deg, #14b8a6 0%, #0f766dc4 100%) !important;
+    background: linear-gradient(135deg, #14b8a6 0%, #0f766def 100%);
 }
 
 .filtro-manutencao {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706c2 100%) !important;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706e8 100%);
 }
 
 .cards-area {
@@ -144,7 +144,6 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
 }
 
 .pop {
@@ -256,7 +255,6 @@ body {
     background-color: var(--light-blue);
 }
 
-/* Dark Mode */
 .dark-mode .pop {
     background-color: var(--dark-blue) !important;
 }
