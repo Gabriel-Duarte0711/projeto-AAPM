@@ -212,10 +212,6 @@ a:hover {
     border: 1px solid #4679c0 !important;
 }
 
-.dark-mode .container-lg {
-    background-color: var(--dark-blue) !important;
-}
-
 .dark-mode .menu-flutuante {
     background-color: var(--dark-blue) !important;
     color: var(--white) !important;

@@ -28,58 +28,58 @@
 </head>
 
 <body>
-    <div class="perfil">
-        <a href="../historico-alunos/historico-alunos.html">
-            <span class="material-symbols-outlined">
-                settings
-            </span>
-        </a>
-    </div>
-    <div class="container-lg mb-3">
-        <div class="inputPesquisa">
-            <input type="text" class="form-control"
-                placeholder="🔎  Digite o número do armário, nome do aluno ou email cadastrado..." aria-label="Username"
-                aria-describedby="visible-addon" id="pesquisa">
+    <div class="principal-box">
+        <div class="perfil">
+            <a href="../historico-alunos/historico-alunos.html">
+                <span class="material-symbols-outlined">
+                    settings
+                </span>
+            </a>
         </div>
-        <div class="filtros">
-            <button class="filtro-btn filtro-ocupado" id="checkOcupado">
-                OCUPADO
-            </button>
-
-            <button class="filtro-btn filtro-manutencao" id="checkManutencao">
-                MANUTENÇÃO
-            </button>
-
-            <button class="filtro-btn filtro-disponivel" id="checkDisponivel">
-                DISPONÍVEL
-            </button>
-        </div>
-    </div>
-
-    <div id="card-template" style="display: none;">
-        <div class="card">
-            <div class="icone">
-                <span class="material-symbols-outlined">inventory_2</span>
+        <div class="container-lg mb-3">
+            <div class="inputPesquisa">
+                <input type="text" class="form-control"
+                    placeholder="🔎  Digite o número do armário, nome do aluno ou email cadastrado..."
+                    aria-label="Username" aria-describedby="visible-addon" id="pesquisa">
             </div>
-            <div class="infos">
+            <div class="filtros">
+                <button class="filtro-btn filtro-ocupado" id="checkOcupado">
+                    OCUPADO
+                </button>
+
+                <button class="filtro-btn filtro-manutencao" id="checkManutencao">
+                    MANUTENÇÃO
+                </button>
+
+                <button class="filtro-btn filtro-disponivel" id="checkDisponivel">
+                    DISPONÍVEL
+                </button>
+            </div>
+        </div>
+
+        <div id="card-template" style="display: none;">
+            <div class="card">
+                <div class="icone">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                </div>
+                <div class="infos">
+                </div>
             </div>
 
         </div>
-
+        <div id="card-container" class="cards-area">
+        </div>
+        <div class="exibirPop">
+            <div class="pop"></div>
+        </div>
     </div>
-    <div id="card-container" class="cards-area">
-
-    </div>
-    <div class="exibirPop">
-        <div class="pop"></div>
-    </div>
-    <a href=""></a>
     <!-- <script type="module">
         import { verificarLogin } from "../../../utils/auth.js"
         verificarLogin(); // chama a função
     </script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="armarios.js"></script>
     <script src="/frontend/utils/app.js"></script>
 
