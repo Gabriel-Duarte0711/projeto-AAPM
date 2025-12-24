@@ -3,32 +3,57 @@ body {
 }
 
 .principal-box {
+    flex:1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
 }
-
 .entre-aqui {
-    padding-top: 30px;
-    color: white;
+    width: 80%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #1e3b8a4b, #2564eb67);
+    border-radius: 20px 20px 12px 12px;
+    padding: 1.5rem 1rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    justify-content: center;
+    gap: 0.9rem;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .material-symbols-outlined {
-    font-size: 60px;
+    font-size: 34px;
+    margin-bottom: 0.25rem;
 }
 
 form {
+    background: linear-gradient(135deg, #1e3b8a44, #2564eb3a);
+    border-radius: 16px;
+    padding: 2rem;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1.2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.section-divider {
+    grid-column: span 2;
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 90%;
-    max-width: 600px;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #3f51b5;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.section-divider .material-symbols-outlined {
+    font-size: 22px;
 }
 
 .input-box {
@@ -43,6 +68,7 @@ form {
 }
 
 .btn-primary {
+    grid-column: span 2;
     background-color: var(--dark-blue);
     height: 60px;
     border-radius: 18px;
@@ -51,4 +77,58 @@ form {
 
 .voltar {
     bottom: 6% !important;
+}
+
+@media (max-width: 768px) {
+    body {
+        min-height: 100vh;
+    }
+
+    .principal-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .entre-aqui {
+        padding-top: 30px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .material-symbols-outlined {
+        font-size: 30px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 90%;
+        max-width: 600px;
+    }
+
+    .input-box {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-box .form-control {
+        width: 100%;
+        color: white;
+        background: transparent;
+    }
+
+    .btn-primary {
+        background-color: var(--dark-blue);
+        height: 60px;
+        border-radius: 18px;
+        font-size: 20px;
+    }
+
 }
