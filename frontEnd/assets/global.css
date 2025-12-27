@@ -132,7 +132,7 @@ body {
     padding: 0 6px;
     border-radius: 6px;
 }
-
+/* 
 .select-box select:focus+label,
 .select-box select:not([value=""])+label {
     top: -22px;
@@ -140,7 +140,7 @@ body {
     font-size: 16px;
     padding: 0 6px;
     border-radius: 6px;
-}
+} */
 
 .select-box::after {
     position: absolute;

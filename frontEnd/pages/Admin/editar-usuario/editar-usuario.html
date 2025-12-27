@@ -57,9 +57,10 @@
                 <input type="text" class="form-control" id="matricula" name="matricula">
                 <label>Matrícula</label>
             </div>
-            
+
             <div class="select-box">
                 <select class="form-select" id="select-curso" name="curso_id">
+                  
                     <option selected disabled>Selecione o curso</option>
                 </select>
             </div>
@@ -70,20 +71,11 @@
                 </select>
             </div>
 
-            <div class="select-box">
-                <select class="form-select" id="select-pagamento" name="pagamento">
-                    <option selected disabled>Pagamento</option>
-                    <option value="C">Cartão de crédito</option>
-                    <option value="D">Cartão de débito</option>
-                    <option value="A">Dinheiro</option>
-                    <option value="P">Pix</option>
-                </select>
-            </div>
-
             <div class="section-divider">
                 <span class="material-symbols-outlined">contact_phone</span>
                 <span>Contato</span>
             </div>
+
             <div class="input-box">
                 <input type="tel" class="form-control" id="telefone" name="telefone">
                 <label>Telefone</label>
@@ -92,6 +84,22 @@
             <div class="input-box">
                 <input type="email" class="form-control" id="email" name="email">
                 <label>Email</label>
+            </div>
+
+
+            <div class="section-divider">
+                <span class="material-symbols-outlined">payments</span>
+                <span>Pagamento</span>
+            </div>
+
+            <div class="select-box">
+                <select class="form-select" id="select-pagamento" name="pagamento">
+                    <option selected disabled>Pagamento</option>
+                    <option value="C">Cartão de crédito</option>
+                    <option value="D">Cartão de débito</option>
+                    <option value="A">Dinheiro</option>
+                    <option value="P">Pix</option>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary" id="btnEditar">Editar</button>
